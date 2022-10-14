@@ -51,7 +51,7 @@ public class AudioManager : MonoBehaviour
 
         //Når man kalder den, tag og reference AudioManager før man ka spille lyden self:d
 
-        //Play("Theme");
+        Play("Theme");
     }
 
 

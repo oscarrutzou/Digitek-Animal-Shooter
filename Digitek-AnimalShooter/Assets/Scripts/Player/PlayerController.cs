@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public float lastYInput;
 
 
+    [SerializeField] Menu gameManager;
+
 
 
     private Rigidbody2D rb;
@@ -127,11 +129,12 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnMove(InputValue movementValue)
+    private void OnMoveInput(InputValue movementValue)
     {
         movementInput = movementValue.Get<Vector2>();
     }
     #endregion
+
 
     public void TakeDamage(int damage)
     {
@@ -156,5 +159,20 @@ public class PlayerController : MonoBehaviour
         //hpBar.SetState(currentHp, maxHp);
     }
 
-
+    public void OnPauseInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (gameIsPaused)
+            {
+                Resume();
+                Debug.Log("Resume");
+            }
+            else
+            {
+                Pause();
+                Debug.Log("Pause");
+            }
+        }
+    }
 }

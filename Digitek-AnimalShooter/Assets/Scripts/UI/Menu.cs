@@ -37,6 +37,11 @@ public class Menu : MonoBehaviour
     private int levelNumber;
     [SerializeField] int maxLevels;
 
+    [Header("Pause Menu")]
+    public static bool gameIsPaused = false;
+    public GameObject pauseMenuUI;
+
+
     void Start()
     {
         //Hvis brugeren ikke har rørt ved volume, så spiller musikken med fuld kraft.
@@ -136,4 +141,39 @@ public class Menu : MonoBehaviour
     }
 
 
+    #region Pause Menu
+    void Pause()
+    {
+        //Tænder objectet
+        pauseMenuUI.SetActive(true);
+        //Stopper alt undtagen PauseUI
+
+
+
+        Time.timeScale = 0f;
+        //Stop animationer, tror de er sat til at virke selv med mindre timescale siden dash virker med timescale 0.75 tror jeg nok.
+
+        gameIsPaused = true;
+    }
+
+    public void Resume()
+    {
+        //Slukker objectet
+        pauseMenuUI.SetActive(false);
+        //Starter tiden igen
+        Time.timeScale = 1f;
+        //Sætter den til at spillet ikke er pauset mere.
+        gameIsPaused = false;
+    }
+
+    public void LoadMenu()
+    {
+        //Starter tiden igen
+        Time.timeScale = 1f;
+        //Sender brugeren tilbage til den tidligere scene som er menu
+
+        SceneManager.LoadScene(0);
+    }
+
+    #endregion
 }

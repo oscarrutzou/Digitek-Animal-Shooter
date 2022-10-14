@@ -47,16 +47,16 @@ public class InGameDisplay : MonoBehaviour
 
     private void Start()
     {
-        StartTimer();
+        //StartTimer();
 
-        //If BestTime er over 0.01s og mindre end 60min så hvis UI
-        bestTime = PlayerPrefs.GetFloat("BestTime" + levelNumber);
+        ////Lav besttime til at blive 
+        ////bestTime = PlayerPrefs.GetFloat("BestTime" + levelNumber);
 
 
-        if (bestTime != float.MaxValue)
-        {
-            ShowUI();
-        }
+        //if (bestTime != float.MaxValue)
+        //{
+        //    ShowUI();
+        //}
 
     }
 
@@ -66,11 +66,11 @@ public class InGameDisplay : MonoBehaviour
         //Hvis timeren er aktiv, skal den tælle med time.deltaTime for at kunne tælle rigtigt.
         if (timerActive == true)
         {
-            currentTime += Time.deltaTime;
+            //currentTime += Time.deltaTime;
         }
         //For at kunne se tiden i minutter, sekunder og milisekunder
-        time = TimeSpan.FromSeconds(currentTime);
-        timerLabel.text = time.ToString(@"mm\:ss\:fff");
+        //time = TimeSpan.FromSeconds(currentTime);
+        //timerLabel.text = time.ToString(@"mm\:ss\:fff");
 
 
 
@@ -95,26 +95,26 @@ public class InGameDisplay : MonoBehaviour
         StartTimer();
     }
 
-    public void LevelComplete()
-    {
-        TurnOffTimer();
+    //public void LevelComplete()
+    //{
+    //    TurnOffTimer();
 
-        //Hvis den nuværende tid er større end den gemte, sættes den til den bedste tid. 
-        if (currentTime < PlayerPrefs.GetFloat("BestTime" + levelNumber, float.MaxValue))
-        {
-            //Sætter den nuværende tid til den bedste tid.
-            PlayerPrefs.SetFloat("BestTime" + levelNumber, currentTime);
-        }
-        ShowUI();
-    }
+    //    //Hvis den nuværende tid er større end den gemte, sættes den til den bedste tid. 
+    //    if (currentTime < PlayerPrefs.GetInt("BestTime" + levelNumber, int.MaxValue))
+    //    {
+    //        //Sætter den nuværende tid til den bedste tid.
+    //        PlayerPrefs.SetInt("BestTime" + levelNumber, currentTime);
+    //    }
+    //    ShowUI();
+    //}
 
-    private void ShowUI()
-    {
-        bestTime = PlayerPrefs.GetFloat("BestTime" + levelNumber);
-        bestTimeText.text = "Best Time : " + PlayerPrefs.GetFloat("BestTime" + levelNumber, 0).ToString();
-        TimeSpan time = TimeSpan.FromSeconds(bestTime);
-        //Viser tiden i minutter, sekunder og milisekunder
-        bestTimeText.text = time.ToString(@"mm\:ss\:fff");
-    }
+    //private void ShowUI()
+    //{
+    //    bestTime = PlayerPrefs.GetFloat("BestTime" + levelNumber);
+    //    bestTimeText.text = "Best Time : " + PlayerPrefs.GetFloat("BestTime" + levelNumber, 0).ToString();
+    //    TimeSpan time = TimeSpan.FromSeconds(bestTime);
+    //    //Viser tiden i minutter, sekunder og milisekunder
+    //    bestTimeText.text = time.ToString(@"mm\:ss\:fff");
+    //}
 
 }

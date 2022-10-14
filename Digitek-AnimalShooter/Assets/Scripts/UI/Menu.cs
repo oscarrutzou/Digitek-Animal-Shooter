@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 
 public class Menu : MonoBehaviour
@@ -13,6 +14,7 @@ public class Menu : MonoBehaviour
     //Henter den specielle Tekst pakke.
     public TextMeshProUGUI scoreText;
     [HideInInspector] public int currentScore;
+    [HideInInspector] public int bestScore;
 
     [Header("Kills")]
     //Henter den specielle Tekst pakke.
@@ -25,21 +27,18 @@ public class Menu : MonoBehaviour
     //float currentTime = 0;
     public TextMeshProUGUI timerLabel;
 
-
-    private Slider slider;
-
     [Header("Music")]
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] Slider volumeSlider;
 
-    private void Awake()
-    {
-
-    }
+    [Header("Level Manager")]
+    [SerializeField] TMPro.TextMeshProUGUI[] bestScoreLevelText;
+    private int bestScoreNumber;
+    private int levelNumber;
+    [SerializeField] int maxLevels;
 
     void Start()
     {
-
         //Hvis brugeren ikke har rørt ved volume, så spiller musikken med fuld kraft.
         //Ellers loader den deres settings.
         if (!PlayerPrefs.HasKey("musicVolume"))
@@ -51,6 +50,8 @@ public class Menu : MonoBehaviour
         {
             Load();
         }
+
+
     }
 
     #region OptionMenu
@@ -78,6 +79,12 @@ public class Menu : MonoBehaviour
         //Sætter value fra slider ind i vores key name
         PlayerPrefs.SetFloat("musicVolume", volumeSlider.value);
     }
+
+    public void ResetHighScores()
+    {
+        //Reset highscore points fra alle baner
+        //levelSelector.DeleteBestTime();
+    }
     #endregion
 
     #region MainMenu
@@ -95,19 +102,38 @@ public class Menu : MonoBehaviour
 
     #region Update
 
-    //Indsæt det nye gem highscore fra UfoGame
-
 
     //Denne bliver kaldt hver gang et våben rammer et IDamageAble
-    public void UpdateScore(int score)
-    {
-        //Tager den nuværende score og plusser den med scoren som lige er kommet.
-        currentScore += score;
-        //Sætter den nuværende score til tekst.
-        scoreText.text = "Point : " + currentScore.ToString();
-    }
+    //public void UpdateScore(int score)
+    //{
+    //    //Tager den nuværende score og plusser den med scoren som lige er kommet.
+    //    currentScore += score;
+    //    //Sætter den nuværende score til tekst.
+    //    scoreText.text = "Point : " + currentScore.ToString();
+    //}
 
     #endregion
+
+    public void UpdateBestTime()
+    {
+        bestScoreNumber = 0;
+
+        for (int i = 1; i < maxLevels + 1; i++)
+        {
+            levelNumber = i;
+            bestScore = PlayerPrefs.GetInt("BestTime" + levelNumber);
+
+            if (bestScore != float.MaxValue)
+            {
+                Debug.Log("Level number completed " + levelNumber);
+
+                bestScoreLevelText[bestScoreNumber].text = PlayerPrefs.GetFloat("BestTime" + levelNumber, 0).ToString();
+                TimeSpan time = TimeSpan.FromSeconds(bestScore);
+                bestScoreLevelText[bestScoreNumber].text = time.ToString(@"mm\:ss\:fff");
+                bestScoreNumber++;
+            }
+        }
+    }
 
 
 }

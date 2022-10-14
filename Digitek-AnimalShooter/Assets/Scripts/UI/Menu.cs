@@ -38,7 +38,7 @@ public class Menu : MonoBehaviour
     [SerializeField] int maxLevels;
 
     [Header("Pause Menu")]
-    public static bool gameIsPaused = false;
+    public bool gameIsPaused = false;
     public GameObject pauseMenuUI;
 
 
@@ -142,7 +142,7 @@ public class Menu : MonoBehaviour
 
 
     #region Pause Menu
-    void Pause()
+    public void Pause()
     {
         //Tænder objectet
         pauseMenuUI.SetActive(true);

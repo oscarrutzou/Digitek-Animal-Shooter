@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public Menu menu;
+    public PlayerInputActions playerInputActions;
 
     [SerializeField] float moveSpeed = 1f;
     [SerializeField] float collisionOffset = 0.05f;
@@ -19,7 +21,9 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public float lastYInput;
 
 
-    [SerializeField] Menu gameManager;
+    
+    private InputAction pause;
+    private InputAction fire;
 
 
 
@@ -41,6 +45,10 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
+        playerInputActions = new PlayerInputActions();
+
+        menu = FindObjectOfType<Menu>();
+
         //hpBar = hpContainer.GetComponent<StatusBar>();
 
 
@@ -50,9 +58,23 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void OnEnable()
+    {
+        fire = playerInputActions.Player.Fire;
+        fire.Enable();
+
+        pause = playerInputActions.Player.Pause;
+        pause.Enable();
+        pause.performed += Pause;
+    }
+
+    private void OnDisable()
+    {
+        fire.Disable();
+    }
+
     private void FixedUpdate()
     {
-
         #region Movement Input
         if (movementInput != Vector2.zero)
         {
@@ -97,6 +119,7 @@ public class PlayerController : MonoBehaviour
         }
         #endregion
 
+
     }
 
     #region Movement
@@ -129,50 +152,52 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnMoveInput(InputValue movementValue)
+    private void OnMove(InputValue movementValue)
     {
         movementInput = movementValue.Get<Vector2>();
     }
     #endregion
 
 
-    public void TakeDamage(int damage)
+
+
+    //public void TakeDamage(int damage)
+    //{
+    //    currentHp -= damage;
+
+    //    if (currentHp <= 0)
+    //    {
+    //        Debug.Log("Game Over");
+    //    }
+    //    hpBar.SetState(currentHp, maxHp);
+    //}
+
+    //public void Heal(int amount)
+    //{
+    //    if (currentHp <= 0) { return; }
+
+    //    currentHp += amount;
+    //    if (currentHp > maxHp)
+    //    {
+    //        currentHp = maxHp;
+    //    }
+    //    hpBar.SetState(currentHp, maxHp);
+    //}
+
+    private void Pause(InputAction.CallbackContext context)
     {
-        currentHp -= damage;
-
-        if (currentHp <= 0)
+        Debug.Log("Pause Startet");
+        if (menu.gameIsPaused)
         {
-            Debug.Log("Game Over");
+            menu.Resume();
+            Debug.Log("Resume");
         }
-        //hpBar.SetState(currentHp, maxHp);
-    }
-
-    public void Heal(int amount)
-    {
-        if (currentHp <= 0) { return; }
-
-        currentHp += amount;
-        if (currentHp > maxHp)
+        else
         {
-            currentHp = maxHp;
+            menu.Pause();
+            Debug.Log("Pause");
         }
-        //hpBar.SetState(currentHp, maxHp);
-    }
 
-    public void OnPauseInput(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            if (gameIsPaused)
-            {
-                Resume();
-                Debug.Log("Resume");
-            }
-            else
-            {
-                Pause();
-                Debug.Log("Pause");
-            }
-        }
+
     }
 }

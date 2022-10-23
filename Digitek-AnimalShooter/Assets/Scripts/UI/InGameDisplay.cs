@@ -28,16 +28,23 @@ public class InGameDisplay : MonoBehaviour
 
     //Til timeren
     private bool timerActive = false;
-    private float currentTime = 0;
+    public float currentTime = 0f;
+    [SerializeField] private float startingTime = 10f;
     private TimeSpan time;
     [SerializeField] private TMPro.TextMeshProUGUI timerLabel;
 
-    //Til bedste tid
-    public TMPro.TextMeshProUGUI bestTimeText;
-    private float bestTime;
 
-    [SerializeField] int levelNumber;
+    [SerializeField] public int levelNumber;
 
+    [Header("Point")]
+    //Henter den specielle Tekst pakke.
+    public TextMeshProUGUI scoreText;
+    [HideInInspector] public int currentScore;
+
+    [Header("Kills")]
+    //Henter den specielle Tekst pakke.
+    public TextMeshProUGUI killText;
+    [HideInInspector] public int currentKills;
 
 
     private void Awake()
@@ -47,7 +54,8 @@ public class InGameDisplay : MonoBehaviour
 
     private void Start()
     {
-        //StartTimer();
+        currentTime = startingTime;
+        StartTimer();
 
         ////Lav besttime til at blive 
         ////bestTime = PlayerPrefs.GetFloat("BestTime" + levelNumber);
@@ -66,14 +74,15 @@ public class InGameDisplay : MonoBehaviour
         //Hvis timeren er aktiv, skal den tælle med time.deltaTime for at kunne tælle rigtigt.
         if (timerActive == true)
         {
-            //currentTime += Time.deltaTime;
+            currentTime -= 1* Time.deltaTime;
         }
         //For at kunne se tiden i minutter, sekunder og milisekunder
-        //time = TimeSpan.FromSeconds(currentTime);
-        //timerLabel.text = time.ToString(@"mm\:ss\:fff");
+        time = TimeSpan.FromSeconds(currentTime);
+        timerLabel.text = time.ToString(@"mm\:ss");
 
+        scoreText.text = currentScore.ToString();
 
-
+        killText.text = currentKills.ToString();
     }
 
     //Starter timeren

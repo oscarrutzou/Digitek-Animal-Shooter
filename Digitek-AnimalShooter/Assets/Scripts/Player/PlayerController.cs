@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public Menu menu;
+    InGameDisplay inGameDisplay;
     public PlayerInputActions playerInputActions;
 
     [SerializeField] float moveSpeed = 1f;
@@ -47,7 +48,9 @@ public class PlayerController : MonoBehaviour
 
         playerInputActions = new PlayerInputActions();
 
+        //Kunne gøre det sammen.
         menu = FindObjectOfType<Menu>();
+        inGameDisplay = FindObjectOfType<InGameDisplay>();
 
         //hpBar = hpContainer.GetComponent<StatusBar>();
 
@@ -200,4 +203,21 @@ public class PlayerController : MonoBehaviour
 
 
     }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "IDamageAble")
+        {
+            Debug.Log("Hit da ko");
+            inGameDisplay.currentScore += 5;
+
+            inGameDisplay.currentKills += 1;
+
+        }
+        else
+        {
+            return;
+        }
+    }
+
 }

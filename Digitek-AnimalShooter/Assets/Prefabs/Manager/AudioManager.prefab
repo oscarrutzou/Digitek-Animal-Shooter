@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3565581861025848991
 MonoBehaviour:
@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Theme
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
-    loop: 0
+    clip: {fileID: 8300000, guid: fa691c61b18986942a9989effe1e64f8, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 1
     sorce: {fileID: 0}

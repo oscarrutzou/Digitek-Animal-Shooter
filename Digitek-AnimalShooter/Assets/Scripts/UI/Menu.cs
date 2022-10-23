@@ -10,41 +10,54 @@ using System;
 
 public class Menu : MonoBehaviour
 {
-    [Header("Point")]
-    //Henter den specielle Tekst pakke.
-    public TextMeshProUGUI scoreText;
-    [HideInInspector] public int currentScore;
-    [HideInInspector] public int bestScore;
-
-    [Header("Kills")]
-    //Henter den specielle Tekst pakke.
-    public TextMeshProUGUI killText;
-    [HideInInspector] public int currentkills;
-
-
-    [Header("Timer")]
-    //bool timerActive = false;
-    //float currentTime = 0;
-    public TextMeshProUGUI timerLabel;
+    InGameDisplay inGameDisplay;
 
     [Header("Music")]
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] Slider volumeSlider;
 
-    [Header("Level Manager")]
-    [SerializeField] TMPro.TextMeshProUGUI[] bestScoreLevelText;
-    private int bestScoreNumber;
-    private int levelNumber;
-    [SerializeField] int maxLevels;
-
     [Header("Pause Menu")]
     public bool gameIsPaused = false;
     public GameObject pauseMenuUI;
 
+    [Header("Level")]
+    [SerializeField] public int levelNumber;
+
+    [Header("Text")]
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI killText;
+    public TextMeshProUGUI bestScoreText;
+    public TextMeshProUGUI bestKillText;
+
+    
+    //Score
+    [HideInInspector] public int currentScore;
+    [HideInInspector] public int bestScore;
+
+    //Kills
+    [HideInInspector] public int currentKills;
+    [HideInInspector] public int bestKills;
 
     void Start()
     {
-        //Hvis brugeren ikke har rørt ved volume, så spiller musikken med fuld kraft.
+        inGameDisplay = GetComponent<InGameDisplay>();
+
+        //For at sørge for at den ikke sletter de current stats
+        if (SceneManager.GetActiveScene().name != "End")
+        {
+            levelNumber = inGameDisplay.levelNumber;
+            //For at refresh kills hver gang den starter.
+            PlayerPrefs.SetInt("CurrentKills" + levelNumber, int.MaxValue);
+            PlayerPrefs.SetInt("CurrentScore" + levelNumber, int.MaxValue);
+
+
+        }
+        else
+        {
+            ShowStats();
+        }
+
+        //Hvis brugeren ikke har rørt ved volume, så spiller lyden med fuld kraft.
         //Ellers loader den deres settings.
         if (!PlayerPrefs.HasKey("musicVolume"))
         {
@@ -56,6 +69,72 @@ public class Menu : MonoBehaviour
             Load();
         }
 
+    }
+
+
+
+    #region Update
+    private void Update()
+    {
+        if (inGameDisplay.currentTime < -0.05f)
+        {
+            //Stopper tiden, så spilleren ikke kan løbe rundt
+            Time.timeScale = 0f;
+
+            //Gem alle information
+            GameOver();
+
+            //Spil transition
+            //Send til anden Dead scene. 
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(2);
+
+        }
+    }
+
+
+    #endregion
+
+    public void ShowStats()
+    {
+        //Debug.Log("Levelnumber, currentkills, MostKills, " + levelNumber + ", " + currentKills + ", " + PlayerPrefs.GetInt("MostKills" + levelNumber));
+        killText.text = PlayerPrefs.GetInt("CurrentKills" + levelNumber, 0).ToString();
+        bestKillText.text = PlayerPrefs.GetInt("MostKills" + levelNumber, 0).ToString();
+
+        //Debug.Log("Levelnumber, currentScore, BestScore, " + levelNumber + ", " + currentScore + ", " + PlayerPrefs.GetInt("BestScore" + levelNumber));
+        scoreText.text = PlayerPrefs.GetInt("CurrentScore" + levelNumber, 0).ToString();
+        bestScoreText.text = PlayerPrefs.GetInt("BestScore" + levelNumber, 0).ToString();
+
+    }
+
+    public void GameOver()
+    {
+        //Gem nuværende kills.
+        //Tjek om det er de højeste kills
+        currentKills = inGameDisplay.currentKills;
+        currentScore = inGameDisplay.currentScore;
+        
+        //Gemmer både kills og score for runden, til at blive vist i GameOver Menu.
+        PlayerPrefs.SetInt("CurrentKills" + levelNumber, currentKills);
+        PlayerPrefs.SetInt("CurrentScore" + levelNumber, currentScore);
+
+        //Hvis de nuværende kills er større end den gemte, sættes den til den MostKills. 
+        if (currentKills > PlayerPrefs.GetInt("MostKills" + levelNumber, int.MaxValue))
+        {
+            //Sætter de nuværende kills til MostKills
+            PlayerPrefs.SetInt("MostKills" + levelNumber, currentKills);
+        }
+
+        //Hvis den nuværende score er større end den gemte, sættes den til den BestScore. 
+        if (currentScore > PlayerPrefs.GetInt("BestScore" + levelNumber, int.MaxValue))
+        {
+            //Sætter den nuværende score til BestScore
+            PlayerPrefs.SetInt("BestScore" + levelNumber, currentScore);
+        }
+
+        //Debug.Log("Levelnumber, currentkills, MostKills, " + levelNumber + ", " + currentKills + ", " + PlayerPrefs.GetInt("MostKills" + levelNumber));
+
+        //Debug.Log("Levelnumber, currentScore, BestScore, " + levelNumber + ", " + currentScore + ", " + PlayerPrefs.GetInt("BestScore" + levelNumber));
 
     }
 
@@ -85,17 +164,18 @@ public class Menu : MonoBehaviour
         PlayerPrefs.SetFloat("musicVolume", volumeSlider.value);
     }
 
-    public void ResetHighScores()
+    public void DeleteHighScore()
     {
-        //Reset highscore points fra alle baner
-        //levelSelector.DeleteBestTime();
+        PlayerPrefs.SetInt("MostKills" + levelNumber, 0);
+        PlayerPrefs.SetInt("BestScore" + levelNumber, 0);
     }
     #endregion
 
     #region MainMenu
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(1);
     }
 
     public void QuitGame()
@@ -104,42 +184,6 @@ public class Menu : MonoBehaviour
         Application.Quit();
     }
     #endregion
-
-    #region Update
-
-
-    //Denne bliver kaldt hver gang et våben rammer et IDamageAble
-    //public void UpdateScore(int score)
-    //{
-    //    //Tager den nuværende score og plusser den med scoren som lige er kommet.
-    //    currentScore += score;
-    //    //Sætter den nuværende score til tekst.
-    //    scoreText.text = "Point : " + currentScore.ToString();
-    //}
-
-    #endregion
-
-    public void UpdateBestTime()
-    {
-        bestScoreNumber = 0;
-
-        for (int i = 1; i < maxLevels + 1; i++)
-        {
-            levelNumber = i;
-            bestScore = PlayerPrefs.GetInt("BestTime" + levelNumber);
-
-            if (bestScore != float.MaxValue)
-            {
-                Debug.Log("Level number completed " + levelNumber);
-
-                bestScoreLevelText[bestScoreNumber].text = PlayerPrefs.GetFloat("BestTime" + levelNumber, 0).ToString();
-                TimeSpan time = TimeSpan.FromSeconds(bestScore);
-                bestScoreLevelText[bestScoreNumber].text = time.ToString(@"mm\:ss\:fff");
-                bestScoreNumber++;
-            }
-        }
-    }
-
 
     #region Pause Menu
     public void Pause()
@@ -159,7 +203,15 @@ public class Menu : MonoBehaviour
     public void Resume()
     {
         //Slukker objectet
-        pauseMenuUI.SetActive(false);
+        if (pauseMenuUI != null)
+        {
+            pauseMenuUI.SetActive(false);
+        }
+        else
+        {
+            return;
+        }
+        
         //Starter tiden igen
         Time.timeScale = 1f;
         //Sætter den til at spillet ikke er pauset mere.
@@ -176,4 +228,9 @@ public class Menu : MonoBehaviour
     }
 
     #endregion
+
+    #region Shop
+    //Her ville alle ting til en in game shop ligge, samt metoder til f.eks. at købe IGC (InGameCurrency). 
+    #endregion
+
 }

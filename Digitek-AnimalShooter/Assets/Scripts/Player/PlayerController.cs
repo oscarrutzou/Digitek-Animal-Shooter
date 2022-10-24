@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     public Menu menu;
     InGameDisplay inGameDisplay;
+    PlayerAimWeapon playerAimWeapon;
     public PlayerInputActions playerInputActions;
 
     [SerializeField] float moveSpeed = 1f;
@@ -26,7 +27,7 @@ public class PlayerController : MonoBehaviour
     private InputAction pause;
     private InputAction fire;
 
-
+    public bool fired;
 
     private Rigidbody2D rb;
 
@@ -42,9 +43,13 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        fired = false;
+
+
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        playerAimWeapon = GetComponent<PlayerAimWeapon>();
 
         playerInputActions = new PlayerInputActions();
 
@@ -65,6 +70,7 @@ public class PlayerController : MonoBehaviour
     {
         fire = playerInputActions.Player.Fire;
         fire.Enable();
+        fire.performed += Fire;
 
         pause = playerInputActions.Player.Pause;
         pause.Enable();
@@ -201,6 +207,19 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Pause");
         }
 
+
+    }
+
+    private void Fire(InputAction.CallbackContext context)
+    {
+        //Check om våben reload time er 0 eller under igen, så kan man skyde.
+        //Plus tid efter hver gang
+        //Lav dette om til pseodu kode.
+        if (context.performed)
+        {
+            playerAimWeapon.HandleShooting();
+            
+        }
 
     }
 

@@ -76,7 +76,7 @@ public class Menu : MonoBehaviour
     #region Update
     private void Update()
     {
-        if (inGameDisplay.currentTime < -0.05f)
+        if (inGameDisplay.currentTime <= -0.005f)
         {
             //Stopper tiden, så spilleren ikke kan løbe rundt
             Time.timeScale = 0f;

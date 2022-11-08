@@ -221,26 +221,7 @@ public class PlayerController : MonoBehaviour
             playerAimWeapon.HandleShooting();
 
         }
-
-
-
-
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "IDamageAble")
-        {
-            Debug.Log("Hit da ko");
-            inGameDisplay.currentScore += 5;
-
-            inGameDisplay.currentKills += 1;
-
-        }
-        else
-        {
-            return;
-        }
-    }
 
 }

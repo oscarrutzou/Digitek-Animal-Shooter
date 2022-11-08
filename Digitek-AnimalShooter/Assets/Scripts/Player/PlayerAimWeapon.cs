@@ -15,7 +15,8 @@ public class PlayerAimWeapon : MonoBehaviour
     }
 
     public WeaponData data;
-    PlayerController playerController;
+    [SerializeField] PlayerController playerController;
+    [SerializeField] PlayerShoot playerShoot;
 
     [SerializeField] private Transform aimTransform;
     [SerializeField] private Transform aimGunEndPointTransform;
@@ -25,7 +26,7 @@ public class PlayerAimWeapon : MonoBehaviour
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
-
+        playerShoot = GetComponentInChildren<PlayerShoot>();
 
         //if (data != null)
         //{

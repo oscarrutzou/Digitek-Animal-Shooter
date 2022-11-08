@@ -8,5 +8,5 @@ public class EnemyData : ScriptableObject
     public string enemyName;
     public GameObject enemyModel;
     public int health = 30;
-    
+    public int score = 5;
 }

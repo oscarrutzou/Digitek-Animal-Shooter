@@ -15,3 +15,4 @@ MonoBehaviour:
   enemyName: Dog
   enemyModel: {fileID: 1430768850683566725, guid: 92494e2ab3a898c428ecca4e83f33e65, type: 3}
   health: 30
+  score: 5

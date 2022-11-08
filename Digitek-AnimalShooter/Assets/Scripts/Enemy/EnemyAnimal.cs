@@ -9,6 +9,8 @@ public class EnemyAnimal : MonoBehaviour
     public EnemyData data;
     [SerializeField] public int currentHealth;
 
+    [SerializeField] EnemyOwnData enemyOwnData;
+
     private void Start()
     {
         if (data != null)
@@ -38,16 +40,21 @@ public class EnemyAnimal : MonoBehaviour
         visuals.transform.localPosition = Vector3.zero;
         visuals.transform.rotation = Quaternion.identity;
 
-        currentHealth = data.health;
-        Debug.Log("currentHealth " + currentHealth);
+        enemyOwnData = visuals.GetComponent<EnemyOwnData>();
+
+        //EnemyOwnData enemyOwnData = visuals.GetComponentInChildren<EnemyOwnData>();
+        ////EnemyOwnData enemyOwnData;
+        ////_ = visuals.GetComponent<EnemyOwnData>();
+
+        //if (enemyOwnData = null)
+        //{
+        //    Debug.LogWarning("Noget galt med at getcomponent i Enemy object.");
+        //}
+        
+        enemyOwnData.currentHealth = data.health;
+        enemyOwnData.score = data.score;
+
     }
 
-    public void Damage()
-    {
-        //Indsæt weapondamage her.
-        Debug.Log("Animal health before: " + currentHealth);
 
-        currentHealth -= 10;
-        Debug.Log("Animal health after: " + currentHealth);
-    }
 }

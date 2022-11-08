@@ -2161,12 +2161,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 35.241493
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 36
+  m_fontSizeMin: 17.620747
+  m_fontSizeMax: 35.241493
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -2346,11 +2346,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e177c6825b7ed34db8b811ecd245f3f, type: 3}
---- !u!1 &723334442 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4121838182226509474, guid: 7e177c6825b7ed34db8b811ecd245f3f, type: 3}
-  m_PrefabInstance: {fileID: 723334441}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &723334443 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4121838183586788457, guid: 7e177c6825b7ed34db8b811ecd245f3f, type: 3}
@@ -2706,12 +2701,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 35.241493
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 36
+  m_fontSizeMin: 17.620747
+  m_fontSizeMax: 35.241493
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -2958,12 +2953,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 35.241493
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 36
+  m_fontSizeMin: 17.620747
+  m_fontSizeMax: 35.241493
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -3524,12 +3519,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 35.241493
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 36
+  m_fontSizeMin: 17.620747
+  m_fontSizeMax: 35.241493
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -4558,12 +4553,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 35.241493
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 36
+  m_fontSizeMin: 17.620747
+  m_fontSizeMax: 35.241493
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -4902,9 +4897,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: bd9cb23f6ada47046aea0590e5ed0f5b, type: 2}
+  playerController: {fileID: 0}
+  playerShoot: {fileID: 0}
   aimTransform: {fileID: 577499688}
   aimGunEndPointTransform: {fileID: 723334444}
-  aimGunEndPointGameObject: {fileID: 723334442}
   aimDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &1740805979
 GameObject:

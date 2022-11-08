@@ -7,15 +7,24 @@ using System;
 
 public class PlayerShoot : MonoBehaviour
 {
+    [SerializeField] private BulletRaycast bulletRaycast;
 
-    [SerializeField] private PlayerAimWeapon playerAimWeapon;
+    [SerializeField] public PlayerAimWeapon playerAimWeapon;
 
     [SerializeField] private Material weaponTracerMaterial;
     [SerializeField] private Sprite shootFlashSprite;
 
+    public GameObject currentWeapon;
+
     private void Start()
     {
+        bulletRaycast = GetComponent<BulletRaycast>();
+
+        playerAimWeapon = GetComponentInParent<PlayerAimWeapon>();
+
         playerAimWeapon.OnShoot += PlayerAimWeapon_OnShoot;
+
+
     }
 
 
@@ -23,6 +32,7 @@ public class PlayerShoot : MonoBehaviour
     private void PlayerAimWeapon_OnShoot(object sender, PlayerAimWeapon.OnShootEventArgs e)
     {
         //Debug.DrawLine(e.gunEndPointPosition, e.shootPosition, Color.white, .1f);
+        bulletRaycast.Shoot(e.shootPosition, playerAimWeapon.aimDirection);
         CameraShake.Instance.ShakeCamera(5f, .1f);
         CreateWeaponTracer(e.gunEndPointPosition, e.shootPosition);
 
@@ -49,7 +59,7 @@ public class PlayerShoot : MonoBehaviour
         tmpWeaponTracerMaterial.SetTextureScale("_MainTex", new Vector2(1f, distance / 64f));
 
         //Forstår godt hvordan man laver et world mesh ligesom denne, brugte den her for at gøre det nemmere siden jeg er alene som programmør.
-        World_Mesh worldMesh = World_Mesh.Create(tracerSpawnPosition, eulerZ, 1f, distance, tmpWeaponTracerMaterial, null, 1000);
+        World_Mesh worldMesh = World_Mesh.Create(tracerSpawnPosition, eulerZ, 1f, distance, tmpWeaponTracerMaterial, null, 10);
 
 
         //Fjern her og de andre kommenterede for at få animation til tracer.

@@ -214,12 +214,16 @@ public class PlayerController : MonoBehaviour
     {
         //Check om våben reload time er 0 eller under igen, så kan man skyde.
         //Plus tid efter hver gang
-        //Lav dette om til pseodu kode.
+        
+
         if (context.performed)
         {
             playerAimWeapon.HandleShooting();
-            
+
         }
+
+
+
 
     }
 

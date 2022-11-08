@@ -6,19 +6,30 @@ using System;
 
 public class EnemyAnimal : MonoBehaviour
 {
-    public EnemyData data;
-    [SerializeField] public int currentHealth;
-
+    public EnemyData[] data;
     [SerializeField] EnemyOwnData enemyOwnData;
+
+    public GameObject visuals;
 
     private void Start()
     {
         if (data != null)
         {
-            LoadEnemy(data);
+            LoadEnemy(data[0]);
         }
     }
 
+    private void Update()
+    {
+        if (data == null)
+        {
+            enemyOwnData = null;
+            visuals = null;
+            return;
+        }
+    }
+
+    //Lav en spawner som skriver loadEnemy f.eks. 20 sek efter den er død.
     private void LoadEnemy(EnemyData _data)
     {
         //Remove children objects i.e. visuals
@@ -33,27 +44,19 @@ public class EnemyAnimal : MonoBehaviour
                 Destroy(child.gameObject);
             }
         }
+        //Måske lav et child gameobject og load visuals på den?
+
 
         //Load current enemy visuals
-        GameObject visuals = Instantiate(data.enemyModel);
+        visuals = Instantiate(data[0].enemyModel);
         visuals.transform.SetParent(this.transform);
         visuals.transform.localPosition = Vector3.zero;
         visuals.transform.rotation = Quaternion.identity;
 
         enemyOwnData = visuals.GetComponent<EnemyOwnData>();
 
-        //EnemyOwnData enemyOwnData = visuals.GetComponentInChildren<EnemyOwnData>();
-        ////EnemyOwnData enemyOwnData;
-        ////_ = visuals.GetComponent<EnemyOwnData>();
-
-        //if (enemyOwnData = null)
-        //{
-        //    Debug.LogWarning("Noget galt med at getcomponent i Enemy object.");
-        //}
-        
-        enemyOwnData.currentHealth = data.health;
-        enemyOwnData.score = data.score;
-
+        enemyOwnData.currentHealth = data[0].health;
+        enemyOwnData.score = data[0].score;
     }
 
 

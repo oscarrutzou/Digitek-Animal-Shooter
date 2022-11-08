@@ -9,19 +9,19 @@ public class EnemyOwnData : MonoBehaviour
     public int currentHealth;
     public int score;
 
+    public bool alive;
+
     public InGameDisplay inGameDisplay;
 
     private void Start()
     {
         inGameDisplay = FindObjectOfType<InGameDisplay>();
-
+        alive = true;
     }
 
     public void Damage()
     {
         //Indsæt weapondamage her.
-        Debug.Log("Animal health before: " + currentHealth);
-
         currentHealth -= 10;
 
         Debug.Log("Animal health after: " + currentHealth);
@@ -38,8 +38,10 @@ public class EnemyOwnData : MonoBehaviour
 
         inGameDisplay.currentKills += 1;
 
-        //Put gameobject væk.
-        
+        alive = false;
+
+        //Ændre så gameobject kommer ind i en pool igen.
+        Destroy(gameObject);
 
     }
 

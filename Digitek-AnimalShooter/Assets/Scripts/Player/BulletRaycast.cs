@@ -33,7 +33,6 @@ public class BulletRaycast : MonoBehaviour
                 if (enemyOwnData.currentHealth > 0)
                 {
                     enemyOwnData.Damage();
-                    Debug.Log("damage");
                 }
                 else
                 {

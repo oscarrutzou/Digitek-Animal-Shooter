@@ -31,10 +31,13 @@ public class PlayerShoot : MonoBehaviour
 
     private void PlayerAimWeapon_OnShoot(object sender, PlayerAimWeapon.OnShootEventArgs e)
     {
-        //Debug.DrawLine(e.gunEndPointPosition, e.shootPosition, Color.white, .1f);
+        Debug.DrawLine(e.gunEndPointPosition, e.shootPosition, Color.white, .1f);
         bulletRaycast.Shoot(e.shootPosition, playerAimWeapon.aimDirection);
+        //Spawn eksplosion visual gameobject: Eksplosion lyd her eller på gameobject: Få den til at udline lyden til sidst
+        
+
         CameraShake.Instance.ShakeCamera(5f, .1f);
-        CreateWeaponTracer(e.gunEndPointPosition, e.shootPosition);
+        //CreateWeaponTracer(e.gunEndPointPosition, e.shootPosition);
 
         //For at vise det flash når man skyder
         //CreateShootFlash(e.gunEndPointPosition);

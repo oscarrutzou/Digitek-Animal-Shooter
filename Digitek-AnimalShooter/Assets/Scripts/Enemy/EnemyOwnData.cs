@@ -21,6 +21,8 @@ public class EnemyOwnData : MonoBehaviour
 
     public void Damage()
     {
+        Debug.Log("Animal health before: " + currentHealth);
+
         //Indsæt weapondamage her.
         currentHealth -= 10;
 
@@ -28,6 +30,8 @@ public class EnemyOwnData : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            Debug.Log("dead");
+
             OnDeath();
         }
     }
@@ -40,7 +44,8 @@ public class EnemyOwnData : MonoBehaviour
 
         alive = false;
 
-        //Ændre så gameobject kommer ind i en pool igen.
+        //Spawn dødslyd?
+
         Destroy(gameObject);
 
     }

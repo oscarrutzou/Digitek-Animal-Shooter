@@ -7,27 +7,31 @@ public class BulletRaycast : MonoBehaviour
 
     [HideInInspector] public GameObject enemyGameObject;
 
+    [SerializeField] EnemyOwnData enemyOwnData;
 
     public void Shoot(Vector3 shootPosition, Vector3 shootDirection)
     {
         RaycastHit2D raycastHit2D = Physics2D.Raycast(shootPosition, shootDirection);
 
+        
+
         if (raycastHit2D.collider != null)
         {
             //Hit dat target
-            
-            
-            //if (enemyObject.TryGetComponent<EnemyAnimal>(out var enemyAnimal))
-            //{
-            //    Debug.Log("Can't find Script, EnemyAnimal");
-            //}
+            //Debug.Log(raycastHit2D.collider.gameObject);
 
             if (raycastHit2D.collider.CompareTag("Enemy"))
             {
+                enemyGameObject = null;
+                enemyOwnData = null;
+
                 GameObject enemyObject = raycastHit2D.collider.gameObject;
 
+                Debug.Log("GAmeObject + " + enemyObject);
 
-                EnemyOwnData enemyOwnData = enemyObject.GetComponentInParent<EnemyOwnData>();
+
+                enemyOwnData = enemyObject.GetComponent<EnemyOwnData>();
+                Debug.Log(enemyOwnData);
 
 
                 if (enemyOwnData.currentHealth > 0)
@@ -37,20 +41,9 @@ public class BulletRaycast : MonoBehaviour
                 else
                 {
                     Debug.Log("Animal er død");
-                    //Debug.LogWarning("Der er noget glat med at den ikke registrer* damage og health på animal ordenligt");
                     return;
                 }
-                //else if (enemyAnimal.currentHealth <= 0)
-                //{
-                //    inGameDisplay.currentScore += 5;
-
-                //    inGameDisplay.currentKills += 1;
-                    
-                //}
-
-                
             }
-
         }
     }
 }

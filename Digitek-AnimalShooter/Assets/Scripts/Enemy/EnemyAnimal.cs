@@ -13,33 +13,52 @@ public class EnemyAnimal : MonoBehaviour
 
     public GameObject visuals;
 
+    [Header("Generation")]
     [SerializeField] bool randomGeneration;
     [SerializeField] int enemyArrayNumber;
 
-
+    [Header("Spawn")]
     [SerializeField] int randomDataNumber;
 
-    //Variabler som skal vises i inspector men ikke skal kaldes af andre scipts
-    [SerializeField] float timeBetweenSpawn = 5f;
+    
 
     [SerializeField] GameObject pos1;
     [SerializeField] GameObject pos2;
+
+    [SerializeField] private bool firstTimeSpawn = true;
+
+    private bool isSpawning = false;
 
     private float minPosX;
     private float minPosY;
     private float maxPosX;
     private float maxPosY;
 
+    private Vector2 position;
+
+    //Object
+    [Header("Objects")]
+    [SerializeField] public int objectActive;
+    [SerializeField] int maxObjects = 5;
+
+
+    //Collision
+    Collider2D CollisionWithPlayer;
+    Collider2D CollisionWithEnemy;
+    private float enemyRadius;
+
     private void Awake()
     {
+        objectActive = 0;
+
         minPosX = pos1.GetComponentInChildren<Transform>().position.x;
         maxPosX = pos2.GetComponentInChildren<Transform>().position.x;
         minPosY = pos1.GetComponentInChildren<Transform>().position.y;
         maxPosY = pos2.GetComponentInChildren<Transform>().position.y;
 
 
-        Debug.Log(minPosX + "  " + maxPosX + "  ");
-        Debug.Log(minPosY + "  " + maxPosY + "  ");
+        //Debug.Log(minPosX + "  " + maxPosX + "  ");
+        //Debug.Log(minPosY + "  " + maxPosY + "  ");
 
 
     }
@@ -50,20 +69,21 @@ public class EnemyAnimal : MonoBehaviour
 
     private void Start()
     {
-        if (data != null)
-        {
-            if (randomGeneration)
-            {
-                StartCoroutine(SpawnRandom());
-            }
-            else
-            {
-                StartCoroutine(SpawnNormal(enemyArrayNumber));
+        //if (data != null)
+        //{
+        //    if (randomGeneration)
+        //    {
+        //        StartCoroutine(SpawnRandom());
+        //    }
+        //    else
+        //    {
+        //        StartCoroutine(SpawnNormal(enemyArrayNumber));
 
-            }
+        //    }
 
-            //StartCoroutine(Spawn());
-        }
+        //}
+
+        //StartSpawner();
     }
 
     private void Update()
@@ -74,14 +94,77 @@ public class EnemyAnimal : MonoBehaviour
             visuals = null;
             return;
         }
+
+        if (objectActive == 0 && firstTimeSpawn)
+        {
+            //Sæt at den spawner til et nyt tal.
+            if (isSpawning == false)
+            {
+                isSpawning = true;
+                firstTimeSpawn = false;
+
+                Debug.Log("StartSpawner");
+
+                StartSpawner();
+            }
+
+        }
+        else if (objectActive == 0 && !firstTimeSpawn)
+        {
+            //Start spawner efter et antal sek.
+            //Start timer
+
+            if (isSpawning == false)
+            {
+                isSpawning = true;
+
+                Invoke("StartSpawner", 2f);
+                //if (currentTime >= spawnAfterTime)
+                //{
+                //    Debug.Log("StartSpawner after time");
+
+                //    //StartSpawner();
+                //}
+            }
+
+            //Så start spawner
+        }
+
     }
 
-    //Spawn random.
-    IEnumerator SpawnRandom()
-    {
-        //Den venter et antal sekunder
-        yield return new WaitForSeconds(timeBetweenSpawn);
 
+    void StartSpawner()
+    {
+        if (objectActive == 0 || objectActive <= maxObjects)
+        {
+            //Spawn 
+            Debug.Log(objectActive);
+
+            for (int i = objectActive; i < maxObjects; i++)
+            {
+                if (randomGeneration)
+                {
+                    Debug.Log("randomgeneration " + randomGeneration);
+
+                    SpawnRandom();
+                }
+                else if (!randomGeneration) //For en sikkerhedsskyld bruger jeg ik bare else.
+                {
+                    Debug.Log("randomgeneration " + randomGeneration);
+                    //SpawnNormal(enemyArrayNumber);
+
+                }
+
+                //objectActive++;
+                //Debug.Log(objectActive);
+            }
+
+            isSpawning = false;
+        }
+    }
+
+    void GenerateRandomPosition()
+    {
         //Lavet som en random range.
 
         float positionX = Random.Range(minPosX, maxPosX);
@@ -89,92 +172,174 @@ public class EnemyAnimal : MonoBehaviour
         float positionY = Random.Range(minPosY, maxPosY);
 
         //Sætter positionen af det skrald til det random stykke.
-        var position = new Vector3(positionX, positionY, 0);
-        Debug.Log("Rigtig pos " + position);
-
-
-        randomDataNumber =  Random.Range(0, data.Length);
-
-        //Load current enemy visuals
-        visuals = Instantiate(data[randomDataNumber].enemyModel);
-        visuals.transform.localPosition = position;
-        visuals.transform.rotation = Quaternion.identity;
-        //Sætter først til et child object her, da position ville være forkert hvis den kaldes før.
-        visuals.transform.SetParent(this.transform);
-
-
-
-        enemyOwnData = visuals.GetComponent<EnemyOwnData>();
-
-        enemyOwnData.currentHealth = data[randomDataNumber].health;
-        enemyOwnData.score = data[randomDataNumber].score;
-
+        position = new Vector2(positionX, positionY);
+        Debug.Log("Position " + position);
     }
 
-    //Spawn random.
-    IEnumerator SpawnNormal(int enemyNumber)
+    void CheckCollision()
     {
-        //Den venter et antal sekunder
-        yield return new WaitForSeconds(timeBetweenSpawn);
+        enemyRadius = 2f;
 
-        //Lavet som en random range.
+        CollisionWithEnemy = Physics2D.OverlapCircle(position, enemyRadius, LayerMask.GetMask("EnemyLayer"));
+        CollisionWithPlayer = Physics2D.OverlapCircle(position, enemyRadius, LayerMask.GetMask("Player"));
+    }
 
-        float positionX = Random.Range(minPosX, maxPosX);
+    void SpawnRandom()
+    {
+        GenerateRandomPosition();
+        //Debug.Log("Rigtig pos " + position);
 
-        float positionY = Random.Range(minPosY, maxPosY);
+        randomDataNumber = Random.Range(0, data.Length);
 
-        //Sætter positionen af det skrald til det random stykke.
-        var position = new Vector3(positionX, positionY, 0);
-        Debug.Log("Rigtig pos " + position);
+        visuals = data[randomDataNumber].enemyModel;
 
+        //float enemyRadius = visuals.GetComponent<Collider2D>().bounds.max.x;
+        
 
-        //Load current enemy visuals
-        visuals = Instantiate(data[enemyNumber].enemyModel);
-        visuals.transform.localPosition = position;
-        visuals.transform.rotation = Quaternion.identity;
-        //Sætter først til et child object her, da position ville være forkert hvis den kaldes før.
-        visuals.transform.SetParent(this.transform);
-
+        CheckCollision();
+        Debug.Log("visuals " + visuals + "  enemyRadius " + enemyRadius);
 
 
-        enemyOwnData = visuals.GetComponent<EnemyOwnData>();
 
-        enemyOwnData.currentHealth = data[enemyNumber].health;
-        enemyOwnData.score = data[enemyNumber].score;
+        if (CollisionWithEnemy == true || CollisionWithPlayer == true)
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                GenerateRandomPosition();
+
+                if (!CollisionWithEnemy && !CollisionWithPlayer)
+                {
+                    Debug.Log("CollisionWithEnemy= " + CollisionWithEnemy + "  eller CollisionWithPlayer = " + CollisionWithPlayer);
+
+                    Debug.Log("HEJ 1");
+                    break;
+                }   
+            }            
+        }
+       
+
+        if (CollisionWithEnemy == false && CollisionWithPlayer == false)
+        {
+            //Load current enemy visuals
+            visuals = Instantiate(data[randomDataNumber].enemyModel);
+            visuals.transform.localPosition = position;
+            visuals.transform.rotation = Quaternion.identity;
+            //Sætter først til et child object her, da position ville være forkert hvis den kaldes før.
+            visuals.transform.SetParent(this.transform);
+
+            enemyOwnData = visuals.GetComponent<EnemyOwnData>();
+
+            enemyOwnData.currentHealth = data[randomDataNumber].health;
+            enemyOwnData.score = data[randomDataNumber].score;
+
+            objectActive++;
+            Debug.Log(objectActive);
+
+        }
+        //else
+        //{
+        //    return;
+        //}
 
     }
 
-    //Lav en spawner som skriver loadEnemy f.eks. 20 sek efter den er død.
-    //private void CreateEnemy(EnemyData _data)
+    //void SpawnNormal(int enemyNumber)
     //{
-    //    //Remove children objects i.e. visuals
-    //    foreach (Transform child in this.transform)
-    //    {
-    //        if (Application.isEditor)
-    //        {
-    //            DestroyImmediate(child.gameObject);
-    //        }
-    //        else
-    //        {
-    //            Destroy(child.gameObject);
-    //        }
-    //    }
-    //    //Måske lav et child gameobject og load visuals på den?
+    //    //Lavet som en random range.
 
+    //    float positionX = Random.Range(minPosX, maxPosX);
 
-    //    GameObject gameObject = Instantiate(data[Random.Range(0, data.enemyModel.Length)].enemyModel, position, Quaternion.identity);
+    //    float positionY = Random.Range(minPosY, maxPosY);
+
+    //    //Sætter positionen af det skrald til det random stykke.
+    //    var position = new Vector3(positionX, positionY, 0);
+    //    Debug.Log("Rigtig pos " + position);
 
 
     //    //Load current enemy visuals
-    //    visuals = Instantiate(data[0].enemyModel);
-    //    visuals.transform.SetParent(this.transform);
-    //    visuals.transform.localPosition = Vector3.zero;
+    //    visuals = Instantiate(data[enemyNumber].enemyModel);
+    //    visuals.transform.localPosition = position;
     //    visuals.transform.rotation = Quaternion.identity;
+    //    //Sætter først til et child object her, da position ville være forkert hvis den kaldes før.
+    //    visuals.transform.SetParent(this.transform);
+
+
 
     //    enemyOwnData = visuals.GetComponent<EnemyOwnData>();
 
-    //    enemyOwnData.currentHealth = data[0].health;
-    //    enemyOwnData.score = data[0].score;
+    //    enemyOwnData.currentHealth = data[enemyNumber].health;
+    //    enemyOwnData.score = data[enemyNumber].score;
+    //}
+
+
+
+
+    //Spawn random object.
+    //IEnumerator SpawnRandom()
+    //{
+    //    //Den venter et antal sekunder
+    //    yield return new WaitForSeconds(timeBetweenSpawn);
+
+    //    //Lavet som en random range.
+
+    //    float positionX = Random.Range(minPosX, maxPosX);
+
+    //    float positionY = Random.Range(minPosY, maxPosY);
+
+    //    //Sætter positionen af det skrald til det random stykke.
+    //    var position = new Vector3(positionX, positionY, 0);
+    //    Debug.Log("Rigtig pos " + position);
+
+
+    //    randomDataNumber =  Random.Range(0, data.Length);
+
+    //    //Load current enemy visuals
+    //    visuals = Instantiate(data[randomDataNumber].enemyModel);
+    //    visuals.transform.localPosition = position;
+    //    visuals.transform.rotation = Quaternion.identity;
+    //    //Sætter først til et child object her, da position ville være forkert hvis den kaldes før.
+    //    visuals.transform.SetParent(this.transform);
+
+
+
+    //    enemyOwnData = visuals.GetComponent<EnemyOwnData>();
+
+    //    enemyOwnData.currentHealth = data[randomDataNumber].health;
+    //    enemyOwnData.score = data[randomDataNumber].score;
+
+    //}
+
+    //Spawn specifik objekt.
+    //IEnumerator SpawnNormal(int enemyNumber)
+    //{
+    //    //Den venter et antal sekunder
+    //    yield return new WaitForSeconds(timeBetweenSpawn);
+
+    //    //Lavet som en random range.
+
+    //    float positionX = Random.Range(minPosX, maxPosX);
+
+    //    float positionY = Random.Range(minPosY, maxPosY);
+
+    //    //Sætter positionen af det skrald til det random stykke.
+    //    var position = new Vector3(positionX, positionY, 0);
+    //    Debug.Log("Rigtig pos " + position);
+
+
+    //    //Load current enemy visuals
+    //    visuals = Instantiate(data[enemyNumber].enemyModel);
+    //    visuals.transform.localPosition = position;
+    //    visuals.transform.rotation = Quaternion.identity;
+    //    //Sætter først til et child object her, da position ville være forkert hvis den kaldes før.
+    //    visuals.transform.SetParent(this.transform);
+
+
+
+    //    enemyOwnData = visuals.GetComponent<EnemyOwnData>();
+
+    //    enemyOwnData.currentHealth = data[enemyNumber].health;
+    //    enemyOwnData.score = data[enemyNumber].score;
+
     //}
 
 

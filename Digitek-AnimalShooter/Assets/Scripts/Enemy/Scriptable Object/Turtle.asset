@@ -15,4 +15,4 @@ MonoBehaviour:
   enemyName: Turtle
   enemyModel: {fileID: 1430768850683566725, guid: 38fc49d926961f847b37e099e4393762, type: 3}
   health: 50
-  score: 17
+  score: 7

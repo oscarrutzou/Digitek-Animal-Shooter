@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
 using System;
+using UnityEngine.UIElements;
 
 public class EnemyOwnData : MonoBehaviour
 {
@@ -13,10 +14,19 @@ public class EnemyOwnData : MonoBehaviour
 
     public InGameDisplay inGameDisplay;
 
+    private Transform enemyTransform;
+    private CircleCollider2D circleCollider;
+    private float radius;
+
     private void Start()
     {
         inGameDisplay = FindObjectOfType<InGameDisplay>();
+        enemyTransform = GetComponent<Transform>();
+        circleCollider = GetComponent<CircleCollider2D>();
+        radius = circleCollider.radius * 2;
         alive = true;
+
+        //OnDrawGizmos();
     }
 
     public void Damage()
@@ -34,6 +44,12 @@ public class EnemyOwnData : MonoBehaviour
 
             OnDeath();
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, radius);
     }
 
     public void OnDeath()

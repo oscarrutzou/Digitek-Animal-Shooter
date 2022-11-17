@@ -21,7 +21,7 @@ public class EnemyAnimal : MonoBehaviour
 
     [Header("Spawn")]
     [SerializeField] int randomDataNumber;
-    [SerializeField] float visualRaduis;
+    [SerializeField] float visualRadius;
 
 
     [SerializeField] GameObject pos1;
@@ -44,10 +44,10 @@ public class EnemyAnimal : MonoBehaviour
     [SerializeField] int maxObjects = 5;
 
 
-    //Collision
-    Collider2D CollisionWithPlayer;
-    Collider2D CollisionWithEnemy;
-    private float enemyRadius;
+    //Collider
+    public Collider2D[] hitColliders;
+    public LayerMask nonHitMask;
+
 
     private void Awake()
     {
@@ -157,6 +157,70 @@ public class EnemyAnimal : MonoBehaviour
         }
     }
 
+
+
+
+    void SpawnRandom()
+    {
+        randomDataNumber = Random.Range(0, data.Length);
+
+        visuals = data[randomDataNumber].enemyModel;
+        visualRadius = visuals.GetComponent<CircleCollider2D>().radius;
+        enemyOwnData = visuals.GetComponent<EnemyOwnData>();
+        
+        Debug.Log("Raduis " + visualRadius);
+
+        GenerateRandomPosition();
+
+        CheckCollision(visualRadius);
+        
+
+        //Hvis der er en mere collider hvor vores
+        if (hitColliders.Length > 1)
+        {
+            for (int i = 0; i < 100; i++) //Maks numre gentagelser
+            {
+                Debug.Log("Tjek op til 100 gange");
+                GenerateRandomPosition();
+
+                CheckCollision(visualRadius);
+                
+                if (hitColliders.Length == 1)
+                {
+                    //Debug.Log(" Spawning visuals: " + (objectActive + 1));
+                    Debug.Log("Break ud når den har fundet en.");
+                    break;
+                }   
+            }            
+        }
+
+
+        //Load current enemy visuals
+        visuals = Instantiate(data[randomDataNumber].enemyModel);
+
+        visuals.name += (objectActive + 1);
+
+        visuals.transform.localPosition = position;
+
+        Debug.Log(" Spawning visuals: " + (objectActive + 1 + " localposition + position " + visuals.transform.localPosition + position));
+
+        visuals.transform.rotation = Quaternion.identity;
+        //Sætter først til et child object her, da position ville være forkert hvis den kaldes før.
+        visuals.transform.SetParent(this.transform);
+
+        
+
+        enemyOwnData.currentHealth = data[randomDataNumber].health;
+        enemyOwnData.score = data[randomDataNumber].score;
+
+        enemyOwnData = null;
+        visuals = null;
+
+        objectActive++;
+
+
+    }
+
     void GenerateRandomPosition()
     {
         //Lavet som en random range.
@@ -170,90 +234,19 @@ public class EnemyAnimal : MonoBehaviour
         //Debug.Log("Position " + position);
     }
 
+
+
     void CheckCollision(float actualRadius)
     {
         //Debug.Log("actualRadius " + actualRadius);
 
-        
-
-        CollisionWithEnemy = Physics2D.OverlapCircle(position, actualRadius, LayerMask.GetMask("EnemyLayer"));
-        CollisionWithPlayer = Physics2D.OverlapCircle(position, actualRadius, LayerMask.GetMask("Player"));
-
+        hitColliders = Physics2D.OverlapCircleAll(position, actualRadius, nonHitMask);
+        //Debug.Log("hitColliders " + hitColliders.Length);
         //Debug.Log("InCheckCollision:" + " Position " + position + " ObjectACtive " + (objectActive + 1) + ": CollisionWithEnemy = " + CollisionWithEnemy + " : CollisionWithPlayer = " + CollisionWithPlayer);
     }
 
 
 
-
-    void SpawnRandom()
-    {
-        //Debug.Log("Rigtig pos " + position);
-
-        randomDataNumber = Random.Range(0, data.Length);
-
-        visuals = data[randomDataNumber].enemyModel;
-        visualRaduis = visuals.GetComponent<CircleCollider2D>().radius * 2;
-        //Debug.Log("VisualRaduis " + visualRaduis);
-        //float enemyRadius = visuals.GetComponent<Collider2D>().bounds.max.x;
-        
-
-        GenerateRandomPosition();
-        CheckCollision(visualRaduis);
-        //Debug.Log("visuals " + visuals + "  enemyRadius " + enemyRadius);
-
-
-
-        if (CollisionWithEnemy == true || CollisionWithPlayer == true)
-        {
-
-            for (int i = 0; i < 40; i++)
-            {
-                position = new Vector2(0,0);
-                CollisionWithEnemy = null;
-                CollisionWithPlayer = null;
-
-                GenerateRandomPosition();
-                CheckCollision(visualRaduis);
-                Debug.Log(" 211: CollisionWithEnemy= " + CollisionWithEnemy + "  eller CollisionWithPlayer = " + CollisionWithPlayer);
-
-                if (!CollisionWithEnemy && !CollisionWithPlayer)
-                {
-                    Debug.Log(" 215: CollisionWithEnemy= " + CollisionWithEnemy + "  eller CollisionWithPlayer = " + CollisionWithPlayer);
-
-                    break;
-                }   
-            }            
-        }
-
-        CheckCollision(visualRaduis);
-
-        if (CollisionWithEnemy == null && CollisionWithPlayer == null)
-        {
-            //Debug.Log(" 226: CollisionWithEnemy= " + CollisionWithEnemy + "  eller CollisionWithPlayer = " + CollisionWithPlayer);
-            Debug.Log(" Spawning visuals: " + (objectActive + 1));
-
-            //Load current enemy visuals
-            visuals = Instantiate(data[randomDataNumber].enemyModel);
-            visuals.transform.localPosition = position;
-            visuals.transform.rotation = Quaternion.identity;
-            //Sætter først til et child object her, da position ville være forkert hvis den kaldes før.
-            visuals.transform.SetParent(this.transform);
-
-            enemyOwnData = visuals.GetComponent<EnemyOwnData>();
-
-            enemyOwnData.currentHealth = data[randomDataNumber].health;
-            enemyOwnData.score = data[randomDataNumber].score;
-
-            objectActive++;
-            //Debug.Log("ObjectActive" + (objectActive + 1));
-
-        }
-        //else
-        //{
-        //    return;
-        //}
-
-    }
 
     //void SpawnNormal(int enemyNumber)
     //{

@@ -16,17 +16,65 @@ public class EnemyOwnData : MonoBehaviour
 
     private Transform enemyTransform;
     private CircleCollider2D circleCollider;
+    public Collider2D[] colliderEnemy;
     private float radius;
 
-    private void Start()
+
+    public LayerMask enemyMask;
+
+    private void Awake()
     {
         inGameDisplay = FindObjectOfType<InGameDisplay>();
         enemyTransform = GetComponent<Transform>();
         circleCollider = GetComponent<CircleCollider2D>();
-        radius = circleCollider.radius * 2;
+        radius = circleCollider.radius;
         alive = true;
 
-        //OnDrawGizmos();
+        
+    }
+
+    private void Start()
+    {
+        //Problemet er at jeg ikke kan 
+        
+
+
+
+
+    }
+
+    private void Update()
+    {
+
+        colliderEnemy = Physics2D.OverlapCircleAll(transform.position, radius, enemyMask);
+        
+
+
+        //If længde er over >= 2 find nyt punkt
+
+        //if ( !isHittingOne)
+        //{
+        //    Debug.Log("Something is in my space dog" + gameObject.name + " : Transform position" + transform.position + enemyMask);
+
+        //    isHittingOne = true;
+        //}
+    }
+
+    private bool CheckCollider()
+    {
+        colliderEnemy = Physics2D.OverlapCircleAll(transform.position, radius, enemyMask);
+        Debug.Log("EnemyOwnData collider længde" + name + " :  " + colliderEnemy.Length);
+
+        if (colliderEnemy.Length == 1)
+        {
+            Debug.Log("true");
+            return true;
+        }
+        else
+        {
+            Debug.Log("False");
+            return false;
+        }
     }
 
     public void Damage()

@@ -120,10 +120,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68bd80a3edbd93946b29442b2081b565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
-  score: 0
+  currentHealth: 30
+  score: 5
   alive: 0
   inGameDisplay: {fileID: 0}
+  colliderEnemy: []
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 1280
 --- !u!58 &574509370039021581
 CircleCollider2D:
   m_ObjectHideFlags: 0

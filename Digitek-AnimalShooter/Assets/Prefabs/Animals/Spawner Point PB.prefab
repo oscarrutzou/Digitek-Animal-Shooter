@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3788291832279154698
 MonoBehaviour:
@@ -44,6 +44,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e1b6c0790102dc49aa933f550429d04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 892d9614e8d40b74b8c4bf932c30bd40, type: 2}
+  data:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   enemyOwnData: {fileID: 0}
   visuals: {fileID: 0}
+  randomGeneration: 0
+  enemyArrayNumber: 0
+  randomDataNumber: 0
+  visualRaduis: 0
+  pos1: {fileID: 0}
+  pos2: {fileID: 0}
+  firstTimeSpawn: 1
+  objectActive: 0
+  maxObjects: 10
+  hitColliders: []
+  nonHitMask:
+    serializedVersion: 2
+    m_Bits: 1280

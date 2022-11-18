@@ -33,31 +33,14 @@ public class EnemyOwnData : MonoBehaviour
         
     }
 
-    private void Start()
-    {
-        //Problemet er at jeg ikke kan 
-        
-
-
-
-
-    }
-
     private void Update()
     {
 
         colliderEnemy = Physics2D.OverlapCircleAll(transform.position, radius, enemyMask);
-        
+
 
 
         //If længde er over >= 2 find nyt punkt
-
-        //if ( !isHittingOne)
-        //{
-        //    Debug.Log("Something is in my space dog" + gameObject.name + " : Transform position" + transform.position + enemyMask);
-
-        //    isHittingOne = true;
-        //}
     }
 
     private bool CheckCollider()
@@ -77,12 +60,12 @@ public class EnemyOwnData : MonoBehaviour
         }
     }
 
-    public void Damage()
+    public void Damage(int damage)
     {
         Debug.Log("Animal health before: " + currentHealth);
 
         //Indsæt weapondamage her.
-        currentHealth -= 10;
+        currentHealth -= damage;
 
         Debug.Log("Animal health after: " + currentHealth);
 

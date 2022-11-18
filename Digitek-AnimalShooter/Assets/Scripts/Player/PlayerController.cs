@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     
     private InputAction pause;
     private InputAction fire;
+    private InputAction reload;
+    private InputAction numKey;
 
     public bool fired;
 
@@ -75,6 +77,12 @@ public class PlayerController : MonoBehaviour
         pause = playerInputActions.Player.Pause;
         pause.Enable();
         pause.performed += Pause;
+
+        reload = playerInputActions.Player.Reload;
+        reload.Enable();
+        reload.performed += Reload;
+
+
     }
 
     private void OnDisable()
@@ -210,13 +218,29 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void Reload(InputAction.CallbackContext context)
+    {
+        //hvis ammo er mindre end max ammo og større end 0
+        if (!playerAimWeapon._isReloading && playerAimWeapon._tempAmmo < playerAimWeapon._ammo)
+        {
+            Debug.Log("Kan Reloade");
+            playerAimWeapon.Reload();
+            //Spil Reload Icon
+
+        }
+        else
+        {
+            Debug.Log("Reloder allerede, gør intet //");
+        }
+    }
+
     private void Fire(InputAction.CallbackContext context)
     {
         //Check om våben reload time er 0 eller under igen, så kan man skyde.
         //Plus tid efter hver gang
         
 
-        if (context.performed)
+        if (context.performed && !playerAimWeapon._isReloading)
         {
             playerAimWeapon.HandleShooting();
 

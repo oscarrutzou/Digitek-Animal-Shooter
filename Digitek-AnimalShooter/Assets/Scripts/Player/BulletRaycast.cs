@@ -9,6 +9,7 @@ public class BulletRaycast : MonoBehaviour
 
     [SerializeField] EnemyOwnData enemyOwnData;
 
+
     public void Shoot(Vector3 shootPosition, Vector3 shootDirection)
     {
         RaycastHit2D raycastHit2D = Physics2D.Raycast(shootPosition, shootDirection);
@@ -36,7 +37,7 @@ public class BulletRaycast : MonoBehaviour
 
                 if (enemyOwnData.currentHealth > 0)
                 {
-                    enemyOwnData.Damage();
+                    enemyOwnData.Damage(10);
                 }
                 else
                 {

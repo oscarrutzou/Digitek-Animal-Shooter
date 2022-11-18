@@ -14,7 +14,12 @@ public class PlayerAimWeapon : MonoBehaviour
         public Vector3 shootPosition;
     }
 
-    public WeaponData data;
+    public WeaponData[] _data;
+    private GameObject weaponGameObject;
+    private int _dataCurrentNumber;
+    public int _dataNumber;
+    public bool _isReloading = false;
+
     [SerializeField] PlayerController playerController;
     [SerializeField] PlayerShoot playerShoot;
 
@@ -28,26 +33,76 @@ public class PlayerAimWeapon : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         playerShoot = GetComponentInChildren<PlayerShoot>();
 
-        //if (data != null)
-        //{
-        //    LoadWeaponData(data);
-        //}
+        if (_data != null)
+        {
+            CheckDataAmount(); //Bruges senere
+
+            _dataCurrentNumber = 0;
+
+            LoadWeaponData(_data, _dataCurrentNumber);
+
+            //for (int i = _dataCurrentNumber; i < _dataAmount; i++)
+            //{
+            //    LoadWeaponData(_data, _dataNumber);
+            //}
+
+        }
 
     }
-    
-   
+
+    public void Reload()
+    {
+        _isReloading = true;
+
+    }
+
+
+    void Update()
+    {
+        HandleAiming();
+
+        if (_tempAmmo == 0 && !_isReloading)
+        {
+            Reload();
+        }
+
+        if (_isReloading)
+        {
+            if (_tempReloadTime >= 0)
+            {
+                _tempReloadTime -= Time.deltaTime;
+            }
+            else
+            {
+                Debug.Log("Reload finished");
+                _isReloading = false;
+                _tempReloadTime = _reloadTime;
+                _tempAmmo = _ammo;
+            }
+        }
+    }
+
+    private int _dataAmount;
+
+    void CheckDataAmount()
+    {
+        _dataAmount = _data.Length;
+    }
+
+    public int _damage;
+    public int _ammo;
+    public int _tempAmmo;
+    public float _reloadTime;
+    public float _tempReloadTime;
 
     //Kald hver gang der skiftes weapon []. 
-    private void LoadWeaponData(WeaponData _data)
+    private void LoadWeaponData(WeaponData[] data, int dataNumber)
     {
-        
-
-    }
-
-    private void Update()
-    {
-
-        HandleAiming();
+        _damage = data[dataNumber].damage;
+        _ammo = data[dataNumber].ammo;
+        _tempAmmo = _ammo;
+        _reloadTime = data[dataNumber].reloadTime;
+        _tempReloadTime = _reloadTime;
     }
 
     private void HandleAiming()

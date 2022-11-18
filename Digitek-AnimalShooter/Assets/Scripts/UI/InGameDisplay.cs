@@ -47,6 +47,8 @@ public class InGameDisplay : MonoBehaviour
     [HideInInspector] public int currentKills;
 
 
+
+
     private void Awake()
     {
         InstantiateSingleton();
@@ -103,6 +105,8 @@ public class InGameDisplay : MonoBehaviour
         currentTime = 0f;
         StartTimer();
     }
+
+
 
     //public void LevelComplete()
     //{

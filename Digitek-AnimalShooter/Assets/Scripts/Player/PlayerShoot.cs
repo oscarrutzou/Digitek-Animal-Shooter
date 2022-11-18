@@ -16,6 +16,9 @@ public class PlayerShoot : MonoBehaviour
 
     public GameObject currentWeapon;
 
+
+
+
     private void Start()
     {
         bulletRaycast = GetComponent<BulletRaycast>();
@@ -24,7 +27,6 @@ public class PlayerShoot : MonoBehaviour
 
         playerAimWeapon.OnShoot += PlayerAimWeapon_OnShoot;
 
-
     }
 
 
@@ -32,11 +34,14 @@ public class PlayerShoot : MonoBehaviour
     private void PlayerAimWeapon_OnShoot(object sender, PlayerAimWeapon.OnShootEventArgs e)
     {
         Debug.DrawLine(e.gunEndPointPosition, e.shootPosition, Color.white, .1f);
+        Debug.Log("gunEndPointPosition " + e.gunEndPointPosition + "  shootPosition " + e.shootPosition);
         bulletRaycast.Shoot(e.shootPosition, playerAimWeapon.aimDirection);
         //Spawn eksplosion visual gameobject: Eksplosion lyd her eller på gameobject: Få den til at udline lyden til sidst
         
 
         CameraShake.Instance.ShakeCamera(5f, .1f);
+
+        playerAimWeapon._tempAmmo--; //fjerner 1 hos tempammo
         //CreateWeaponTracer(e.gunEndPointPosition, e.shootPosition);
 
         //For at vise det flash når man skyder

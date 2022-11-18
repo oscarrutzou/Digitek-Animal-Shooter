@@ -29,7 +29,10 @@ public class Menu : MonoBehaviour
     public TextMeshProUGUI bestScoreText;
     public TextMeshProUGUI bestKillText;
 
-    
+    [Header("Ammo")]
+    public TextMeshProUGUI ammoText;
+    [HideInInspector] public int currentAmmo;
+
     //Score
     [HideInInspector] public int currentScore;
     [HideInInspector] public int bestScore;
@@ -37,6 +40,9 @@ public class Menu : MonoBehaviour
     //Kills
     [HideInInspector] public int currentKills;
     [HideInInspector] public int bestKills;
+
+    //Ammo
+    [HideInInspector] public int ammoUsed;
 
     void Start()
     {

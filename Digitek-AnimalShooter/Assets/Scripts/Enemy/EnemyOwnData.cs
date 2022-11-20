@@ -37,6 +37,7 @@ public class EnemyOwnData : MonoBehaviour
     {
 
         colliderEnemy = Physics2D.OverlapCircleAll(transform.position, radius, enemyMask);
+        //Debug.Log("EnemyOwnData collider længde" + name + " :  " + colliderEnemy.Length);
 
 
 

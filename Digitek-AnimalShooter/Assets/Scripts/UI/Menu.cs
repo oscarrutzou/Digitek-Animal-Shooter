@@ -41,8 +41,7 @@ public class Menu : MonoBehaviour
     [HideInInspector] public int currentKills;
     [HideInInspector] public int bestKills;
 
-    //Ammo
-    [HideInInspector] public int ammoUsed;
+
 
     void Start()
     {

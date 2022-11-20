@@ -46,7 +46,10 @@ public class InGameDisplay : MonoBehaviour
     public TextMeshProUGUI killText;
     [HideInInspector] public int currentKills;
 
-
+    [Header("Ammo")]
+    public TextMeshProUGUI ammoText;
+    [HideInInspector] public int ammoUsed;
+    public PlayerAimWeapon playerAimWeapon;
 
 
     private void Awake()
@@ -57,6 +60,7 @@ public class InGameDisplay : MonoBehaviour
     private void Start()
     {
         currentTime = startingTime;
+
         StartTimer();
 
         ////Lav besttime til at blive 
@@ -85,6 +89,8 @@ public class InGameDisplay : MonoBehaviour
         scoreText.text = currentScore.ToString();
 
         killText.text = currentKills.ToString();
+
+        ammoText.text = playerAimWeapon._tempAmmo.ToString() + " / " + playerAimWeapon._ammo.ToString();
     }
 
     //Starter timeren

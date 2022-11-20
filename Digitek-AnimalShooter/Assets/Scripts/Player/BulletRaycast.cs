@@ -9,6 +9,7 @@ public class BulletRaycast : MonoBehaviour
 
     [SerializeField] EnemyOwnData enemyOwnData;
 
+    [SerializeField] PlayerAimWeapon playerAimWeapon;
 
     public void Shoot(Vector3 shootPosition, Vector3 shootDirection)
     {
@@ -28,7 +29,7 @@ public class BulletRaycast : MonoBehaviour
 
                 GameObject enemyObject = raycastHit2D.collider.gameObject;
 
-                Debug.Log("GAmeObject + " + enemyObject);
+                //Debug.Log("GAmeObject + " + enemyObject);
 
 
                 enemyOwnData = enemyObject.GetComponent<EnemyOwnData>();
@@ -37,7 +38,7 @@ public class BulletRaycast : MonoBehaviour
 
                 if (enemyOwnData.currentHealth > 0)
                 {
-                    enemyOwnData.Damage(10);
+                    enemyOwnData.Damage(playerAimWeapon._damage);
                 }
                 else
                 {

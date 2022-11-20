@@ -24,8 +24,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float visualRadius;
 
 
-    [SerializeField] GameObject pos1;
-    [SerializeField] GameObject pos2;
+    [SerializeField] Transform pos1;
+    [SerializeField] Transform pos2;
 
     [SerializeField] private bool firstTimeSpawn = true;
 
@@ -50,11 +50,14 @@ public class EnemySpawner : MonoBehaviour
     {
         objectActive = 0;
 
-        minPosX = pos1.GetComponentInChildren<Transform>().position.x;
-        maxPosX = pos2.GetComponentInChildren<Transform>().position.x;
-        minPosY = pos1.GetComponentInChildren<Transform>().position.y;
-        maxPosY = pos2.GetComponentInChildren<Transform>().position.y;
+        //Bare brug transform i stedet for et gameobject!!!
+        minPosX = pos1.position.x;
+        maxPosX = pos2.position.x;
+        minPosY = pos1.position.y;
+        maxPosY = pos2.position.y;
 
+
+        CheckCollider(new Vector2(-2, -2), 1, mask);
     }
 
     private void Update()
@@ -65,6 +68,8 @@ public class EnemySpawner : MonoBehaviour
             visuals = null;
             return;
         }
+
+        //Debug.Log(objectActive);
 
         //Sørger for at der ikke går et antal tid før den spawner
         if (objectActive == 0 && firstTimeSpawn)
@@ -77,7 +82,8 @@ public class EnemySpawner : MonoBehaviour
 
                 Debug.Log("StartSpawner");
 
-                StartSpawner();
+                StartCoroutine(StartSpawner());
+                
             }
 
         }
@@ -90,7 +96,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 isSpawning = true;
 
-                Invoke("StartSpawner", 2f);
+                //Invoke("StartSpawner", 2f);
                 //if (currentTime >= spawnAfterTime)
                 //{
                 //    Debug.Log("StartSpawner after time");
@@ -104,7 +110,7 @@ public class EnemySpawner : MonoBehaviour
 
     }
 
-    void StartSpawner()
+    IEnumerator StartSpawner()
     {
         if (objectActive == 0 || objectActive <= maxObjects)
         {
@@ -118,6 +124,7 @@ public class EnemySpawner : MonoBehaviour
                     //Debug.Log("randomgeneration " + randomGeneration);
 
                     SpawnRandom();
+                    yield return null; //Null er en frame
                 }
                 else
                 {
@@ -134,13 +141,6 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    void SpawnRandom3()
-    {
-        for (int i = objectActive; i < maxObjects; i++)
-        {
-
-        }
-    }
 
 
     void SpawnRandom()
@@ -148,7 +148,7 @@ public class EnemySpawner : MonoBehaviour
         randomDataNumber = Random.Range(0, data.Length);
 
         visuals = data[randomDataNumber].enemyModel;
-        visuals.name += (objectActive + 1);
+        
         visualRadius = visuals.GetComponent<CircleCollider2D>().radius;
         enemyOwnData = visuals.GetComponent<EnemyOwnData>();
 
@@ -177,6 +177,8 @@ public class EnemySpawner : MonoBehaviour
         //Load current enemy visuals
         visuals = Instantiate(data[randomDataNumber].enemyModel);
 
+        visuals.name += (objectActive + 1);
+
         visuals.transform.localPosition = position;
         Debug.Log("position " + visuals.transform.localPosition);
 
@@ -188,19 +190,20 @@ public class EnemySpawner : MonoBehaviour
         enemyOwnData.currentHealth = data[randomDataNumber].health;
         enemyOwnData.score = data[randomDataNumber].score;
 
+        objectActive++;
         //enemyOwnData = null;
         //visuals = null;
 
-        if (colliderEnemy.Length == 1)
-        {
-            Debug.Log("videre til næste " + visuals.name);
-            objectActive++;
-        }
-        else
-        {
-            Debug.LogWarning("FEJL ikke tager længde ordenlig maybe");
+        //if (colliderEnemy.Length == 0)
+        //{
+        //    Debug.Log("videre til næste " + visuals.name);
             
-        }
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("FEJL ikke tager længde ordenlig maybe");
+            
+        //}
 
         
     }
@@ -208,16 +211,16 @@ public class EnemySpawner : MonoBehaviour
     public bool CheckCollider(Vector2 position, float radius, LayerMask layerMask)
     {
         colliderEnemy = Physics2D.OverlapCircleAll(position, radius, layerMask);
-        Debug.Log("EnemyOwnData collider længde" + visuals.name + " :  " + colliderEnemy.Length);
+        Debug.Log("EnemyOwnData collider længde" + " :  " + colliderEnemy.Length);
 
-        if (colliderEnemy.Length == 1)
+        if (colliderEnemy.Length == 0)
         {
-            Debug.Log("true");
+            Debug.Log("true" + objectActive);
             return true;
         }
         else
         {
-            Debug.Log("False");
+            Debug.Log("False" + objectActive);
             return false;
         }
     }
@@ -230,9 +233,9 @@ public class EnemySpawner : MonoBehaviour
 
         float positionY = Random.Range(minPosY, maxPosY);
 
-        //Sætter positionen af det skrald til det random stykke.
+        //Sætter positionen til det random stykke.
         position = new Vector2(positionX, positionY);
-        //Debug.Log("Position " + position);
+        Debug.Log("Position " + position);
     }
 
 

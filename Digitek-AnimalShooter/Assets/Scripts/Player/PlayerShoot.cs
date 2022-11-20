@@ -10,6 +10,7 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private BulletRaycast bulletRaycast;
 
     [SerializeField] public PlayerAimWeapon playerAimWeapon;
+    public InGameDisplay gameDisplay;
 
     [SerializeField] private Material weaponTracerMaterial;
     [SerializeField] private Sprite shootFlashSprite;
@@ -27,6 +28,7 @@ public class PlayerShoot : MonoBehaviour
 
         playerAimWeapon.OnShoot += PlayerAimWeapon_OnShoot;
 
+        gameDisplay = FindObjectOfType<InGameDisplay>();
     }
 
 
@@ -34,7 +36,7 @@ public class PlayerShoot : MonoBehaviour
     private void PlayerAimWeapon_OnShoot(object sender, PlayerAimWeapon.OnShootEventArgs e)
     {
         Debug.DrawLine(e.gunEndPointPosition, e.shootPosition, Color.white, .1f);
-        Debug.Log("gunEndPointPosition " + e.gunEndPointPosition + "  shootPosition " + e.shootPosition);
+        //Debug.Log("gunEndPointPosition " + e.gunEndPointPosition + "  shootPosition " + e.shootPosition);
         bulletRaycast.Shoot(e.shootPosition, playerAimWeapon.aimDirection);
         //Spawn eksplosion visual gameobject: Eksplosion lyd her eller på gameobject: Få den til at udline lyden til sidst
         
@@ -42,6 +44,7 @@ public class PlayerShoot : MonoBehaviour
         CameraShake.Instance.ShakeCamera(5f, .1f);
 
         playerAimWeapon._tempAmmo--; //fjerner 1 hos tempammo
+        gameDisplay.ammoUsed++;
         //CreateWeaponTracer(e.gunEndPointPosition, e.shootPosition);
 
         //For at vise det flash når man skyder

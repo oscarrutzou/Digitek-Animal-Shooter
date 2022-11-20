@@ -2381,12 +2381,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.724476
+  m_fontSize: 34.016212
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 16.862238
-  m_fontSizeMax: 33.724476
+  m_fontSizeMin: 17.008106
+  m_fontSizeMax: 34.016212
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -2809,6 +2809,8 @@ MonoBehaviour:
   killText: {fileID: 0}
   bestScoreText: {fileID: 0}
   bestKillText: {fileID: 0}
+  ammoText: {fileID: 0}
+  currentAmmo: 0
   currentScore: 0
   bestScore: 0
   currentKills: 0
@@ -2848,6 +2850,9 @@ MonoBehaviour:
   currentScore: 0
   killText: {fileID: 1306664894}
   currentKills: 0
+  ammoText: {fileID: 873709961}
+  ammoUsed: 0
+  playerAimWeapon: {fileID: 1576757927}
 --- !u!1 &873709959
 GameObject:
   m_ObjectHideFlags: 0
@@ -2860,7 +2865,7 @@ GameObject:
   - component: {fileID: 873709962}
   - component: {fileID: 873709961}
   m_Layer: 5
-  m_Name: Ammo
+  m_Name: AmmoText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2906,7 +2911,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ammo 2/16
+  m_text: Ammo
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2933,12 +2938,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.724476
+  m_fontSize: 34.016212
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 16.862238
-  m_fontSizeMax: 33.724476
+  m_fontSizeMin: 17.008106
+  m_fontSizeMax: 34.016212
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -3185,12 +3190,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.724476
+  m_fontSize: 34.016212
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 16.862238
-  m_fontSizeMax: 33.724476
+  m_fontSizeMin: 17.008106
+  m_fontSizeMax: 34.016212
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -3504,11 +3509,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1430768850683566777, guid: 92494e2ab3a898c428ecca4e83f33e65, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.56
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 1430768850683566777, guid: 92494e2ab3a898c428ecca4e83f33e65, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.72
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 1430768850683566777, guid: 92494e2ab3a898c428ecca4e83f33e65, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3730,7 +3735,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1286576371
 Transform:
   m_ObjectHideFlags: 0
@@ -3767,11 +3772,11 @@ MonoBehaviour:
   enemyArrayNumber: 0
   randomDataNumber: 0
   visualRadius: 0
-  pos1: {fileID: 620687353}
-  pos2: {fileID: 1058049265}
+  pos1: {fileID: 620687354}
+  pos2: {fileID: 1058049266}
   firstTimeSpawn: 1
   objectActive: 0
-  maxObjects: 5
+  maxObjects: 10
   colliderEnemy: []
   mask:
     serializedVersion: 2
@@ -3861,12 +3866,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.724476
+  m_fontSize: 34.016212
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 16.862238
-  m_fontSizeMax: 33.724476
+  m_fontSizeMin: 17.008106
+  m_fontSizeMax: 34.016212
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -4071,6 +4076,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletRaycast: {fileID: 0}
   playerAimWeapon: {fileID: 0}
+  gameDisplay: {fileID: 0}
   weaponTracerMaterial: {fileID: 2100000, guid: 08c7f5ae78137034cae5b05adced0ec6, type: 2}
   shootFlashSprite: {fileID: 0}
   currentWeapon: {fileID: 0}
@@ -4088,6 +4094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyGameObject: {fileID: 0}
   enemyOwnData: {fileID: 0}
+  playerAimWeapon: {fileID: 1576757927}
 --- !u!1 &1389375299
 GameObject:
   m_ObjectHideFlags: 0
@@ -4896,12 +4903,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.724476
+  m_fontSize: 34.016212
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 16.862238
-  m_fontSizeMax: 33.724476
+  m_fontSizeMin: 17.008106
+  m_fontSizeMax: 34.016212
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -5250,6 +5257,7 @@ MonoBehaviour:
   aimDirection: {x: 0, y: 0, z: 0}
   _damage: 0
   _ammo: 0
+  _tempAmmo: 0
   _reloadTime: 0
   _tempReloadTime: 0
 --- !u!1 &1740805979

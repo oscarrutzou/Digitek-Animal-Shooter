@@ -56,6 +56,11 @@ public class PlayerAimWeapon : MonoBehaviour
 
     }
 
+    public IEnumerator ReloadNumerator()
+    {
+
+        yield return new WaitForSeconds(_reloadTime);
+    }
 
     void Update()
     {

@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public Menu menu;
     InGameDisplay inGameDisplay;
     PlayerAimWeapon playerAimWeapon;
+    WeaponSwitching weaponSwitching;
+    public GameObject weaponSwitchingObject;
     public PlayerInputActions playerInputActions;
 
     [SerializeField] float moveSpeed = 1f;
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
     private InputAction fire;
     private InputAction reload;
     private InputAction numKey;
+    private InputAction scrool;
 
     public bool fired;
 
@@ -39,8 +42,9 @@ public class PlayerController : MonoBehaviour
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
 
 
-    public int maxHp = 100;
-    public int currentHp = 100;
+    private bool switchTimeBool = false;
+    [SerializeField] private float switchTime = 0.2f;
+    public float _tempSwitchTime;
 
 
     void Awake()
@@ -52,6 +56,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerAimWeapon = GetComponent<PlayerAimWeapon>();
+        weaponSwitching = GetComponentInChildren<WeaponSwitching>();
 
         playerInputActions = new PlayerInputActions();
 
@@ -82,12 +87,34 @@ public class PlayerController : MonoBehaviour
         reload.Enable();
         reload.performed += Reload;
 
+        numKey = playerInputActions.Player.NumKey;
+        numKey.Enable();
+        numKey.performed += NumKeys;
 
+        scrool = playerInputActions.Player.ScollWheelY;
+        scrool.Enable();
+        scrool.performed += ScollWheelY;
     }
 
     private void OnDisable()
     {
         fire.Disable();
+    }
+
+    private void Update()
+    {
+        if (switchTimeBool)
+        {
+            
+            if (_tempSwitchTime >= 0)
+            {
+                _tempSwitchTime -= Time.deltaTime;
+            }
+            else
+            {
+                switchTimeBool = false;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -232,6 +259,124 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Reloder allerede, gør intet //");
         }
+    }
+
+    public int selectedWeapon;
+    private void ScollWheelY(InputAction.CallbackContext context)
+    {
+        if (!switchTimeBool)
+        {
+            //int currentDataNumber = playerAimWeapon._dataCurrentNumber;
+            int dataAmount = playerAimWeapon._dataAmount;
+            int previousSelectedWeapon = weaponSwitching.selectedWeapon;
+
+            float value;
+            value = context.ReadValue<float>();
+
+
+            weaponSwitching.selectedWeapon = selectedWeapon;
+
+            if (value > 0f)
+            {
+                if (selectedWeapon >= weaponSwitchingObject.transform.childCount - 1)
+                {
+                    selectedWeapon = 0;
+                }
+                else
+                {
+                    
+
+                    if (selectedWeapon == dataAmount)
+                    {
+                        selectedWeapon = 0;
+                        
+                    }
+                    else
+                    {
+                        //Debug.Log("selectedWeapon++ " + selectedWeapon + " data " + dataAmount);
+                        selectedWeapon++;
+                    }
+
+                }
+
+            }
+            
+            if (value < 0f)
+            {
+                Debug.Log("down?");
+
+                Debug.Log("selectedWeapon-- " + selectedWeapon + " data " + dataAmount);
+                if (selectedWeapon <= 0)
+                {
+                    selectedWeapon = weaponSwitchingObject.transform.childCount - 1;
+                    
+                }
+                else
+                {
+                    if (selectedWeapon == 0)
+                    {
+                        selectedWeapon = dataAmount;
+                    }
+                    else
+                    {
+                        selectedWeapon--;
+                    }
+                }
+            }
+
+
+            if (previousSelectedWeapon != selectedWeapon)
+            {
+                weaponSwitching.selectedWeapon = selectedWeapon;
+                playerAimWeapon._dataCurrentNumber = selectedWeapon;
+                weaponSwitching.SelectWeapon();
+                Debug.Log(selectedWeapon);
+                playerAimWeapon.LoadWeaponData(playerAimWeapon._data, selectedWeapon);
+                switchTimeBool = true;
+                _tempSwitchTime = switchTime;
+            }
+
+            //weaponSwitching.selectedWeapon = weaponSwitching.selectedWeapon % weaponSwitchingObject.transform.childCount;
+
+
+            
+        }
+        
+    }
+
+
+
+    private void NumKeys(InputAction.CallbackContext context)
+    {
+        if (!switchTimeBool && !playerAimWeapon._isReloading)
+        {
+            
+            float numKeyValueFloat; // the number key value we want from this keypress
+            //int.TryParse(context.control.name, out numKeyValue);
+
+            numKeyValueFloat = context.ReadValue<float>();
+
+            int numKeyValueInt = (int)numKeyValueFloat;
+            int dataAmount = playerAimWeapon._dataAmount;
+            // Warning! If ctx.control.name can't parse as an int, numKeyValue will be 0
+
+            if (numKeyValueInt != playerAimWeapon._dataCurrentNumber)
+            {
+                if (numKeyValueInt <= dataAmount && !playerAimWeapon._isReloading) //Kun hvis den har fuldt ammo, gem ammo
+                {
+                    playerAimWeapon._dataCurrentNumber = numKeyValueInt;
+                    weaponSwitching.selectedWeapon = numKeyValueInt;
+                    selectedWeapon = numKeyValueInt;
+                    weaponSwitching.SelectWeapon();
+                    playerAimWeapon.LoadWeaponData(playerAimWeapon._data, numKeyValueInt);
+                    switchTimeBool = true;
+                    _tempSwitchTime = switchTime;
+                }
+            }
+
+            Debug.Log("int value of keypress is: " + numKeyValueInt);
+        }
+          
     }
 
     private void Fire(InputAction.CallbackContext context)

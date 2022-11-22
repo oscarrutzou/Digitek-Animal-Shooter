@@ -73,13 +73,22 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""NumKeys"",
+                    ""name"": ""NumKey"",
                     ""type"": ""Button"",
                     ""id"": ""59423d6a-b6e0-48a6-ac0f-d83fa186f0d9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ScollWheelY"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""54f65546-6ed7-4357-9ce3-73d62508e28d"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -330,9 +339,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""id"": ""122db90c-db14-4e72-ad1d-61e2416de0fb"",
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": ""Press"",
-                    ""processors"": ""Scale"",
+                    ""processors"": ""Scale(factor=0)"",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""NumKey"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -341,9 +350,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""id"": ""79801855-04ff-49cf-ad77-736a9080a1e2"",
                     ""path"": ""<Keyboard>/2"",
                     ""interactions"": ""Press"",
-                    ""processors"": ""Scale(factor=2)"",
+                    ""processors"": ""Scale"",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""NumKey"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -352,9 +361,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""id"": ""08066bc3-020d-4415-a7e7-c79549f48464"",
                     ""path"": ""<Keyboard>/3"",
                     ""interactions"": ""Press"",
-                    ""processors"": ""Scale(factor=3)"",
+                    ""processors"": ""Scale(factor=2)"",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""NumKey"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -363,9 +372,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""id"": ""7cf254e8-be3f-40c4-92c6-8b5c55687c01"",
                     ""path"": ""<Keyboard>/4"",
                     ""interactions"": ""Press"",
-                    ""processors"": ""Scale(factor=4)"",
+                    ""processors"": ""Scale(factor=3)"",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""NumKey"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -374,9 +383,20 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""id"": ""3e8f75f5-f80d-493a-8e66-55bd9089d051"",
                     ""path"": ""<Keyboard>/5"",
                     ""interactions"": ""Press"",
-                    ""processors"": ""Scale(factor=5)"",
+                    ""processors"": ""Scale(factor=4)"",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""NumKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""167d650a-3d07-4d02-8264-f7ce66cca4b8"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""ScollWheelY"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -969,7 +989,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
-        m_Player_NumKeys = m_Player.FindAction("NumKeys", throwIfNotFound: true);
+        m_Player_NumKey = m_Player.FindAction("NumKey", throwIfNotFound: true);
+        m_Player_ScollWheelY = m_Player.FindAction("ScollWheelY", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1046,7 +1067,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Reload;
-    private readonly InputAction m_Player_NumKeys;
+    private readonly InputAction m_Player_NumKey;
+    private readonly InputAction m_Player_ScollWheelY;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1056,7 +1078,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
-        public InputAction @NumKeys => m_Wrapper.m_Player_NumKeys;
+        public InputAction @NumKey => m_Wrapper.m_Player_NumKey;
+        public InputAction @ScollWheelY => m_Wrapper.m_Player_ScollWheelY;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1081,9 +1104,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Reload.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
                 @Reload.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
                 @Reload.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
-                @NumKeys.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNumKeys;
-                @NumKeys.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNumKeys;
-                @NumKeys.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNumKeys;
+                @NumKey.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNumKey;
+                @NumKey.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNumKey;
+                @NumKey.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNumKey;
+                @ScollWheelY.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnScollWheelY;
+                @ScollWheelY.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnScollWheelY;
+                @ScollWheelY.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnScollWheelY;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1103,9 +1129,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Reload.started += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
-                @NumKeys.started += instance.OnNumKeys;
-                @NumKeys.performed += instance.OnNumKeys;
-                @NumKeys.canceled += instance.OnNumKeys;
+                @NumKey.started += instance.OnNumKey;
+                @NumKey.performed += instance.OnNumKey;
+                @NumKey.canceled += instance.OnNumKey;
+                @ScollWheelY.started += instance.OnScollWheelY;
+                @ScollWheelY.performed += instance.OnScollWheelY;
+                @ScollWheelY.canceled += instance.OnScollWheelY;
             }
         }
     }
@@ -1267,7 +1296,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
-        void OnNumKeys(InputAction.CallbackContext context);
+        void OnNumKey(InputAction.CallbackContext context);
+        void OnScollWheelY(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

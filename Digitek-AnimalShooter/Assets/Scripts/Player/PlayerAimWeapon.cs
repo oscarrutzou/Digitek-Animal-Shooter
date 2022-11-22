@@ -16,8 +16,9 @@ public class PlayerAimWeapon : MonoBehaviour
 
     public WeaponData[] _data;
     private GameObject weaponGameObject;
-    private int _dataCurrentNumber;
+    public int _dataCurrentNumber;
     public int _dataNumber;
+    public int _dataAmount;
     public bool _isReloading = false;
 
     [SerializeField] PlayerController playerController;
@@ -50,7 +51,7 @@ public class PlayerAimWeapon : MonoBehaviour
 
     }
 
-    public void Reload()
+    public void Reload() //Lav til at den gemmer dens ammo, array int og gem ammo. Når den loader skal den tjekke om ammo er mindre end max også sætte current ammo til det gemte tal.
     {
         _isReloading = true;
 
@@ -87,11 +88,13 @@ public class PlayerAimWeapon : MonoBehaviour
         }
     }
 
-    private int _dataAmount;
+    
 
+    //Kald hvis man samler et våben op in game.
     void CheckDataAmount()
     {
-        _dataAmount = _data.Length;
+        _dataAmount = _data.Length - 1; // -1 for at få den til at være det samme som numKeys
+        //Debug.Log(_dataAmount);
     }
 
     public int _damage;
@@ -101,7 +104,7 @@ public class PlayerAimWeapon : MonoBehaviour
     public float _tempReloadTime;
 
     //Kald hver gang der skiftes weapon []. 
-    private void LoadWeaponData(WeaponData[] data, int dataNumber)
+    public void LoadWeaponData(WeaponData[] data, int dataNumber)
     {
         _damage = data[dataNumber].damage;
         _ammo = data[dataNumber].ammo;

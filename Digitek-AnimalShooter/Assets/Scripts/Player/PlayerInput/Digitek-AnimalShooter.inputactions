@@ -51,13 +51,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "NumKeys",
+                    "name": "NumKey",
                     "type": "Button",
                     "id": "59423d6a-b6e0-48a6-ac0f-d83fa186f0d9",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ScollWheelY",
+                    "type": "PassThrough",
+                    "id": "54f65546-6ed7-4357-9ce3-73d62508e28d",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -308,9 +317,9 @@
                     "id": "122db90c-db14-4e72-ad1d-61e2416de0fb",
                     "path": "<Keyboard>/1",
                     "interactions": "Press",
-                    "processors": "Scale",
+                    "processors": "Scale(factor=0)",
                     "groups": "Keyboard&Mouse",
-                    "action": "NumKeys",
+                    "action": "NumKey",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -319,9 +328,9 @@
                     "id": "79801855-04ff-49cf-ad77-736a9080a1e2",
                     "path": "<Keyboard>/2",
                     "interactions": "Press",
-                    "processors": "Scale(factor=2)",
+                    "processors": "Scale",
                     "groups": "Keyboard&Mouse",
-                    "action": "NumKeys",
+                    "action": "NumKey",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -330,9 +339,9 @@
                     "id": "08066bc3-020d-4415-a7e7-c79549f48464",
                     "path": "<Keyboard>/3",
                     "interactions": "Press",
-                    "processors": "Scale(factor=3)",
+                    "processors": "Scale(factor=2)",
                     "groups": "Keyboard&Mouse",
-                    "action": "NumKeys",
+                    "action": "NumKey",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -341,9 +350,9 @@
                     "id": "7cf254e8-be3f-40c4-92c6-8b5c55687c01",
                     "path": "<Keyboard>/4",
                     "interactions": "Press",
-                    "processors": "Scale(factor=4)",
+                    "processors": "Scale(factor=3)",
                     "groups": "Keyboard&Mouse",
-                    "action": "NumKeys",
+                    "action": "NumKey",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -352,9 +361,20 @@
                     "id": "3e8f75f5-f80d-493a-8e66-55bd9089d051",
                     "path": "<Keyboard>/5",
                     "interactions": "Press",
-                    "processors": "Scale(factor=5)",
+                    "processors": "Scale(factor=4)",
                     "groups": "Keyboard&Mouse",
-                    "action": "NumKeys",
+                    "action": "NumKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "167d650a-3d07-4d02-8264-f7ce66cca4b8",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ScollWheelY",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

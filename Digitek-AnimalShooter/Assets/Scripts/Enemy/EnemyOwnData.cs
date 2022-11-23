@@ -16,9 +16,11 @@ public class EnemyOwnData : MonoBehaviour
 
     private Transform enemyTransform;
     private CircleCollider2D circleCollider;
+    
     public Collider2D[] colliderEnemy;
     private float radius;
 
+    EnemySpawner enemySpawner;
 
     public LayerMask enemyMask;
 
@@ -30,6 +32,7 @@ public class EnemyOwnData : MonoBehaviour
         radius = circleCollider.radius;
         alive = true;
 
+        enemySpawner = FindObjectOfType<EnemySpawner>();
         
     }
 
@@ -92,6 +95,7 @@ public class EnemyOwnData : MonoBehaviour
 
         alive = false;
 
+        enemySpawner.objectActive--;
         //Spawn dødslyd?
 
         Destroy(gameObject);

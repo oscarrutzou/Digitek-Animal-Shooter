@@ -20,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] int enemyArrayNumber;
 
     [Header("Spawn")]
-    [SerializeField] int randomDataNumber;
+    //[SerializeField] int randomDataNumber;
     [SerializeField] float visualRadius;
 
 
@@ -38,6 +38,10 @@ public class EnemySpawner : MonoBehaviour
 
     private Vector2 position;
 
+    [SerializeField] private float currentTime;
+    [SerializeField] private float spawnAfterTime = 5f; 
+
+
     //Object
     [Header("Objects")]
     [SerializeField] public int objectActive;
@@ -50,12 +54,13 @@ public class EnemySpawner : MonoBehaviour
     {
         objectActive = 0;
 
-        //Bare brug transform i stedet for et gameobject!!!
+        
         minPosX = pos1.position.x;
         maxPosX = pos2.position.x;
         minPosY = pos1.position.y;
         maxPosY = pos2.position.y;
 
+        currentTime = spawnAfterTime;
 
         CheckCollider(new Vector2(-2, -2), 1, mask);
     }
@@ -69,13 +74,9 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
-        //Debug.Log(objectActive);
-
-        //Sørger for at der ikke går et antal tid før den spawner
-        if (objectActive == 0 && firstTimeSpawn)
+        if (objectActive == 0 && !isSpawning)
         {
-            //Sæt at den spawner til et nyt tal.
-            if (isSpawning == false)
+            if (firstTimeSpawn)
             {
                 isSpawning = true;
                 firstTimeSpawn = false;
@@ -83,71 +84,48 @@ public class EnemySpawner : MonoBehaviour
                 Debug.Log("StartSpawner");
 
                 StartCoroutine(StartSpawner());
-                
             }
-
-        }
-        else if (objectActive == 0 && !firstTimeSpawn)
-        {
-            //Start spawner efter et antal sek.
-            //Start timer
-
-            if (isSpawning == false)
+            else if (!firstTimeSpawn)
             {
-                isSpawning = true;
+
+                currentTime -= Time.deltaTime;
 
                 //Invoke("StartSpawner", 2f);
-                //if (currentTime >= spawnAfterTime)
-                //{
-                //    Debug.Log("StartSpawner after time");
+                if (currentTime <= 0)
+                {
+                    isSpawning = true;
+                    Debug.Log("StartSpawner after time");
+                    currentTime = spawnAfterTime;
+                    StartCoroutine(StartSpawner());
 
-                //    //StartSpawner();
-                //}
+                }
             }
-
-            //Så start spawner
         }
-
     }
 
     IEnumerator StartSpawner()
     {
-        if (objectActive == 0 || objectActive <= maxObjects)
+        for (int i = objectActive; i < maxObjects; i++)
         {
-            //Spawn 
-            //Debug.Log("ObjectActive" + (objectActive + 1));
-
-            for (int i = objectActive; i < maxObjects; i++)
-            {
-                if (randomGeneration)
-                {
-                    //Debug.Log("randomgeneration " + randomGeneration);
-
-                    SpawnRandom();
-                    yield return null; //Null er en frame
-                }
-                else
-                {
-                    //Debug.Log("randomgeneration " + randomGeneration);
-                    //SpawnNormal(enemyArrayNumber);
-
-                }
-
-                //objectActive++;
-                //Debug.Log(objectActive);
-            }
-
-            isSpawning = false;
+            SpawnVisuals();
+            yield return null; //Null er en frame
         }
+
+        isSpawning = false;
     }
 
 
 
-    void SpawnRandom()
+    void SpawnVisuals()
     {
-        randomDataNumber = Random.Range(0, data.Length);
+        if (randomGeneration)
+        {
+            enemyArrayNumber = Random.Range(0, data.Length);
+        }
 
-        visuals = data[randomDataNumber].enemyModel;
+        //randomDataNumber = Random.Range(0, data.Length);
+
+        visuals = data[enemyArrayNumber].enemyModel;
         
         visualRadius = visuals.GetComponent<CircleCollider2D>().radius;
         enemyOwnData = visuals.GetComponent<EnemyOwnData>();
@@ -159,8 +137,6 @@ public class EnemySpawner : MonoBehaviour
 
         if (!CheckCollider(position, visualRadius, mask))
         {
-            //Debug.Log("enemyOwnData.colliderEnemy.Length > 1 :::: " + enemyOwnData.colliderEnemy.Length);
-
             for (int i = 0; i < 100; i++)
             {
                 GenerateRandomPosition();
@@ -168,14 +144,13 @@ public class EnemySpawner : MonoBehaviour
 
                 if (CheckCollider(position, visualRadius, mask))
                 {
-                    //Debug.Log("enemyOwnData.colliderEnemy.Length == 1 :::: " + enemyOwnData.colliderEnemy.Length);
                     break;
                 }
             }
         }
 
         //Load current enemy visuals
-        visuals = Instantiate(data[randomDataNumber].enemyModel);
+        visuals = Instantiate(data[enemyArrayNumber].enemyModel);
 
         visuals.name += (objectActive + 1);
 
@@ -187,26 +162,13 @@ public class EnemySpawner : MonoBehaviour
         //Sætter først til et child object her, da position ville være forkert hvis den kaldes før.
         visuals.transform.SetParent(this.transform);
 
-        enemyOwnData.currentHealth = data[randomDataNumber].health;
-        enemyOwnData.score = data[randomDataNumber].score;
+        enemyOwnData.currentHealth = data[enemyArrayNumber].health;
+        enemyOwnData.score = data[enemyArrayNumber].score;
 
-        objectActive++;
-        //enemyOwnData = null;
-        //visuals = null;
-
-        //if (colliderEnemy.Length == 0)
-        //{
-        //    Debug.Log("videre til næste " + visuals.name);
-            
-        //}
-        //else
-        //{
-        //    Debug.LogWarning("FEJL ikke tager længde ordenlig maybe");
-            
-        //}
-
-        
+        objectActive++; 
     }
+
+
 
     public bool CheckCollider(Vector2 position, float radius, LayerMask layerMask)
     {

@@ -40,11 +40,11 @@ public class BulletRaycast : MonoBehaviour
                 {
                     enemyOwnData.Damage(playerAimWeapon._damage);
                 }
-                else
-                {
-                    Debug.Log("Animal er død");
-                    return;
-                }
+                //else
+                //{
+                //    Debug.Log("Animal er død");
+                //    return;
+                //}
             }
         }
     }

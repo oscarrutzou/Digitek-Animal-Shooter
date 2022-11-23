@@ -394,7 +394,7 @@ public class PlayerController : MonoBehaviour
     private void Fire(InputAction.CallbackContext context)
     {
         //Check om våben reload time er 0 eller under igen, så kan man skyde.
-        //Plus tid efter hver gang
+        //Lav CoRutine og brug bool til at stoppe den med at køre hele tiden. Brug data fra scriptebale objects.
         
 
         if (context.performed && !playerAimWeapon._isReloading)

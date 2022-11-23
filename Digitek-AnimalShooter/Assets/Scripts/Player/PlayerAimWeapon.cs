@@ -14,12 +14,7 @@ public class PlayerAimWeapon : MonoBehaviour
         public Vector3 shootPosition;
     }
 
-    public WeaponData[] _data;
-    private GameObject weaponGameObject;
-    public int _dataCurrentNumber;
-    public int _dataNumber;
-    public int _dataAmount;
-    public bool _isReloading = false;
+    
 
     [SerializeField] PlayerController playerController;
     [SerializeField] PlayerShoot playerShoot;
@@ -27,29 +22,52 @@ public class PlayerAimWeapon : MonoBehaviour
     [SerializeField] private Transform aimTransform;
     [SerializeField] private Transform aimGunEndPointTransform;
 
-    public Vector3 aimDirection;
+    [HideInInspector] public Vector3 aimDirection;
 
-    private void Awake()
+    
+    public WeaponData[] _data;
+    public int _dataCurrentNumber;
+
+    [HideInInspector] public int _dataAmount;
+
+
+    [HideInInspector] public int _damage;
+    public int _ammo;
+    public int _tempAmmo;
+    [HideInInspector] public float _reloadTime;
+     public float _tempReloadTime;
+
+    [HideInInspector] public bool _isReloading = false;
+
+    public int[] tempAmmoArray;
+
+
+    private void Start()
     {
         playerController = GetComponent<PlayerController>();
         playerShoot = GetComponentInChildren<PlayerShoot>();
 
         if (_data != null)
         {
-            CheckDataAmount(); //Bruges senere
+            CheckDataAmount();
+            tempAmmoArray = new int[_data.Length];
 
             _dataCurrentNumber = 0;
 
-            LoadWeaponData(_data, _dataCurrentNumber);
-
-            //for (int i = _dataCurrentNumber; i < _dataAmount; i++)
+            //for(int i = _dataCurrentNumber; i < _data.Length; i++)
             //{
-            //    LoadWeaponData(_data, _dataNumber);
+            //    tempAmmoArray[i] = 0;
             //}
 
-        }
+            LoadWeaponData(_data, _dataCurrentNumber, true);
+            //ChangeAmmoInArray(tempAmmoArray, _dataCurrentNumber, _tempAmmo);
+            
+            
 
+        }
     }
+
+
 
     public void Reload() //Lav til at den gemmer dens ammo, array int og gem ammo. Når den loader skal den tjekke om ammo er mindre end max også sætte current ammo til det gemte tal.
     {
@@ -84,6 +102,7 @@ public class PlayerAimWeapon : MonoBehaviour
                 _isReloading = false;
                 _tempReloadTime = _reloadTime;
                 _tempAmmo = _ammo;
+                ChangeAmmoInArray(tempAmmoArray, _dataCurrentNumber, _tempAmmo);
             }
         }
     }
@@ -97,20 +116,46 @@ public class PlayerAimWeapon : MonoBehaviour
         //Debug.Log(_dataAmount);
     }
 
-    public int _damage;
-    public int _ammo;
-    public int _tempAmmo;
-    public float _reloadTime;
-    public float _tempReloadTime;
+    
 
     //Kald hver gang der skiftes weapon []. 
-    public void LoadWeaponData(WeaponData[] data, int dataNumber)
+    public void LoadWeaponData(WeaponData[] data, int dataNumber, bool fullMag)
     {
         _damage = data[dataNumber].damage;
-        _ammo = data[dataNumber].ammo;
-        _tempAmmo = _ammo;
         _reloadTime = data[dataNumber].reloadTime;
         _tempReloadTime = _reloadTime;
+        _ammo = data[dataNumber].ammo;
+
+        if (tempAmmoArray[dataNumber] == 0)
+        {
+            _tempAmmo = _ammo;
+        }
+        else if (!fullMag)
+        {
+            _tempAmmo = tempAmmoArray[dataNumber];
+        }
+        else
+        {
+            Debug.Log(_tempAmmo + " rytryt  " + _ammo);
+            _tempAmmo = _ammo;
+        }
+
+        ChangeAmmoInArray(tempAmmoArray, dataNumber, _tempAmmo);
+
+        //if (tempAmmoBool)
+        //{
+        //    _tempAmmo = _ammo;
+        //}
+        //else
+        //{
+        //    ChangeAmmoInArray(tempAmmoArray, dataNumber, _tempAmmo);
+        //    _tempAmmo = _ammo;
+        //}
+    }
+
+    public void ChangeAmmoInArray(int[] ammoArray, int dataNumber, int tempAmmo)
+    {
+        ammoArray[dataNumber] = tempAmmo;
     }
 
     private void HandleAiming()

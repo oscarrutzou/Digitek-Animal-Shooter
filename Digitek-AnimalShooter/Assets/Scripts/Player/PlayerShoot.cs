@@ -11,6 +11,7 @@ public class PlayerShoot : MonoBehaviour
 
     [SerializeField] public PlayerAimWeapon playerAimWeapon;
     public InGameDisplay gameDisplay;
+    //PlayerController playerController;
 
     [SerializeField] private Material weaponTracerMaterial;
     [SerializeField] private Sprite shootFlashSprite;
@@ -25,6 +26,7 @@ public class PlayerShoot : MonoBehaviour
         bulletRaycast = GetComponent<BulletRaycast>();
 
         playerAimWeapon = GetComponentInParent<PlayerAimWeapon>();
+        //playerController = GetComponentInParent<PlayerController>();
 
         playerAimWeapon.OnShoot += PlayerAimWeapon_OnShoot;
 
@@ -44,6 +46,8 @@ public class PlayerShoot : MonoBehaviour
         CameraShake.Instance.ShakeCamera(5f, .1f);
 
         playerAimWeapon._tempAmmo--; //fjerner 1 hos tempammo
+        playerAimWeapon.ChangeAmmoInArray(playerAimWeapon.tempAmmoArray, playerAimWeapon._dataCurrentNumber, playerAimWeapon._tempAmmo);
+
         gameDisplay.ammoUsed++;
         //CreateWeaponTracer(e.gunEndPointPosition, e.shootPosition);
 

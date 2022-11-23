@@ -16,11 +16,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float collisionOffset = 0.05f;
     [SerializeField] ContactFilter2D movementFilter;
 
-    [SerializeField] GameObject hpContainer;
-    [SerializeField] //StatusBar hpBar;
 
-
-    public Vector2 movementInput;
+    [HideInInspector] public Vector2 movementInput;
     [HideInInspector] public float lastXInput;
     [HideInInspector] public float lastYInput;
 
@@ -32,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private InputAction numKey;
     private InputAction scrool;
 
-    public bool fired;
+    [HideInInspector] public bool fired;
 
     private Rigidbody2D rb;
 
@@ -41,16 +38,20 @@ public class PlayerController : MonoBehaviour
 
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
 
+    public int selectedWeapon;
 
     private bool switchTimeBool = false;
     [SerializeField] private float switchTime = 0.2f;
-    public float _tempSwitchTime;
+    [HideInInspector] public float _tempSwitchTime;
+    
+    private void Awake()
+    {
+        playerInputActions = new PlayerInputActions();
+    }
 
-
-    void Awake()
+    private void Start()
     {
         fired = false;
-
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -58,21 +59,13 @@ public class PlayerController : MonoBehaviour
         playerAimWeapon = GetComponent<PlayerAimWeapon>();
         weaponSwitching = GetComponentInChildren<WeaponSwitching>();
 
-        playerInputActions = new PlayerInputActions();
-
-        //Kunne gøre det sammen.
+        
+        
         menu = FindObjectOfType<Menu>();
         inGameDisplay = FindObjectOfType<InGameDisplay>();
-
-        //hpBar = hpContainer.GetComponent<StatusBar>();
-
-
-
-        //hpBar.SetState(currentHp, maxHp);
-
-
     }
 
+    #region Enable + Disable
     private void OnEnable()
     {
         fire = playerInputActions.Player.Fire;
@@ -99,8 +92,14 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         fire.Disable();
+        pause.Disable();
+        reload.Disable();
+        numKey.Disable();
+        scrool.Disable();
     }
+    #endregion
 
+    #region Update + FixedUpdate
     private void Update()
     {
         if (switchTimeBool)
@@ -165,6 +164,9 @@ public class PlayerController : MonoBehaviour
 
 
     }
+    #endregion
+
+
 
     #region Movement
     private bool TryMove(Vector2 direction)
@@ -194,13 +196,14 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
-
     private void OnMove(InputValue movementValue)
     {
         movementInput = movementValue.Get<Vector2>();
     }
     #endregion
+
+
+    
 
 
 
@@ -261,13 +264,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public int selectedWeapon;
+    private int dataAmount;
     private void ScollWheelY(InputAction.CallbackContext context)
     {
         if (!switchTimeBool)
         {
             //int currentDataNumber = playerAimWeapon._dataCurrentNumber;
-            int dataAmount = playerAimWeapon._dataAmount;
+            dataAmount = playerAimWeapon._dataAmount;
+            Debug.Log("dataAmount" + dataAmount);
             int previousSelectedWeapon = weaponSwitching.selectedWeapon;
 
             float value;
@@ -276,26 +280,16 @@ public class PlayerController : MonoBehaviour
 
             weaponSwitching.selectedWeapon = selectedWeapon;
 
+            
             if (value > 0f)
             {
-                if (selectedWeapon >= weaponSwitchingObject.transform.childCount - 1)
+                if (selectedWeapon >= dataAmount)
                 {
                     selectedWeapon = 0;
                 }
                 else
                 {
-                    
-
-                    if (selectedWeapon == dataAmount)
-                    {
-                        selectedWeapon = 0;
-                        
-                    }
-                    else
-                    {
-                        //Debug.Log("selectedWeapon++ " + selectedWeapon + " data " + dataAmount);
-                        selectedWeapon++;
-                    }
+                    selectedWeapon++;
 
                 }
 
@@ -303,25 +297,16 @@ public class PlayerController : MonoBehaviour
             
             if (value < 0f)
             {
-                Debug.Log("down?");
-
-                Debug.Log("selectedWeapon-- " + selectedWeapon + " data " + dataAmount);
-                if (selectedWeapon <= 0)
+                
+                if (selectedWeapon == 0)
                 {
-                    selectedWeapon = weaponSwitchingObject.transform.childCount - 1;
-                    
+                    selectedWeapon = dataAmount;
                 }
                 else
                 {
-                    if (selectedWeapon == 0)
-                    {
-                        selectedWeapon = dataAmount;
-                    }
-                    else
-                    {
-                        selectedWeapon--;
-                    }
+                    selectedWeapon--;
                 }
+                
             }
 
 
@@ -331,17 +316,29 @@ public class PlayerController : MonoBehaviour
                 playerAimWeapon._dataCurrentNumber = selectedWeapon;
                 weaponSwitching.SelectWeapon();
                 Debug.Log(selectedWeapon);
-                playerAimWeapon.LoadWeaponData(playerAimWeapon._data, selectedWeapon);
+
+                Debug.Log(playerAimWeapon.tempAmmoArray[selectedWeapon] + "  oss " + playerAimWeapon._data[selectedWeapon].ammo);
+
+                if (playerAimWeapon.tempAmmoArray[selectedWeapon] != playerAimWeapon._data[selectedWeapon].ammo)
+                {
+                    playerAimWeapon.LoadWeaponData(playerAimWeapon._data, selectedWeapon, false);
+                }
+                else
+                {
+                    playerAimWeapon.LoadWeaponData(playerAimWeapon._data, selectedWeapon, true);
+                }
+
+                //playerAimWeapon.ChangeAmmoInArray(playerAimWeapon.tempAmmoArray, selectedWeapon, playerAimWeapon._tempAmmo);
+
+                //playerAimWeapon.ChanceAmmoInArray(playerAimWeapon.tempAmmoArray, selectedWeapon, playerAimWeapon._tempAmmo);
+
                 switchTimeBool = true;
                 _tempSwitchTime = switchTime;
             }
 
             //weaponSwitching.selectedWeapon = weaponSwitching.selectedWeapon % weaponSwitchingObject.transform.childCount;
-
-
             
-        }
-        
+        }   
     }
 
 
@@ -356,28 +353,43 @@ public class PlayerController : MonoBehaviour
 
             numKeyValueFloat = context.ReadValue<float>();
 
-            int numKeyValueInt = (int)numKeyValueFloat;
-            int dataAmount = playerAimWeapon._dataAmount;
+            //int numKeyValueInt = (int)numKeyValueFloat; //Kan laves om til at bruge den samme som selectedweapon
+            selectedWeapon = (int)numKeyValueFloat;
+
+            dataAmount = playerAimWeapon._dataAmount;
             // Warning! If ctx.control.name can't parse as an int, numKeyValue will be 0
 
-            if (numKeyValueInt != playerAimWeapon._dataCurrentNumber)
+            if (selectedWeapon != playerAimWeapon._dataCurrentNumber)
             {
-                if (numKeyValueInt <= dataAmount && !playerAimWeapon._isReloading) //Kun hvis den har fuldt ammo, gem ammo
+                if (selectedWeapon <= dataAmount && !playerAimWeapon._isReloading) //Kun hvis den har fuldt ammo, gem ammo
                 {
-                    playerAimWeapon._dataCurrentNumber = numKeyValueInt;
-                    weaponSwitching.selectedWeapon = numKeyValueInt;
-                    selectedWeapon = numKeyValueInt;
+                    playerAimWeapon._dataCurrentNumber = selectedWeapon;
+                    weaponSwitching.selectedWeapon = selectedWeapon;
+                    
                     weaponSwitching.SelectWeapon();
-                    playerAimWeapon.LoadWeaponData(playerAimWeapon._data, numKeyValueInt);
+                    Debug.Log(playerAimWeapon.tempAmmoArray[selectedWeapon] + "  oss " + playerAimWeapon._ammo);
+
+                    if (playerAimWeapon.tempAmmoArray[selectedWeapon] != playerAimWeapon._data[selectedWeapon].ammo)
+                    {
+                        playerAimWeapon.LoadWeaponData(playerAimWeapon._data, selectedWeapon, false);
+                    }
+                    else
+                    {
+                        playerAimWeapon.LoadWeaponData(playerAimWeapon._data, selectedWeapon, true);
+                    }
+
+                    //playerAimWeapon.ChangeAmmoInArray(playerAimWeapon.tempAmmoArray, selectedWeapon, playerAimWeapon._tempAmmo);
+
                     switchTimeBool = true;
                     _tempSwitchTime = switchTime;
                 }
             }
 
-            Debug.Log("int value of keypress is: " + numKeyValueInt);
+            Debug.Log("int value of keypress is: " + selectedWeapon);
         }
           
     }
+
 
     private void Fire(InputAction.CallbackContext context)
     {

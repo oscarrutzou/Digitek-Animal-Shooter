@@ -5249,15 +5249,14 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  hpContainer: {fileID: 0}
   movementInput: {x: 0, y: 0}
   lastXInput: 0
   lastYInput: 0
   fired: 0
   spriteRenderer: {fileID: 0}
+  selectedWeapon: 0
   switchTime: 0.5
   _tempSwitchTime: 0
-  selectedWeapon: 0
 --- !u!114 &1576757927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5270,26 +5269,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3f835aaec3b4942848c4848aca8eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 1576757926}
+  playerShoot: {fileID: 1372525510}
+  aimTransform: {fileID: 577499688}
+  aimGunEndPointTransform: {fileID: 723334444}
+  aimDirection: {x: 0, y: 0, z: 0}
   _data:
   - {fileID: 11400000, guid: bd9cb23f6ada47046aea0590e5ed0f5b, type: 2}
   - {fileID: 11400000, guid: cd28634020cd8c54594db6ac1a1f91f5, type: 2}
   - {fileID: 11400000, guid: e0d01ca8c361de647a3a0d40ddbff4d4, type: 2}
   - {fileID: 11400000, guid: a79887d45645af846ba7267612f0dee7, type: 2}
-  - {fileID: 11400000, guid: 53f87e664b30b924fbd5f4754b14a1b8, type: 2}
   _dataCurrentNumber: 0
-  _dataNumber: 0
   _dataAmount: 0
-  _isReloading: 0
-  playerController: {fileID: 0}
-  playerShoot: {fileID: 0}
-  aimTransform: {fileID: 577499688}
-  aimGunEndPointTransform: {fileID: 723334444}
-  aimDirection: {x: 0, y: 0, z: 0}
   _damage: 0
   _ammo: 0
   _tempAmmo: 0
   _reloadTime: 0
   _tempReloadTime: 0
+  _isReloading: 0
+  tempAmmoArray: 
 --- !u!1001 &1705087475
 PrefabInstance:
   m_ObjectHideFlags: 0

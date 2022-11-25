@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f0d93cfbb5522441a6b1d0240325962, type: 3}
-  m_Name: Blue Uzi
+  m_Name: McGun1
   m_EditorClassIdentifier: 
-  weaponName: Blue Uzi
-  weaponObject: {fileID: 4230463040114466211, guid: f33aa7848c3f76b43b29e45dbcd6e703, type: 3}
-  damage: 17
-  ammo: 35
-  reloadTime: 1.5
+  weaponName: McGun1
+  weaponObject: {fileID: 4121838183586788456, guid: b668261d76ec66a4d88bf96fb128525e, type: 3}
+  damage: 10
+  ammo: 15
+  reloadTime: 3

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f0d93cfbb5522441a6b1d0240325962, type: 3}
-  m_Name: Pink Uzi
+  m_Name: Ak47
   m_EditorClassIdentifier: 
-  weaponName: Pink Uzi
-  weaponObject: {fileID: 741857244503116293, guid: 6f52ae6bf57e6dc42ae407f582b23b2c, type: 3}
-  damage: 30
-  ammo: 10
-  reloadTime: 1.5
+  weaponName: Ak47
+  weaponObject: {fileID: 4121838183586788456, guid: a75b0741ae4818048bc685e973bc3a5e, type: 3}
+  damage: 10
+  ammo: 15
+  reloadTime: 3

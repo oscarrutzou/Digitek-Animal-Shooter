@@ -52,6 +52,9 @@ public class InGameDisplay : MonoBehaviour
     public PlayerAimWeapon playerAimWeapon;
 
 
+    //Load gemt data til at sidde i previews
+    
+
     private void Awake()
     {
         InstantiateSingleton();

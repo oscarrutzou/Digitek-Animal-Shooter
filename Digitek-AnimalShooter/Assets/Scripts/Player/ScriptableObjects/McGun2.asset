@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f0d93cfbb5522441a6b1d0240325962, type: 3}
-  m_Name: Golden Uzi
+  m_Name: McGun2
   m_EditorClassIdentifier: 
-  weaponName: Golden Uzi
-  weaponObject: {fileID: 4121838183586788456, guid: 513c6b27c889cef48a63b9ddbcdbef6e, type: 3}
-  damage: 20
-  ammo: 20
-  reloadTime: 1.5
+  weaponName: McGun2
+  weaponObject: {fileID: 4121838183586788456, guid: 1da903e3cc3203b4182ef1633269e741, type: 3}
+  damage: 10
+  ammo: 15
+  reloadTime: 3

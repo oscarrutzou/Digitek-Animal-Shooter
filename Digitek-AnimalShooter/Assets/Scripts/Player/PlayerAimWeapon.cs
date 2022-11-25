@@ -191,22 +191,6 @@ public class PlayerAimWeapon : MonoBehaviour
         });
     }
 
-    //public IEnumerator ReloadShooting()
-    //{
-    //    int autoReloadCount = 0;
-    //    while (true)
-    //    {
-
-    //    }
-
-    //    if (true)
-    //    {
-    //        autoReloadCount = 0;
-
-    //    }
-    //    yield return null;
-    //}
-
 
 
     public static Vector3 GetMouseWorldPosition()

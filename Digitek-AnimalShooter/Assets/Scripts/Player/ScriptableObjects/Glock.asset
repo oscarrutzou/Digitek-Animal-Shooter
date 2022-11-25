@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f0d93cfbb5522441a6b1d0240325962, type: 3}
-  m_Name: Green Uzi
+  m_Name: Glock
   m_EditorClassIdentifier: 
-  weaponName: Green Uzi
-  weaponObject: {fileID: 3781001941762353715, guid: 49b62161fe9693c43939199400cbfc45, type: 3}
+  weaponName: Glock
+  weaponObject: {fileID: 4121838183586788456, guid: a3e017dd05acd04438ef9c617e2d3afe, type: 3}
   damage: 10
-  ammo: 33
-  reloadTime: 2
+  ammo: 15
+  reloadTime: 3

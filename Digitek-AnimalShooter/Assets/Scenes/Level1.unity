@@ -1844,6 +1844,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 490946712}
   m_CullTransparentMesh: 1
+--- !u!4 &530294867 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4121838182226509475, guid: 1da903e3cc3203b4182ef1633269e741, type: 3}
+  m_PrefabInstance: {fileID: 1475227126}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &548523123
 GameObject:
   m_ObjectHideFlags: 0
@@ -3563,6 +3568,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 999501066}
   m_CullTransparentMesh: 1
+--- !u!4 &1041637724 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4121838182226509475, guid: a75b0741ae4818048bc685e973bc3a5e, type: 3}
+  m_PrefabInstance: {fileID: 1939638638}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1058049265
 GameObject:
   m_ObjectHideFlags: 0
@@ -3763,6 +3773,11 @@ PolygonCollider2D:
       - {x: 127.73414, y: -65.4569}
       - {x: 129.45459, y: 72.39206}
   m_UseDelaunayMesh: 0
+--- !u!4 &1256825412 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4121838182226509475, guid: 7e177c6825b7ed34db8b811ecd245f3f, type: 3}
+  m_PrefabInstance: {fileID: 11991168}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1286576368
 GameObject:
   m_ObjectHideFlags: 0
@@ -4936,6 +4951,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554148719}
   m_CullTransparentMesh: 1
+--- !u!4 &1569965999 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4121838182226509475, guid: b668261d76ec66a4d88bf96fb128525e, type: 3}
+  m_PrefabInstance: {fileID: 2146387727}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1573437774
 GameObject:
   m_ObjectHideFlags: 0
@@ -5371,11 +5391,11 @@ MonoBehaviour:
   aimGunEndPointTransform: {fileID: 1461254723}
   aimDirection: {x: 0, y: 0, z: 0}
   _data:
-  - {fileID: 11400000, guid: 65152892204ebf94885ccb574e3df1fa, type: 2}
-  - {fileID: 11400000, guid: bd9cb23f6ada47046aea0590e5ed0f5b, type: 2}
-  - {fileID: 11400000, guid: 0328efda813f10c479e776f7e44623d6, type: 2}
-  - {fileID: 11400000, guid: 8f981d36d86ec024b94a99e03702a8da, type: 2}
-  - {fileID: 11400000, guid: 748e5a0221c38ef46938c61c5e1bbee7, type: 2}
+  - {fileID: 11400000, guid: 7f358e6b3b5f98847bfc154bed7e683f, type: 2}
+  - {fileID: 11400000, guid: e739bbf1f598cd645aa606d8f02e385b, type: 2}
+  - {fileID: 11400000, guid: 903a4baf67628f44ab6f3193843b6f01, type: 2}
+  - {fileID: 11400000, guid: 345a2946285734442b1afe67ecce8e08, type: 2}
+  - {fileID: 11400000, guid: 3f6917e49e7670a4f8871013749cd0ef, type: 2}
   _dataCurrentNumber: 0
   _dataAmount: 0
   _damage: 0
@@ -5385,6 +5405,12 @@ MonoBehaviour:
   _tempReloadTime: 0
   _isReloading: 0
   tempAmmoArray: 
+  aimEndGunPos:
+  - {fileID: 1461254723}
+  - {fileID: 1256825412}
+  - {fileID: 1041637724}
+  - {fileID: 1569965999}
+  - {fileID: 530294867}
 --- !u!1 &1740805979
 GameObject:
   m_ObjectHideFlags: 0

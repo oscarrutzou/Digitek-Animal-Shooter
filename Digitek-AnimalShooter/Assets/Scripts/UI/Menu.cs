@@ -24,13 +24,13 @@ public class Menu : MonoBehaviour
     [SerializeField] public int levelNumber;
 
     [Header("Text")]
+    public TextMeshProUGUI ammoText;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI killText;
     public TextMeshProUGUI bestScoreText;
     public TextMeshProUGUI bestKillText;
 
     [Header("Ammo")]
-    public TextMeshProUGUI ammoText;
     [HideInInspector] public int currentAmmo;
 
     //Score

@@ -28,10 +28,12 @@ public class PlayerAimWeapon : MonoBehaviour
     public WeaponData[] _data;
     public int _dataCurrentNumber;
 
+
     [HideInInspector] public int _dataAmount;
 
-
     [HideInInspector] public int _damage;
+    public float _timeBetweenShoots;
+
     public int _ammo;
     public int _tempAmmo;
     [HideInInspector] public float _reloadTime;
@@ -113,8 +115,8 @@ public class PlayerAimWeapon : MonoBehaviour
     void CheckDataAmount()
     {
         _dataAmount = _data.Length - 1; // -1 for at få den til at være det samme som numKeys
-        //Debug.Log(_dataAmount);
     }
+
 
     
 
@@ -125,6 +127,13 @@ public class PlayerAimWeapon : MonoBehaviour
         _reloadTime = data[dataNumber].reloadTime;
         _tempReloadTime = _reloadTime;
         _ammo = data[dataNumber].ammo;
+
+        aimGunEndPointTransform = this.gameObject.transform.GetChild(0).GetChild(dataNumber).GetChild(0);
+
+        //Til at begrænse hvor hurtigt man kan skyde. Så man ikke kan sætte en macro eller lign.
+        _timeBetweenShoots = data[dataNumber].timeBetweenShoots;
+        
+
 
         if (tempAmmoArray[dataNumber] == 0)
         {
@@ -141,16 +150,6 @@ public class PlayerAimWeapon : MonoBehaviour
         }
 
         ChangeAmmoInArray(tempAmmoArray, dataNumber, _tempAmmo);
-
-        //if (tempAmmoBool)
-        //{
-        //    _tempAmmo = _ammo;
-        //}
-        //else
-        //{
-        //    ChangeAmmoInArray(tempAmmoArray, dataNumber, _tempAmmo);
-        //    _tempAmmo = _ammo;
-        //}
     }
 
     public void ChangeAmmoInArray(int[] ammoArray, int dataNumber, int tempAmmo)

@@ -31,6 +31,11 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public bool fired;
 
+    //public float timeBetweenShoots; //Lav mindre end tiden mellem at skifte våben da den ellers ville virke weird tror jeg.
+    private bool timeShootsBool = false;
+
+    private bool holdDownFire = false;
+
     private Rigidbody2D rb;
 
     [HideInInspector] public SpriteRenderer spriteRenderer;
@@ -63,6 +68,8 @@ public class PlayerController : MonoBehaviour
         
         menu = FindObjectOfType<Menu>();
         inGameDisplay = FindObjectOfType<InGameDisplay>();
+
+
     }
 
     #region Enable + Disable
@@ -71,6 +78,7 @@ public class PlayerController : MonoBehaviour
         fire = playerInputActions.Player.Fire;
         fire.Enable();
         fire.performed += Fire;
+        fire.canceled += Fire;
 
         pause = playerInputActions.Player.Pause;
         pause.Enable();
@@ -102,6 +110,13 @@ public class PlayerController : MonoBehaviour
     #region Update + FixedUpdate
     private void Update()
     {
+        if (holdDownFire && !playerAimWeapon._isReloading && !timeShootsBool)
+        {
+            Debug.Log("hold");
+            playerAimWeapon.HandleShooting();
+            StartCoroutine(WaitForTimeBetweenShots());
+        }
+
         if (switchTimeBool)
         {
             
@@ -167,7 +182,6 @@ public class PlayerController : MonoBehaviour
     #endregion
 
 
-
     #region Movement
     private bool TryMove(Vector2 direction)
     {
@@ -201,12 +215,6 @@ public class PlayerController : MonoBehaviour
         movementInput = movementValue.Get<Vector2>();
     }
     #endregion
-
-
-    
-
-
-
 
     //public void TakeDamage(int damage)
     //{
@@ -341,8 +349,6 @@ public class PlayerController : MonoBehaviour
         }   
     }
 
-
-
     private void NumKeys(InputAction.CallbackContext context)
     {
         if (!switchTimeBool && !playerAimWeapon._isReloading)
@@ -391,17 +397,48 @@ public class PlayerController : MonoBehaviour
     }
 
 
+
     private void Fire(InputAction.CallbackContext context)
     {
         //Check om våben reload time er 0 eller under igen, så kan man skyde.
         //Lav CoRutine og brug bool til at stoppe den med at køre hele tiden. Brug data fra scriptebale objects.
-        
+        //if (context.started && !playerAimWeapon._isReloading && !timeShootsBool)
+        //{
+        //    playerAimWeapon.HandleShooting();
+        //    //    Debug.Log("hold");
+        //    StartCoroutine(WaitForTimeBetweenShots());
+        //}
 
-        if (context.performed && !playerAimWeapon._isReloading)
+        if (context.performed)
         {
-            playerAimWeapon.HandleShooting();
-
+            holdDownFire = true;
         }
+
+        if (context.canceled)
+        {
+            holdDownFire = false;
+            
+        }
+
+        ////if (context.performed && !playerAimWeapon._isReloading && !timeShootsBool)
+        ////{
+        ////    playerAimWeapon.HandleShooting();
+        ////    Debug.Log("hold");
+        ////    //StartCoroutine(WaitForTimeBetweenShots());
+        ////}
+
+        //if (context.canceled)
+        //{
+        //    Debug.Log("canceled");
+        //}
+
+    }
+
+    private IEnumerator WaitForTimeBetweenShots()
+    {
+        timeShootsBool = true;
+        yield return new WaitForSeconds(playerAimWeapon._timeBetweenShoots);
+        timeShootsBool = false;
     }
 
 

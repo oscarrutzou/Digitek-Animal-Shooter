@@ -48,7 +48,7 @@ public class InGameDisplay : MonoBehaviour
 
     [Header("Ammo")]
     public TextMeshProUGUI ammoText;
-    [HideInInspector] public int ammoUsed;
+    public int ammoUsed;
     public PlayerAimWeapon playerAimWeapon;
 
 

@@ -10,4 +10,5 @@ public class WeaponData : ScriptableObject
     public int damage = 10;
     public int ammo = 15;
     public float reloadTime = 3f;
+    public float timeBetweenShoots;
 }

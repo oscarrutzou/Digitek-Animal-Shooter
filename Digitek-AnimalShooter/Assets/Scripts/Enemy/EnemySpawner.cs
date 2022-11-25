@@ -81,7 +81,7 @@ public class EnemySpawner : MonoBehaviour
                 isSpawning = true;
                 firstTimeSpawn = false;
 
-                Debug.Log("StartSpawner");
+                //Debug.Log("StartSpawner");
 
                 StartCoroutine(StartSpawner());
             }
@@ -94,7 +94,7 @@ public class EnemySpawner : MonoBehaviour
                 if (currentTime <= 0)
                 {
                     isSpawning = true;
-                    Debug.Log("StartSpawner after time");
+                    //Debug.Log("StartSpawner after time");
                     currentTime = spawnAfterTime;
                     StartCoroutine(StartSpawner());
 
@@ -130,7 +130,7 @@ public class EnemySpawner : MonoBehaviour
         visualRadius = visuals.GetComponent<CircleCollider2D>().radius;
         enemyOwnData = visuals.GetComponent<EnemyOwnData>();
 
-        Debug.Log("Raduis " + visualRadius);
+        //Debug.Log("Raduis " + visualRadius);
 
         GenerateRandomPosition();
 
@@ -155,7 +155,7 @@ public class EnemySpawner : MonoBehaviour
         visuals.name += (objectActive + 1);
 
         visuals.transform.localPosition = position;
-        Debug.Log("position " + visuals.transform.localPosition);
+        //Debug.Log("position " + visuals.transform.localPosition);
 
         visuals.transform.rotation = Quaternion.identity;
 
@@ -173,16 +173,16 @@ public class EnemySpawner : MonoBehaviour
     public bool CheckCollider(Vector2 position, float radius, LayerMask layerMask)
     {
         colliderEnemy = Physics2D.OverlapCircleAll(position, radius, layerMask);
-        Debug.Log("EnemyOwnData collider længde" + " :  " + colliderEnemy.Length);
+        //Debug.Log("EnemyOwnData collider længde" + " :  " + colliderEnemy.Length);
 
         if (colliderEnemy.Length == 0)
         {
-            Debug.Log("true" + objectActive);
+            //Debug.Log("true" + objectActive);
             return true;
         }
         else
         {
-            Debug.Log("False" + objectActive);
+            //Debug.Log("False" + objectActive);
             return false;
         }
     }
@@ -197,7 +197,7 @@ public class EnemySpawner : MonoBehaviour
 
         //Sætter positionen til det random stykke.
         position = new Vector2(positionX, positionY);
-        Debug.Log("Position " + position);
+        //Debug.Log("Position " + position);
     }
 
 

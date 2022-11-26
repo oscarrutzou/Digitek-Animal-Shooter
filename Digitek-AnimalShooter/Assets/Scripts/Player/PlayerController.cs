@@ -275,7 +275,7 @@ public class PlayerController : MonoBehaviour
     private int dataAmount;
     private void ScollWheelY(InputAction.CallbackContext context)
     {
-        if (!switchTimeBool)
+        if (!switchTimeBool && !playerAimWeapon._isReloading)
         {
             //int currentDataNumber = playerAimWeapon._dataCurrentNumber;
             dataAmount = playerAimWeapon._dataAmount;
@@ -360,7 +360,7 @@ public class PlayerController : MonoBehaviour
             numKeyValueFloat = context.ReadValue<float>();
 
             //int numKeyValueInt = (int)numKeyValueFloat; //Kan laves om til at bruge den samme som selectedweapon
-            selectedWeapon = (int)numKeyValueFloat;
+            selectedWeapon = (int)numKeyValueFloat; //For at sørge for at den ikke går ind og indre på andre variabler.
 
             dataAmount = playerAimWeapon._dataAmount;
             // Warning! If ctx.control.name can't parse as an int, numKeyValue will be 0

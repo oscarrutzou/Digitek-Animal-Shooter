@@ -24,6 +24,7 @@ public class PlayerAimWeapon : MonoBehaviour
 
     [HideInInspector] public Vector3 aimDirection;
 
+    [SerializeField] private InGameDisplay inGameDisplay;
     
     public WeaponData[] _data;
     public int _dataCurrentNumber;
@@ -48,24 +49,16 @@ public class PlayerAimWeapon : MonoBehaviour
     {
         playerController = GetComponent<PlayerController>();
         playerShoot = GetComponentInChildren<PlayerShoot>();
+        inGameDisplay = FindObjectOfType<InGameDisplay>();
+
 
         if (_data != null)
         {
             CheckDataAmount();
-            tempAmmoArray = new int[_data.Length];
-
+            
             _dataCurrentNumber = 0;
 
-            //for(int i = _dataCurrentNumber; i < _data.Length; i++)
-            //{
-            //    tempAmmoArray[i] = 0;
-            //}
-
             LoadWeaponData(_data, _dataCurrentNumber, true);
-            //ChangeAmmoInArray(tempAmmoArray, _dataCurrentNumber, _tempAmmo);
-            
-            
-
         }
     }
 
@@ -115,6 +108,7 @@ public class PlayerAimWeapon : MonoBehaviour
     void CheckDataAmount()
     {
         _dataAmount = _data.Length - 1; // -1 for at få den til at være det samme som numKeys
+        tempAmmoArray = new int[_data.Length];
     }
 
 
@@ -132,8 +126,9 @@ public class PlayerAimWeapon : MonoBehaviour
 
         //Til at begrænse hvor hurtigt man kan skyde. Så man ikke kan sætte en macro eller lign.
         _timeBetweenShoots = data[dataNumber].timeBetweenShoots;
-        
 
+        //inGameDisplay.gunArrayUI[dataNumber].color = 
+        inGameDisplay.UpdateWeaponUI(dataNumber);
 
         if (tempAmmoArray[dataNumber] == 0)
         {
@@ -145,7 +140,7 @@ public class PlayerAimWeapon : MonoBehaviour
         }
         else
         {
-            Debug.Log(_tempAmmo + " rytryt  " + _ammo);
+            //Debug.Log(_tempAmmo + " :  " + _ammo);
             _tempAmmo = _ammo;
         }
 

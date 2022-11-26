@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using TheraBytes.BetterUi;
 
 public class InGameDisplay : MonoBehaviour
 {
@@ -25,10 +26,23 @@ public class InGameDisplay : MonoBehaviour
     }
     #endregion
 
+    private GameObject playerObject;
+    private GameObject canvasObject;
+    public GameObject[] gunArray; //Gå igennem og indsæt i forhold til hvor lang _data er i  PlayerAimWeapon.
+    //Mulighed for at kunne sætte alle våbene på hver plads også bare tænde den som man har købt?
+    //Shop vil kun kunne købe en af våbene af gangen.
+    public Image[] gunArrayUI;
 
-    //Til timeren
+
+    public PlayerAimWeapon playerAimWeapon;
+
+    public Color nonActiveColor;
+    public Color activeColor;
+
+
+    [Header("Timer")]
     private bool timerActive = false;
-    public float currentTime = 0f;
+    [HideInInspector] public float currentTime = 0f;
     [SerializeField] private float startingTime = 10f;
     private TimeSpan time;
     [SerializeField] private TMPro.TextMeshProUGUI timerLabel;
@@ -49,10 +63,9 @@ public class InGameDisplay : MonoBehaviour
     [Header("Ammo")]
     public TextMeshProUGUI ammoText;
     public int ammoUsed;
-    public PlayerAimWeapon playerAimWeapon;
 
 
-    //Load gemt data til at sidde i previews
+    private int dataLength;
     
 
     private void Awake()
@@ -64,17 +77,64 @@ public class InGameDisplay : MonoBehaviour
     {
         currentTime = startingTime;
 
+        playerObject = GameObject.Find("Player");
+        playerAimWeapon = playerObject.GetComponent<PlayerAimWeapon>();
+
+        canvasObject = GameObject.Find("Canvas");
+
+        dataLength = playerAimWeapon._data.Length;
+
+        //nonActiveColor = new Color(0, 0, 0, 0.2f);
+        //activeColor = new Color(0, 0, 0, 0.4f);
+
+
         StartTimer();
 
+        StartUpdateWeaponUI();
         ////Lav besttime til at blive 
         ////bestTime = PlayerPrefs.GetFloat("BestTime" + levelNumber);
 
 
-        //if (bestTime != float.MaxValue)
-        //{
-        //    ShowUI();
-        //}
+    }
 
+    
+    public void StartUpdateWeaponUI()
+    {
+        gunArray = new GameObject[dataLength];
+        gunArrayUI = new Image[dataLength];
+
+        for (int i = 0; i < dataLength; i++)
+        {
+            //Debug.Log(i);
+            gunArray[i] = canvasObject.transform.GetChild(0).GetChild(0).GetChild(i).gameObject;
+            gunArrayUI[i] = gunArray[i].GetComponent<Image>();
+
+            if (i == playerAimWeapon._dataCurrentNumber)
+            {
+                gunArrayUI[i].color = activeColor;
+                //Debug.Log("ja " + i +  " data number" + playerAimWeapon._dataCurrentNumber +  "GunARYYAI i " + gunArrayUI[i].name);
+            }
+            else
+            {
+                gunArrayUI[i].color = nonActiveColor;
+                //Debug.Log("Nej " + i + " data number" + playerAimWeapon._dataCurrentNumber + "GunARYYAI i " + gunArrayUI[i].name);
+            } 
+        }
+    }
+
+    public void UpdateWeaponUI(int dataCurrentNumber)
+    {
+        for (int i = 0; i < dataLength; i++)
+        {
+            if (i == dataCurrentNumber)
+            {
+                gunArrayUI[i].color = activeColor;
+            }
+            else if (gunArrayUI[i].color == activeColor)
+            {
+                gunArrayUI[i].color = nonActiveColor;
+            }
+        }
     }
 
     private void Update()
@@ -83,7 +143,7 @@ public class InGameDisplay : MonoBehaviour
         //Hvis timeren er aktiv, skal den tælle med time.deltaTime for at kunne tælle rigtigt.
         if (timerActive == true)
         {
-            currentTime -= 1* Time.deltaTime;
+            currentTime -= Time.deltaTime;
         }
         //For at kunne se tiden i minutter, sekunder og milisekunder
         time = TimeSpan.FromSeconds(currentTime);

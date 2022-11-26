@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GunEndPointPosition
   - Enemy
+  - DestroyAbleObjects
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Cam Confiner
   - 
   - EnemyLayer
-  - 
+  - DestroyAbleObjects
   - Player
   - 
   - 

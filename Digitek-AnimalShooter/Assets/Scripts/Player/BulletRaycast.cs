@@ -46,6 +46,21 @@ public class BulletRaycast : MonoBehaviour
                 //    return;
                 //}
             }
+
+            else if (raycastHit2D.collider.CompareTag("DestroyAbleObjects"))
+            {
+
+                GameObject destroyAbleObject = raycastHit2D.collider.gameObject;
+
+                if (destroyAbleObject.TryGetComponent(out TNT tnt))
+                {
+                    tnt.hasTakenDamage = true;
+                }
+                
+                
+                //TNT tnt = destroyAbleObject.GetComponent<TNT>();
+
+            }
         }
     }
 }

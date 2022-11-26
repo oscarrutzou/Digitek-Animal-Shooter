@@ -47,22 +47,22 @@ public class EnemyOwnData : MonoBehaviour
         //If længde er over >= 2 find nyt punkt
     }
 
-    private bool CheckCollider()
-    {
-        colliderEnemy = Physics2D.OverlapCircleAll(transform.position, radius, enemyMask);
-        Debug.Log("EnemyOwnData collider længde" + name + " :  " + colliderEnemy.Length);
+    //private bool CheckCollider()
+    //{
+    //    colliderEnemy = Physics2D.OverlapCircleAll(transform.position, radius, enemyMask);
+    //    Debug.Log("EnemyOwnData collider længde" + name + " :  " + colliderEnemy.Length);
 
-        if (colliderEnemy.Length == 1)
-        {
-            Debug.Log("true");
-            return true;
-        }
-        else
-        {
-            Debug.Log("False");
-            return false;
-        }
-    }
+    //    if (colliderEnemy.Length == 1)
+    //    {
+    //        Debug.Log("true");
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("False");
+    //        return false;
+    //    }
+    //}
 
     public void Damage(int damage)
     {

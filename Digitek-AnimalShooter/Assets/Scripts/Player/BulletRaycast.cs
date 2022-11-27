@@ -11,11 +11,11 @@ public class BulletRaycast : MonoBehaviour
 
     [SerializeField] PlayerAimWeapon playerAimWeapon;
 
-    public void Shoot(Vector3 shootPosition, Vector3 shootDirection)
+    public void Shoot(Vector3 shootPosition, Vector3 shootDirection, float distance)
     {
-        RaycastHit2D raycastHit2D = Physics2D.Raycast(shootPosition, shootDirection);
-        Debug.Log("shootPosition " + shootPosition + "shootDirection" + shootDirection);
-        
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(shootPosition, shootDirection, distance);
+        //Debug.Log("shootPosition " + shootPosition + "shootDirection" + shootDirection);
+        //Debug.DrawRay(shootPosition, shootDirection, Color.white, 0.2f);
 
         if (raycastHit2D.collider != null)
         {

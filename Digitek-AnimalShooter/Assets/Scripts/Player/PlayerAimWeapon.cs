@@ -102,7 +102,7 @@ public class PlayerAimWeapon : MonoBehaviour
             }
             else
             {
-                Debug.Log("Reload finished");
+                //Debug.Log("Reload finished");
                 _isReloading = false;
                 _tempReloadTime = _reloadTime;
                 _tempAmmo = _ammo;

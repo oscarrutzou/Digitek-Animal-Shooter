@@ -31,7 +31,7 @@ public class Menu : MonoBehaviour
     public TextMeshProUGUI bestKillText;
 
     [Header("Ammo")]
-    [HideInInspector] public int currentAmmo;
+    [HideInInspector] public int ammoUsed;
 
     //Score
     [HideInInspector] public int currentScore;
@@ -110,6 +110,7 @@ public class Menu : MonoBehaviour
         scoreText.text = PlayerPrefs.GetInt("CurrentScore" + levelNumber, 0).ToString();
         bestScoreText.text = PlayerPrefs.GetInt("BestScore" + levelNumber, 0).ToString();
 
+        ammoText.text = PlayerPrefs.GetInt("AmmoUsed" + levelNumber, 0).ToString();
     }
 
     public void GameOver()
@@ -118,10 +119,13 @@ public class Menu : MonoBehaviour
         //Tjek om det er de højeste kills
         currentKills = inGameDisplay.currentKills;
         currentScore = inGameDisplay.currentScore;
-        
+        ammoUsed = inGameDisplay.ammoUsed;
+
         //Gemmer både kills og score for runden, til at blive vist i GameOver Menu.
         PlayerPrefs.SetInt("CurrentKills" + levelNumber, currentKills);
         PlayerPrefs.SetInt("CurrentScore" + levelNumber, currentScore);
+
+        PlayerPrefs.SetInt("AmmoUsed" + levelNumber, ammoUsed);
 
         //Hvis de nuværende kills er større end den gemte, sættes den til den MostKills. 
         if (currentKills > PlayerPrefs.GetInt("MostKills" + levelNumber, int.MaxValue))

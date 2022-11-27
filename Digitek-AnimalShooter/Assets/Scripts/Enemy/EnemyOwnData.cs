@@ -71,7 +71,7 @@ public class EnemyOwnData : MonoBehaviour
         //Indsæt weapondamage her.
         currentHealth -= damage;
 
-        Debug.Log("Animal health after: " + currentHealth);
+        //Debug.Log("Animal health after: " + currentHealth);
 
         if (currentHealth <= 0)
         {

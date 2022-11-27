@@ -281,7 +281,7 @@ public class PlayerController : MonoBehaviour
         {
             //int currentDataNumber = playerAimWeapon._dataCurrentNumber;
             dataAmount = playerAimWeapon._dataAmount;
-            Debug.Log("dataAmount" + dataAmount);
+            //Debug.Log("dataAmount" + dataAmount);
             int previousSelectedWeapon = weaponSwitching.selectedWeapon;
 
             float value;

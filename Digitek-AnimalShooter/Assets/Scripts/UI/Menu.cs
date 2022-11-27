@@ -193,16 +193,13 @@ public class Menu : MonoBehaviour
     #region Pause Menu
     public void Pause()
     {
+        gameIsPaused = true;
         //Tænder objectet
         pauseMenuUI.SetActive(true);
         //Stopper alt undtagen PauseUI
 
-
-
         Time.timeScale = 0f;
-        //Stop animationer, tror de er sat til at virke selv med mindre timescale siden dash virker med timescale 0.75 tror jeg nok.
-
-        gameIsPaused = true;
+        //Stop animationer, tror de er sat til at virke selv med mindre timescale siden dash virker med timescale 0.75 tror jeg nok        
     }
 
     public void Resume()

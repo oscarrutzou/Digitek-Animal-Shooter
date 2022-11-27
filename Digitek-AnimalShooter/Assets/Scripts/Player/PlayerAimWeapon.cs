@@ -24,8 +24,10 @@ public class PlayerAimWeapon : MonoBehaviour
 
     [HideInInspector] public Vector3 aimDirection;
 
-    [SerializeField] private InGameDisplay inGameDisplay;
-    
+    private GameObject gameManager;
+    private InGameDisplay inGameDisplay;
+    private Menu menu;
+
     public WeaponData[] _data;
     public int _dataCurrentNumber;
 
@@ -49,7 +51,10 @@ public class PlayerAimWeapon : MonoBehaviour
     {
         playerController = GetComponent<PlayerController>();
         playerShoot = GetComponentInChildren<PlayerShoot>();
-        inGameDisplay = FindObjectOfType<InGameDisplay>();
+        
+        gameManager = GameObject.Find("GameManager");
+        inGameDisplay = gameManager.GetComponent<InGameDisplay>();
+        menu = gameManager.GetComponent<Menu>();
 
 
         if (_data != null)
@@ -78,9 +83,13 @@ public class PlayerAimWeapon : MonoBehaviour
 
     void Update()
     {
-        HandleAiming();
+        if (!menu.gameIsPaused)
+        {
+            HandleAiming();
+        }
+        
 
-        if (_tempAmmo == 0 && !_isReloading)
+        if (_tempAmmo == 0 && !_isReloading && !menu.gameIsPaused)
         {
             Reload();
         }
@@ -102,17 +111,12 @@ public class PlayerAimWeapon : MonoBehaviour
         }
     }
 
-    
-
     //Kald hvis man samler et våben op in game.
     void CheckDataAmount()
     {
         _dataAmount = _data.Length - 1; // -1 for at få den til at være det samme som numKeys
         tempAmmoArray = new int[_data.Length];
     }
-
-
-    
 
     //Kald hver gang der skiftes weapon []. 
     public void LoadWeaponData(WeaponData[] data, int dataNumber, bool fullMag)
@@ -175,7 +179,7 @@ public class PlayerAimWeapon : MonoBehaviour
 
     public void HandleShooting()
     {
-        Debug.Log("Fire dat shit");
+        //Debug.Log("Fire dat shit");
         //Play animation hvis der var en
         Vector3 mousePosition = GetMouseWorldPosition();
 

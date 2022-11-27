@@ -14,7 +14,7 @@ public class BulletRaycast : MonoBehaviour
     public void Shoot(Vector3 shootPosition, Vector3 shootDirection)
     {
         RaycastHit2D raycastHit2D = Physics2D.Raycast(shootPosition, shootDirection);
-
+        Debug.Log("shootPosition " + shootPosition + "shootDirection" + shootDirection);
         
 
         if (raycastHit2D.collider != null)
@@ -33,7 +33,7 @@ public class BulletRaycast : MonoBehaviour
 
 
                 enemyOwnData = enemyObject.GetComponent<EnemyOwnData>();
-                Debug.Log(enemyOwnData);
+                //Debug.Log(enemyOwnData);
 
 
                 if (enemyOwnData.currentHealth > 0)

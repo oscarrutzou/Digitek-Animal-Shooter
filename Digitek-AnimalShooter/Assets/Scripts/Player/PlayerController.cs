@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         fired = false;
+        menu = FindObjectOfType<Menu>();
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -66,7 +67,6 @@ public class PlayerController : MonoBehaviour
 
         
         
-        menu = FindObjectOfType<Menu>();
         inGameDisplay = FindObjectOfType<InGameDisplay>();
 
 
@@ -75,14 +75,17 @@ public class PlayerController : MonoBehaviour
     #region Enable + Disable
     private void OnEnable()
     {
-        fire = playerInputActions.Player.Fire;
-        fire.Enable();
-        fire.performed += Fire;
-        fire.canceled += Fire;
+        
 
         pause = playerInputActions.Player.Pause;
         pause.Enable();
         pause.performed += Pause;
+
+
+        fire = playerInputActions.Player.Fire;
+        fire.Enable();
+        fire.performed += Fire;
+        fire.canceled += Fire;
 
         reload = playerInputActions.Player.Reload;
         reload.Enable();
@@ -95,6 +98,8 @@ public class PlayerController : MonoBehaviour
         scrool = playerInputActions.Player.ScollWheelY;
         scrool.Enable();
         scrool.performed += ScollWheelY;
+
+        
     }
 
     private void OnDisable()
@@ -112,7 +117,7 @@ public class PlayerController : MonoBehaviour
     {
         if (holdDownFire && !playerAimWeapon._isReloading && !timeShootsBool)
         {
-            Debug.Log("hold");
+            //Debug.Log("hold");
             playerAimWeapon.HandleShooting();
             StartCoroutine(WaitForTimeBetweenShots());
         }
@@ -252,19 +257,16 @@ public class PlayerController : MonoBehaviour
             menu.Pause();
             Debug.Log("Pause");
         }
-
-
     }
 
     private void Reload(InputAction.CallbackContext context)
     {
         //hvis ammo er mindre end max ammo og større end 0
-        if (!playerAimWeapon._isReloading && playerAimWeapon._tempAmmo < playerAimWeapon._ammo)
+        if (!playerAimWeapon._isReloading && playerAimWeapon._tempAmmo < playerAimWeapon._ammo && !menu.gameIsPaused)
         {
             Debug.Log("Kan Reloade");
             playerAimWeapon.Reload();
             //Spil Reload Icon
-
         }
         else
         {
@@ -275,7 +277,7 @@ public class PlayerController : MonoBehaviour
     private int dataAmount;
     private void ScollWheelY(InputAction.CallbackContext context)
     {
-        if (!switchTimeBool && !playerAimWeapon._isReloading)
+        if (!switchTimeBool && !playerAimWeapon._isReloading && !menu.gameIsPaused)
         {
             //int currentDataNumber = playerAimWeapon._dataCurrentNumber;
             dataAmount = playerAimWeapon._dataAmount;
@@ -323,9 +325,9 @@ public class PlayerController : MonoBehaviour
                 weaponSwitching.selectedWeapon = selectedWeapon;
                 playerAimWeapon._dataCurrentNumber = selectedWeapon;
                 weaponSwitching.SelectWeapon();
-                Debug.Log(selectedWeapon);
+                //Debug.Log(selectedWeapon);
 
-                Debug.Log(playerAimWeapon.tempAmmoArray[selectedWeapon] + "  oss " + playerAimWeapon._data[selectedWeapon].ammo);
+                //Debug.Log(playerAimWeapon.tempAmmoArray[selectedWeapon] + "  oss " + playerAimWeapon._data[selectedWeapon].ammo);
 
                 if (playerAimWeapon.tempAmmoArray[selectedWeapon] != playerAimWeapon._data[selectedWeapon].ammo)
                 {
@@ -351,7 +353,7 @@ public class PlayerController : MonoBehaviour
 
     private void NumKeys(InputAction.CallbackContext context)
     {
-        if (!switchTimeBool && !playerAimWeapon._isReloading)
+        if (!switchTimeBool && !playerAimWeapon._isReloading && !menu.gameIsPaused)
         {
             
             float numKeyValueFloat; // the number key value we want from this keypress
@@ -408,8 +410,9 @@ public class PlayerController : MonoBehaviour
         //    //    Debug.Log("hold");
         //    StartCoroutine(WaitForTimeBetweenShots());
         //}
+        
 
-        if (context.performed)
+        if (context.performed && !menu.gameIsPaused)
         {
             holdDownFire = true;
         }

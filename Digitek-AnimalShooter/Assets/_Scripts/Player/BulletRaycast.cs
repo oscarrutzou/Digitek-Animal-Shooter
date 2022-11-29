@@ -10,6 +10,7 @@ public class BulletRaycast : MonoBehaviour
     [SerializeField] EnemyOwnData enemyOwnData;
 
     [SerializeField] PlayerAimWeapon playerAimWeapon;
+    [SerializeField] private float changeColorTime = 0.09f;
 
     public void Shoot(Vector3 shootPosition, Vector3 shootDirection, float distance)
     {
@@ -26,7 +27,7 @@ public class BulletRaycast : MonoBehaviour
 
                 if (enemyOwnData.currentHealth > 0)
                 {
-                    enemyOwnData.Damage(playerAimWeapon._damage);
+                    enemyOwnData.Damage(playerAimWeapon._damage, changeColorTime, false);
                 }
 
                 enemyObject = null;
@@ -41,6 +42,7 @@ public class BulletRaycast : MonoBehaviour
                 if (destroyAbleObject.TryGetComponent(out TNT tnt))
                 {
                     tnt.hasTakenDamage = true;
+                    
                 }
 
                 destroyAbleObject = null;

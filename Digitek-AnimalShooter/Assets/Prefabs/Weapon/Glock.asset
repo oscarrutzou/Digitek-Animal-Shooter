@@ -15,6 +15,6 @@ MonoBehaviour:
   weaponName: Glock
   weaponObject: {fileID: 4121838183586788456, guid: a3e017dd05acd04438ef9c617e2d3afe, type: 3}
   damage: 10
-  ammo: 15
+  ammo: 20
   reloadTime: 3
   timeBetweenShoots: 0.2

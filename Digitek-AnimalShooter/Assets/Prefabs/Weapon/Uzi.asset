@@ -15,6 +15,6 @@ MonoBehaviour:
   weaponName: Uzi
   weaponObject: {fileID: 4121838183586788456, guid: 7e177c6825b7ed34db8b811ecd245f3f, type: 3}
   damage: 10
-  ammo: 15
+  ammo: 30
   reloadTime: 3
-  timeBetweenShoots: 0.2
+  timeBetweenShoots: 0.1

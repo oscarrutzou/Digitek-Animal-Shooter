@@ -21,6 +21,7 @@ public class EnemyOwnData : MonoBehaviour
     private float radius;
 
     EnemySpawner enemySpawner;
+    SpriteRenderer spriteRenderer;
 
     public LayerMask enemyMask;
 
@@ -29,6 +30,7 @@ public class EnemyOwnData : MonoBehaviour
         inGameDisplay = FindObjectOfType<InGameDisplay>();
         enemyTransform = GetComponent<Transform>();
         circleCollider = GetComponent<CircleCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         radius = circleCollider.radius;
         alive = true;
 
@@ -36,47 +38,31 @@ public class EnemyOwnData : MonoBehaviour
         
     }
 
-    private void Update()
-    {
-
-        colliderEnemy = Physics2D.OverlapCircleAll(transform.position, radius, enemyMask);
-        //Debug.Log("EnemyOwnData collider længde" + name + " :  " + colliderEnemy.Length);
-
-
-
-        //If længde er over >= 2 find nyt punkt
-    }
-
-    //private bool CheckCollider()
+    //private void Update()
     //{
-    //    colliderEnemy = Physics2D.OverlapCircleAll(transform.position, radius, enemyMask);
-    //    Debug.Log("EnemyOwnData collider længde" + name + " :  " + colliderEnemy.Length);
 
-    //    if (colliderEnemy.Length == 1)
-    //    {
-    //        Debug.Log("true");
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("False");
-    //        return false;
-    //    }
+    //    colliderEnemy = Physics2D.OverlapCircleAll(transform.position, radius, enemyMask);
+
     //}
 
-    public void Damage(int damage)
+    IEnumerator ChangeColor(float changeColorTime)
     {
-        //Debug.Log("Animal health before: " + currentHealth);
+        Color colorBefore = spriteRenderer.color;
+        spriteRenderer.color = Color.red;
 
-        //Indsæt weapondamage her.
+        yield return new WaitForSeconds(changeColorTime);
+
+        spriteRenderer.color = colorBefore;
+    }
+
+    public void Damage(int damage, float changeColorTime, bool explosion)
+    {
+        if (!explosion)  StartCoroutine(ChangeColor(changeColorTime));
+
         currentHealth -= damage;
-
-        //Debug.Log("Animal health after: " + currentHealth);
 
         if (currentHealth <= 0)
         {
-            //Debug.Log("dead");
-
             OnDeath();
         }
     }

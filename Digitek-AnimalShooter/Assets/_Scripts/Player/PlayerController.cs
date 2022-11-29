@@ -64,11 +64,7 @@ public class PlayerController : MonoBehaviour
         playerAimWeapon = GetComponent<PlayerAimWeapon>();
         weaponSwitching = GetComponentInChildren<WeaponSwitching>();
 
-        
-        
         inGameDisplay = FindObjectOfType<InGameDisplay>();
-
-
     }
 
     #region Enable + Disable

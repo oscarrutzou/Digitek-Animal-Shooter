@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: McGun1
   weaponObject: {fileID: 4121838183586788456, guid: b668261d76ec66a4d88bf96fb128525e, type: 3}
-  damage: 10
+  damage: 25
   ammo: 15
-  reloadTime: 3
-  timeBetweenShoots: 0.2
+  reloadTime: 2.5
+  timeBetweenShoots: 0.15

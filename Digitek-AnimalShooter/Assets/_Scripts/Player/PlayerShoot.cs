@@ -19,6 +19,8 @@ public class PlayerShoot : MonoBehaviour
 
     public GameObject currentWeapon;
 
+    [SerializeField] private float cameraShakeIntensity = 3f;
+    [SerializeField] private float cameraShakeDuration = .1f;
 
 
 
@@ -47,7 +49,7 @@ public class PlayerShoot : MonoBehaviour
         //Spawn eksplosion visual gameobject: Eksplosion lyd her eller på gameobject: Få den til at udline lyden til sidst
 
 
-        CameraShake.Instance.ShakeCamera(5f, .1f);
+        CameraShake.Instance.ShakeCamera(cameraShakeIntensity, cameraShakeDuration);
 
         playerAimWeapon._tempAmmo--; //fjerner 1 hos tempammo
         playerAimWeapon.ChangeAmmoInArray(playerAimWeapon.tempAmmoArray, playerAimWeapon._dataCurrentNumber, playerAimWeapon._tempAmmo);

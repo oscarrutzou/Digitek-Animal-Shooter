@@ -102,11 +102,9 @@ public class Menu : MonoBehaviour
 
     public void ShowStats()
     {
-        //Debug.Log("Levelnumber, currentkills, MostKills, " + levelNumber + ", " + currentKills + ", " + PlayerPrefs.GetInt("MostKills" + levelNumber));
         killText.text = PlayerPrefs.GetInt("CurrentKills" + levelNumber, 0).ToString();
         bestKillText.text = PlayerPrefs.GetInt("MostKills" + levelNumber, 0).ToString();
 
-        //Debug.Log("Levelnumber, currentScore, BestScore, " + levelNumber + ", " + currentScore + ", " + PlayerPrefs.GetInt("BestScore" + levelNumber));
         scoreText.text = PlayerPrefs.GetInt("CurrentScore" + levelNumber, 0).ToString();
         bestScoreText.text = PlayerPrefs.GetInt("BestScore" + levelNumber, 0).ToString();
 
@@ -140,11 +138,6 @@ public class Menu : MonoBehaviour
             //Sætter den nuværende score til BestScore
             PlayerPrefs.SetInt("BestScore" + levelNumber, currentScore);
         }
-
-        //Debug.Log("Levelnumber, currentkills, MostKills, " + levelNumber + ", " + currentKills + ", " + PlayerPrefs.GetInt("MostKills" + levelNumber));
-
-        //Debug.Log("Levelnumber, currentScore, BestScore, " + levelNumber + ", " + currentScore + ", " + PlayerPrefs.GetInt("BestScore" + levelNumber));
-
     }
 
     #region OptionMenu
@@ -177,6 +170,8 @@ public class Menu : MonoBehaviour
     {
         PlayerPrefs.SetInt("MostKills" + levelNumber, 0);
         PlayerPrefs.SetInt("BestScore" + levelNumber, 0);
+
+        ShowStats();
     }
     #endregion
 

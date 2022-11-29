@@ -84,17 +84,9 @@ public class InGameDisplay : MonoBehaviour
 
         dataLength = playerAimWeapon._data.Length;
 
-        //nonActiveColor = new Color(0, 0, 0, 0.2f);
-        //activeColor = new Color(0, 0, 0, 0.4f);
-
-
         StartTimer();
 
         StartUpdateWeaponUI();
-        ////Lav besttime til at blive 
-        ////bestTime = PlayerPrefs.GetFloat("BestTime" + levelNumber);
-
-
     }
 
     
@@ -112,12 +104,10 @@ public class InGameDisplay : MonoBehaviour
             if (i == playerAimWeapon._dataCurrentNumber)
             {
                 gunArrayUI[i].color = activeColor;
-                //Debug.Log("ja " + i +  " data number" + playerAimWeapon._dataCurrentNumber +  "GunARYYAI i " + gunArrayUI[i].name);
             }
             else
             {
                 gunArrayUI[i].color = nonActiveColor;
-                //Debug.Log("Nej " + i + " data number" + playerAimWeapon._dataCurrentNumber + "GunARYYAI i " + gunArrayUI[i].name);
             } 
         }
     }
@@ -174,29 +164,4 @@ public class InGameDisplay : MonoBehaviour
         currentTime = 0f;
         StartTimer();
     }
-
-
-
-    //public void LevelComplete()
-    //{
-    //    TurnOffTimer();
-
-    //    //Hvis den nuværende tid er større end den gemte, sættes den til den bedste tid. 
-    //    if (currentTime < PlayerPrefs.GetInt("BestTime" + levelNumber, int.MaxValue))
-    //    {
-    //        //Sætter den nuværende tid til den bedste tid.
-    //        PlayerPrefs.SetInt("BestTime" + levelNumber, currentTime);
-    //    }
-    //    ShowUI();
-    //}
-
-    //private void ShowUI()
-    //{
-    //    bestTime = PlayerPrefs.GetFloat("BestTime" + levelNumber);
-    //    bestTimeText.text = "Best Time : " + PlayerPrefs.GetFloat("BestTime" + levelNumber, 0).ToString();
-    //    TimeSpan time = TimeSpan.FromSeconds(bestTime);
-    //    //Viser tiden i minutter, sekunder og milisekunder
-    //    bestTimeText.text = time.ToString(@"mm\:ss\:fff");
-    //}
-
 }

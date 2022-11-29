@@ -16,6 +16,12 @@ public class TNT : MonoBehaviour
     public LayerMask enemyMask;
 
     EnemyOwnData enemyOwnData;
+    Animator animator;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -41,7 +47,6 @@ public class TNT : MonoBehaviour
     IEnumerator BlowUp()
     {
         //Play sissel lyd, tag dynamit lyd
-
         yield return new WaitForSeconds(timeBeforeBlowUp);
 
         if (colliderEnemy.Length != 0)
@@ -57,9 +62,11 @@ public class TNT : MonoBehaviour
 
         //Play blow up lyd
         //Maybe lav particels
+        animator.SetBool("hitByShot", true);
+
+        yield return new WaitForSeconds(1.2f);
 
         Destroy(this.gameObject);
-
     }
 
 

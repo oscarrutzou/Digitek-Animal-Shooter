@@ -31,7 +31,6 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public bool fired;
 
-    //public float timeBetweenShoots; //Lav mindre end tiden mellem at skifte våben da den ellers ville virke weird tror jeg.
     private bool timeShootsBool = false;
 
     private bool holdDownFire = false;
@@ -156,11 +155,11 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Movementinput.y");
             }
 
-            //animator.SetBool("isMoving", success);
+            animator.SetBool("isMoving", success);
         }
         else
         {
-            //animator.SetBool("isMoving", false);
+            animator.SetBool("isMoving", false);
         }
 
         if (movementInput.x != 0)
@@ -221,41 +220,16 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-    //public void TakeDamage(int damage)
-    //{
-    //    currentHp -= damage;
-
-    //    if (currentHp <= 0)
-    //    {
-    //        Debug.Log("Game Over");
-    //    }
-    //    hpBar.SetState(currentHp, maxHp);
-    //}
-
-    //public void Heal(int amount)
-    //{
-    //    if (currentHp <= 0) { return; }
-
-    //    currentHp += amount;
-    //    if (currentHp > maxHp)
-    //    {
-    //        currentHp = maxHp;
-    //    }
-    //    hpBar.SetState(currentHp, maxHp);
-    //}
 
     private void Pause(InputAction.CallbackContext context)
     {
-        Debug.Log("Pause Startet");
         if (menu.gameIsPaused)
         {
             menu.Resume();
-            Debug.Log("Resume");
         }
         else
         {
             menu.Pause();
-            Debug.Log("Pause");
         }
     }
 
@@ -264,14 +238,10 @@ public class PlayerController : MonoBehaviour
         //hvis ammo er mindre end max ammo og større end 0
         if (!playerAimWeapon._isReloading && playerAimWeapon._tempAmmo < playerAimWeapon._ammo && !menu.gameIsPaused)
         {
-            Debug.Log("Kan Reloade");
             playerAimWeapon.Reload();
             //Spil Reload Icon
         }
-        else
-        {
-            Debug.Log("Reloder allerede, gør intet //");
-        }
+        
     }
 
     private int dataAmount;
@@ -300,14 +270,11 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     selectedWeapon++;
-
                 }
-
             }
             
             if (value < 0f)
             {
-                
                 if (selectedWeapon == 0)
                 {
                     selectedWeapon = dataAmount;
@@ -316,7 +283,6 @@ public class PlayerController : MonoBehaviour
                 {
                     selectedWeapon--;
                 }
-                
             }
 
 
@@ -325,9 +291,6 @@ public class PlayerController : MonoBehaviour
                 weaponSwitching.selectedWeapon = selectedWeapon;
                 playerAimWeapon._dataCurrentNumber = selectedWeapon;
                 weaponSwitching.SelectWeapon();
-                //Debug.Log(selectedWeapon);
-
-                //Debug.Log(playerAimWeapon.tempAmmoArray[selectedWeapon] + "  oss " + playerAimWeapon._data[selectedWeapon].ammo);
 
                 if (playerAimWeapon.tempAmmoArray[selectedWeapon] != playerAimWeapon._data[selectedWeapon].ammo)
                 {
@@ -338,16 +301,9 @@ public class PlayerController : MonoBehaviour
                     playerAimWeapon.LoadWeaponData(playerAimWeapon._data, selectedWeapon, true);
                 }
 
-                //playerAimWeapon.ChangeAmmoInArray(playerAimWeapon.tempAmmoArray, selectedWeapon, playerAimWeapon._tempAmmo);
-
-                //playerAimWeapon.ChanceAmmoInArray(playerAimWeapon.tempAmmoArray, selectedWeapon, playerAimWeapon._tempAmmo);
-
                 switchTimeBool = true;
                 _tempSwitchTime = switchTime;
             }
-
-            //weaponSwitching.selectedWeapon = weaponSwitching.selectedWeapon % weaponSwitchingObject.transform.childCount;
-            
         }   
     }
 
@@ -357,15 +313,13 @@ public class PlayerController : MonoBehaviour
         {
             
             float numKeyValueFloat; // the number key value we want from this keypress
-            //int.TryParse(context.control.name, out numKeyValue);
 
             numKeyValueFloat = context.ReadValue<float>();
 
-            //int numKeyValueInt = (int)numKeyValueFloat; //Kan laves om til at bruge den samme som selectedweapon
             selectedWeapon = (int)numKeyValueFloat; //For at sørge for at den ikke går ind og indre på andre variabler.
 
             dataAmount = playerAimWeapon._dataAmount;
-            // Warning! If ctx.control.name can't parse as an int, numKeyValue will be 0
+            
 
             if (selectedWeapon != playerAimWeapon._dataCurrentNumber)
             {
@@ -386,32 +340,17 @@ public class PlayerController : MonoBehaviour
                         playerAimWeapon.LoadWeaponData(playerAimWeapon._data, selectedWeapon, true);
                     }
 
-                    //playerAimWeapon.ChangeAmmoInArray(playerAimWeapon.tempAmmoArray, selectedWeapon, playerAimWeapon._tempAmmo);
-
                     switchTimeBool = true;
                     _tempSwitchTime = switchTime;
                 }
             }
-
-            Debug.Log("int value of keypress is: " + selectedWeapon);
         }
-          
     }
 
 
 
     private void Fire(InputAction.CallbackContext context)
     {
-        //Check om våben reload time er 0 eller under igen, så kan man skyde.
-        //Lav CoRutine og brug bool til at stoppe den med at køre hele tiden. Brug data fra scriptebale objects.
-        //if (context.started && !playerAimWeapon._isReloading && !timeShootsBool)
-        //{
-        //    playerAimWeapon.HandleShooting();
-        //    //    Debug.Log("hold");
-        //    StartCoroutine(WaitForTimeBetweenShots());
-        //}
-        
-
         if (context.performed && !menu.gameIsPaused)
         {
             holdDownFire = true;
@@ -422,19 +361,6 @@ public class PlayerController : MonoBehaviour
             holdDownFire = false;
             
         }
-
-        ////if (context.performed && !playerAimWeapon._isReloading && !timeShootsBool)
-        ////{
-        ////    playerAimWeapon.HandleShooting();
-        ////    Debug.Log("hold");
-        ////    //StartCoroutine(WaitForTimeBetweenShots());
-        ////}
-
-        //if (context.canceled)
-        //{
-        //    Debug.Log("canceled");
-        //}
-
     }
 
     private IEnumerator WaitForTimeBetweenShots()

@@ -8058,7 +8058,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+  m_Color: {r: 0.58431375, g: 0, b: 0.019607844, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8076,7 +8076,7 @@ MonoBehaviour:
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
   colorMode: 1
-  secondColor: {r: 0, g: 0, b: 0, a: 1}
+  secondColor: {r: 0, g: 0.38039216, b: 0.59607846, a: 1}
   materialProperties:
     FloatProperties: []
   materialType: Default
@@ -8105,8 +8105,8 @@ MonoBehaviour:
   fallbackSpriteSettings:
     Sprite: {fileID: 0}
     ColorMode: 1
-    PrimaryColor: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
-    SecondaryColor: {r: 0, g: 0, b: 0, a: 1}
+    PrimaryColor: {r: 0.58431375, g: 0, b: 0.019607844, a: 1}
+    SecondaryColor: {r: 0, g: 0.38039216, b: 0.59607846, a: 1}
     screenConfigName: 
   customSpriteSettings:
     items: []

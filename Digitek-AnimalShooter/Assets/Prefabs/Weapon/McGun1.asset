@@ -17,4 +17,4 @@ MonoBehaviour:
   damage: 25
   ammo: 15
   reloadTime: 2.5
-  timeBetweenShoots: 0.15
+  timeBetweenShoots: 0.2

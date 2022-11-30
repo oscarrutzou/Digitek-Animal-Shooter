@@ -70,12 +70,9 @@ public class PlayerController : MonoBehaviour
     #region Enable + Disable
     private void OnEnable()
     {
-        
-
         pause = playerInputActions.Player.Pause;
         pause.Enable();
         pause.performed += Pause;
-
 
         fire = playerInputActions.Player.Fire;
         fire.Enable();
@@ -93,8 +90,6 @@ public class PlayerController : MonoBehaviour
         scrool = playerInputActions.Player.ScollWheelY;
         scrool.Enable();
         scrool.performed += ScollWheelY;
-
-        
     }
 
     private void OnDisable()

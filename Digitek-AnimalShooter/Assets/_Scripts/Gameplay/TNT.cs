@@ -19,11 +19,13 @@ public class TNT : MonoBehaviour
     EnemyOwnData enemyOwnData;
     Animator animator;
     SpriteRenderer spriteRenderer;
+    Collider2D ownCollider;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        ownCollider = GetComponent<Collider2D>();
     }
 
     private void Update()
@@ -76,6 +78,8 @@ public class TNT : MonoBehaviour
         //Play blow up lyd
         //Maybe lav particels
         animator.SetBool("hitByShot", true);
+
+        ownCollider.enabled = false;
 
         yield return new WaitForSeconds(1.2f);
 

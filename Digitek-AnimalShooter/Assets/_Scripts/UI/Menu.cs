@@ -109,6 +109,7 @@ public class Menu : MonoBehaviour
         bestScoreText.text = PlayerPrefs.GetInt("BestScore" + levelNumber, 0).ToString();
 
         ammoText.text = PlayerPrefs.GetInt("AmmoUsed" + levelNumber, 0).ToString();
+        
     }
 
     public void GameOver()

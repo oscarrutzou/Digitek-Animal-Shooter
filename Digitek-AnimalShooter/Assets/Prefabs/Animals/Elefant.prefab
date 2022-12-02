@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 1430768850683566726}
   - component: {fileID: 1430768850683566724}
   - component: {fileID: 1757031794889759104}
-  - component: {fileID: 574509370039021581}
+  - component: {fileID: 4265812292678851104}
+  - component: {fileID: 4596543739695023496}
+  - component: {fileID: 8026528744126749037}
   m_Layer: 8
-  m_Name: Dog
+  m_Name: Elefant
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,8 +78,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300002, guid: 2c496e21187dbcf4fa6f32db7f94709b, type: 3}
-  m_Color: {r: 0.7921569, g: 0.2986165, b: 0.06274508, a: 0.6392157}
+  m_Sprite: {fileID: 21300000, guid: 9b05d2208464bcf40841c64b58eb521b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -120,16 +122,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68bd80a3edbd93946b29442b2081b565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 30
-  score: 5
+  currentHealth: 120
+  score: 30
   alive: 0
   inGameDisplay: {fileID: 0}
   colliderEnemy: []
   enemyMask:
     serializedVersion: 2
     m_Bits: 1280
---- !u!58 &574509370039021581
-CircleCollider2D:
+--- !u!61 &4265812292678851104
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -141,6 +143,48 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.15962893, y: -0.07981455}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3, y: 3}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 1
+  m_Size: {x: 1.7665039, y: 1.8535745}
+  m_EdgeRadius: 0
+--- !u!70 &4596543739695023496
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430768850683566725}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.18503743, y: 0.32289317}
+  m_Size: {x: 2.3832867, y: 1.1353066}
+  m_Direction: 1
+--- !u!58 &8026528744126749037
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430768850683566725}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.087070346, y: 0.0362792}
+  serializedVersion: 2
+  m_Radius: 1.3186035

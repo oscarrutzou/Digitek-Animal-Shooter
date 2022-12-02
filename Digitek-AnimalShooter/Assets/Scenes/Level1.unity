@@ -6102,6 +6102,8 @@ Tilemap:
   m_TileColorArray:
   - m_RefCount: 393
     m_Data: {r: 1, g: 1, b: 1, a: 1}
+  - m_RefCount: 0
+    m_Data: {r: 4.4329e-41, g: 4.4329e-41, b: 4.4329e-41, a: 4.4329e-41}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7160,7 +7162,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 732551596}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.048, y: -0.729, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7184,7 +7186,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.3
   m_Color: {r: 0.9528302, g: 0.9067853, b: 0.6427109, a: 1}
-  m_Intensity: 0.91
+  m_Intensity: 1.18
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -7234,8 +7236,8 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 1
-  m_PointLightOuterRadius: 5.59
+  m_PointLightInnerRadius: 0.24
+  m_PointLightOuterRadius: 4.34
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -51642,7 +51644,7 @@ MonoBehaviour:
   nonActiveColor: {r: 0, g: 0, b: 0, a: 0.15686275}
   activeColor: {r: 0, g: 0, b: 0, a: 0.627451}
   currentTime: 0
-  startingTime: 10
+  startingTime: 46.57
   timerLabel: {fileID: 695776018}
   levelNumber: 1
   scoreText: {fileID: 1573437776}
@@ -53070,7 +53072,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1080190457}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.14, y: -4.96, z: 0}
+  m_LocalPosition: {x: 1.54, y: -4.99, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -53094,7 +53096,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.3
   m_Color: {r: 0.9528302, g: 0.9067853, b: 0.6427109, a: 1}
-  m_Intensity: 1.06
+  m_Intensity: 1.18
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000

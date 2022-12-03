@@ -93,8 +93,8 @@ public class TNT : MonoBehaviour
 
         
         animator.SetBool("hitByShot", true);
-        
-        
+
+        audioManager.Play("Explosion");
 
        
         yield return new WaitForSeconds(1.2f);

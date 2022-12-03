@@ -320,7 +320,6 @@ public class PlayerController : MonoBehaviour
                     weaponSwitching.selectedWeapon = selectedWeapon;
                     
                     weaponSwitching.SelectWeapon();
-                    Debug.Log(playerAimWeapon.tempAmmoArray[selectedWeapon] + "  oss " + playerAimWeapon._ammo);
 
                     if (playerAimWeapon.tempAmmoArray[selectedWeapon] != playerAimWeapon._data[selectedWeapon].ammo)
                     {

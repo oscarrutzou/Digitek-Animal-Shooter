@@ -19,31 +19,53 @@ public class EnemyOwnData : MonoBehaviour
     
     public Collider2D[] colliderEnemy;
     private float radius;
-
-    EnemySpawner enemySpawner;
-    SpriteRenderer spriteRenderer;
-
     public LayerMask enemyMask;
 
-    private void Awake()
+    public EnemySpawner enemySpawner;
+    SpriteRenderer spriteRenderer;
+    Collider2D ownCollider;
+    GameObject childObject;
+    Animator animator;
+
+    AudioManager audioManager;
+
+    private void Start()
     {
         inGameDisplay = FindObjectOfType<InGameDisplay>();
         enemyTransform = GetComponent<Transform>();
         circleCollider = GetComponent<CircleCollider2D>();
+        ownCollider = GetComponent<Collider2D>();
+        enemySpawner = GetComponentInParent<EnemySpawner>();
+
         spriteRenderer = GetComponent<SpriteRenderer>();
+        childObject = this.gameObject.transform.GetChild(0).gameObject;
+        animator = childObject.GetComponent<Animator>();
+
+        audioManager = FindObjectOfType(typeof(AudioManager)) as AudioManager;
+
         radius = circleCollider.radius;
         alive = true;
 
-        enemySpawner = FindObjectOfType<EnemySpawner>();
-        
     }
 
-    //private void Update()
-    //{
 
-    //    colliderEnemy = Physics2D.OverlapCircleAll(transform.position, radius, enemyMask);
+    public void Damage(int damage, float changeColorTime, bool explosion)
+    {
+        if (!explosion)  StartCoroutine(ChangeColor(changeColorTime));
 
-    //}
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            StartCoroutine(OnDeath());
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, radius);
+    }
 
     IEnumerator ChangeColor(float changeColorTime)
     {
@@ -55,25 +77,7 @@ public class EnemyOwnData : MonoBehaviour
         spriteRenderer.color = colorBefore;
     }
 
-    public void Damage(int damage, float changeColorTime, bool explosion)
-    {
-        if (!explosion)  StartCoroutine(ChangeColor(changeColorTime));
-
-        currentHealth -= damage;
-
-        if (currentHealth <= 0)
-        {
-            OnDeath();
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, radius);
-    }
-
-    public void OnDeath()
+    IEnumerator OnDeath()
     {
         inGameDisplay.currentScore += score;
 
@@ -82,8 +86,17 @@ public class EnemyOwnData : MonoBehaviour
         alive = false;
 
         enemySpawner.objectActive--;
-        //Spawn dødslyd?
 
+
+        spriteRenderer.enabled = false;
+
+        childObject.SetActive(true);
+
+
+        //Spawn splat lyd
+        audioManager.Play("BloodSplat");
+
+        yield return new WaitForSeconds(0.3f);
         Destroy(gameObject);
 
     }

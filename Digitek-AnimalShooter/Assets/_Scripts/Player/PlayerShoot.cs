@@ -4,7 +4,7 @@ using UnityEngine;
 using CodeMonkey.Utils;
 using System;
 using UnityEngine.UIElements;
-
+using Random = UnityEngine.Random;
 
 public class PlayerShoot : MonoBehaviour
 {
@@ -22,7 +22,7 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private float cameraShakeIntensity = 3f;
     [SerializeField] private float cameraShakeDuration = .1f;
 
-
+    AudioManager audioManager;
 
     private void Start()
     {
@@ -34,6 +34,7 @@ public class PlayerShoot : MonoBehaviour
         playerAimWeapon.OnShoot += PlayerAimWeapon_OnShoot;
 
         gameDisplay = FindObjectOfType<InGameDisplay>();
+        audioManager = FindObjectOfType(typeof(AudioManager)) as AudioManager;
     }
 
 
@@ -42,14 +43,14 @@ public class PlayerShoot : MonoBehaviour
     {
         float raycastDistance = 0.2f;
 
-        Debug.DrawRay(e.shootPosition, playerAimWeapon.aimDirection * raycastDistance, Color.green, 0.2f);
+        //Debug.DrawRay(e.shootPosition, playerAimWeapon.aimDirection * raycastDistance, Color.green, 0.2f);
         bulletRaycast.Shoot(e.shootPosition, playerAimWeapon.aimDirection, raycastDistance);
-
-        
-        //Spawn eksplosion visual gameobject: Eksplosion lyd her eller på gameobject: Få den til at udline lyden til sidst
 
 
         CameraShake.Instance.ShakeCamera(cameraShakeIntensity, cameraShakeDuration);
+
+        int number = Random.Range(1, 2);
+        audioManager.Play("GunShot" + number);
 
         playerAimWeapon._tempAmmo--; //fjerner 1 hos tempammo
         playerAimWeapon.ChangeAmmoInArray(playerAimWeapon.tempAmmoArray, playerAimWeapon._dataCurrentNumber, playerAimWeapon._tempAmmo);

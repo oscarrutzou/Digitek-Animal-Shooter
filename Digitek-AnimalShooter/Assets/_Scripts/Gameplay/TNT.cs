@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class TNT : MonoBehaviour
 {
@@ -19,13 +20,21 @@ public class TNT : MonoBehaviour
     EnemyOwnData enemyOwnData;
     Animator animator;
     SpriteRenderer spriteRenderer;
+    ShadowCaster2D shadowCaster;
     Collider2D ownCollider;
+    GameObject childObject;
+    AudioManager audioManager;
+
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        shadowCaster = GetComponent<ShadowCaster2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         ownCollider = GetComponent<Collider2D>();
+        childObject = this.gameObject.transform.GetChild(0).gameObject;
+        animator = childObject.GetComponent<Animator>();
+        audioManager = FindObjectOfType(typeof(AudioManager)) as AudioManager;
+
     }
 
     private void Update()
@@ -71,16 +80,23 @@ public class TNT : MonoBehaviour
                 enemyOwnData = colliderEnemy[i].GetComponent<EnemyOwnData>();
                 enemyOwnData.Damage(damage, 0, true);
                 Debug.Log(damage + "  " + enemyOwnData);
-                //colliderEnemy[i].Ge
             }
         }
 
         //Play blow up lyd
         //Maybe lav particels
-        animator.SetBool("hitByShot", true);
-
+        spriteRenderer.enabled = false;
+        shadowCaster.enabled = false;
         ownCollider.enabled = false;
 
+        childObject.SetActive(true);
+
+        
+        animator.SetBool("hitByShot", true);
+        
+        
+
+       
         yield return new WaitForSeconds(1.2f);
 
         Destroy(this.gameObject);

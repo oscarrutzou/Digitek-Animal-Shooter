@@ -51,3 +51,9 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     sorce: {fileID: 0}
+  - name: GunShot
+    clip: {fileID: 8300000, guid: 39dcd2ad97d7828418db64adf99e848e, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    sorce: {fileID: 0}

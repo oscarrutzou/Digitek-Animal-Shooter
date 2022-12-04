@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Console
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 371}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 44962
+  controlID: 1631
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 44963
+  controlID: 1632
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 44940
+  controlID: 1633
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -300,8 +300,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 254
-    y: 19
+    x: 253
+    y: 73
     width: 1289
     height: 636
   m_ViewDataDictionary: {fileID: 0}
@@ -320,9 +320,9 @@ MonoBehaviour:
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
-  m_EnterPlayModeBehavior: 1
+  m_EnterPlayModeBehavior: 0
   m_fullscreenMonitorIdx: 0
-  m_playModeBehaviorIdx: 1
+  m_playModeBehaviorIdx: 0
   m_UseMipMap: 0
   m_isFullscreen: 0
   m_suppressRenderingForFullscreen: 0
@@ -411,10 +411,10 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 265}
-      m_SelectedIDs: 30e00000
-      m_LastClickedID: 57392
-      m_ExpandedIDs: 4ac8feff50c8feffd0cafeffd6cafeffa6f7feff288affffda8affff028bffff0c8dffff06faffff16faffff2efaffff6afafffff0faffff08fbfffff4ffffff947b0000307c0000627c000024dd00008adf000016e0000030e0000064e00000e8e00000
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 7cfaffff08fbffff467b0000967b0000307c0000da7c0000087d0000887d0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -729,9 +729,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -26.441154, y: -7.4663343, z: 0.07092049}
+    m_Target: {x: -3.6258354, y: 13.373581, z: 1.3214339}
     speed: 2
-    m_Value: {x: -25.68612, y: -7.7028017, z: 0.05826758}
+    m_Value: {x: -3.6258354, y: 13.373581, z: 1.3214339}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -781,9 +781,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 26.852598
+    m_Target: 5.107757
     speed: 2
-    m_Value: 28.117905
+    m_Value: 5.107757
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1123,22 +1123,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/_Scripts/UI/Sound
+    - Assets/Prefabs/Objects
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 82
   m_LastFolders:
-  - Assets/_Scripts/UI/Sound
+  - Assets/Prefabs/Objects
   m_LastFoldersGridSize: 82
   m_LastProjectPath: C:\Users\oscar\GitHub\Digitek-Animal-Shooter\Digitek-AnimalShooter
   m_LockTracker:
-    m_IsLocked: 0
+    m_IsLocked: 1
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 147}
-    m_SelectedIDs: aca30000
-    m_LastClickedID: 41900
-    m_ExpandedIDs: 00000000d6800000da8000000481000000ca9a3b
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: 94a60000
+    m_LastClickedID: 42644
+    m_ExpandedIDs: 00000000848200002e8e00007094000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1166,7 +1166,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000d680000000ca9a3b
+    m_ExpandedIDs: 000000008482000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1191,10 +1191,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: d88affff
-    m_LastClickedInstanceID: -29992
-    m_HadKeyboardFocusLastEvent: 0
-    m_ExpandedInstanceIDs: c623000006f2ffff000000007c6700002c680000fc67000020680000266800000e660000487200008e690000ba6800005269000010700000e87801006e34000006300000967e0000
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
+    m_HadKeyboardFocusLastEvent: 1
+    m_ExpandedInstanceIDs: c623000006f2ffff000000007c6700002c680000fc67000020680000266800000e660000487200008e690000ba6800005269000010700000e87801006e34000006300000967e00001e7f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1252,7 +1252,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -29992
+  m_LastSelectedObjectID: -1412
 --- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52

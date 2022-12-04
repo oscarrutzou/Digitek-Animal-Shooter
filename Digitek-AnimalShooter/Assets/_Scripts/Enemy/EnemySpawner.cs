@@ -74,7 +74,7 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
-        if (objectActive == 0 && !isSpawning)
+        if (objectActive <= 0 && !isSpawning)
         {
             if (firstTimeSpawn)
             {
@@ -87,7 +87,7 @@ public class EnemySpawner : MonoBehaviour
             }
             else if (!firstTimeSpawn)
             {
-
+                Debug.Log("Spawner igen" + currentTime);
                 currentTime -= Time.deltaTime;
 
                 //Invoke("StartSpawner", 2f);
@@ -96,6 +96,7 @@ public class EnemySpawner : MonoBehaviour
                     isSpawning = true;
                     //Debug.Log("StartSpawner after time");
                     currentTime = spawnAfterTime;
+                    objectActive = 0;
                     StartCoroutine(StartSpawner());
 
                 }
@@ -118,30 +119,31 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnVisuals()
     {
-        if (randomGeneration)
+        //Hvis den skal spawne random så vælger den et nyt nummer i array hver gang.
+        if (randomGeneration) 
         {
             enemyArrayNumber = Random.Range(0, data.Length);
         }
 
-        //randomDataNumber = Random.Range(0, data.Length);
-
+        //Sætter gameobject til det som ligger i dataen fra scribtebel objects.
         visuals = data[enemyArrayNumber].enemyModel;
         
+        //Finder radius hos en circleCollider2D og et script til senere brug.
         visualRadius = visuals.GetComponent<CircleCollider2D>().radius;
         enemyOwnData = visuals.GetComponent<EnemyOwnData>();
 
-        //Debug.Log("Raduis " + visualRadius);
-
+        //Laver random Vector2 koordinator.
         GenerateRandomPosition();
 
-
+        //Sørger for der ikke er noget på positionen allerede.
         if (!CheckCollider(position, visualRadius, mask))
         {
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 100; i++) //Maks tjekker 100 gange
             {
+                //Laver ny position
                 GenerateRandomPosition();
-
-
+                
+                //Tjekker at der ikke står noget der på, også bryder ud hvis den er true
                 if (CheckCollider(position, visualRadius, mask))
                 {
                     break;
@@ -149,22 +151,24 @@ public class EnemySpawner : MonoBehaviour
             }
         }
 
-        //Load current enemy visuals
+        //Spawner dyret. Ville godt have brugt pools her i stedet for.
         visuals = Instantiate(data[enemyArrayNumber].enemyModel);
 
         visuals.name += (objectActive + 1);
 
+        //Sætter positionen til den random position.
         visuals.transform.localPosition = position;
-        //Debug.Log("position " + visuals.transform.localPosition);
-
+        //Sætter rotation til 0.
         visuals.transform.rotation = Quaternion.identity;
 
         //Sætter først til et child object her, da position ville være forkert hvis den kaldes før.
         visuals.transform.SetParent(this.transform);
 
+        //Loader liv og scoren på gameobjectet.
         enemyOwnData.currentHealth = data[enemyArrayNumber].health;
         enemyOwnData.score = data[enemyArrayNumber].score;
 
+        //Plusser på objectActive for at kunne sørge for at maks. spawne et hvis antal objecter.
         objectActive++; 
     }
 

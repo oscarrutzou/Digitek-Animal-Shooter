@@ -55,7 +55,7 @@ public class EnemyOwnData : MonoBehaviour
 
         currentHealth -= damage;
 
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && alive)
         {
             StartCoroutine(OnDeath());
         }
@@ -85,7 +85,7 @@ public class EnemyOwnData : MonoBehaviour
 
         alive = false;
 
-        enemySpawner.objectActive--;
+        
 
 
         spriteRenderer.enabled = false;
@@ -97,6 +97,8 @@ public class EnemyOwnData : MonoBehaviour
         audioManager.Play("BloodSplat");
 
         yield return new WaitForSeconds(0.3f);
+
+        enemySpawner.objectActive--;
         Destroy(gameObject);
 
     }

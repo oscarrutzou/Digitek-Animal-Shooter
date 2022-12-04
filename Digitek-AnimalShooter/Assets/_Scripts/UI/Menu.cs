@@ -54,8 +54,6 @@ public class Menu : MonoBehaviour
             //For at refresh kills hver gang den starter.
             PlayerPrefs.SetInt("CurrentKills" + levelNumber, int.MaxValue);
             PlayerPrefs.SetInt("CurrentScore" + levelNumber, int.MaxValue);
-
-
         }
         else
         {
@@ -75,8 +73,6 @@ public class Menu : MonoBehaviour
         }
 
     }
-
-
 
     #region Update
     private void Update()
@@ -120,7 +116,7 @@ public class Menu : MonoBehaviour
         currentScore = inGameDisplay.currentScore;
         ammoUsed = inGameDisplay.ammoUsed;
 
-        //Gemmer både kills og score for runden, til at blive vist i GameOver Menu.
+        //Gemmer både kills, score og ammoused for runden, til at blive vist i GameOver Menu.
         PlayerPrefs.SetInt("CurrentKills" + levelNumber, currentKills);
         PlayerPrefs.SetInt("CurrentScore" + levelNumber, currentScore);
 

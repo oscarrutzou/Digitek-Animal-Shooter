@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,7 +42,7 @@ public class TNT : MonoBehaviour
     {
         if (hasTakenDamage)
         {
-            colliderEnemy = Physics2D.OverlapCircleAll(transform.position, radius, enemyMask);
+            //colliderEnemy = Physics2D.OverlapCircleAll(transform.position, radius, enemyMask);
 
             if (!stopCoroutine)
             {
@@ -73,17 +74,18 @@ public class TNT : MonoBehaviour
         //Play sissel lyd, tag dynamit lyd
         yield return new WaitForSeconds(timeBeforeBlowUp);
 
+        colliderEnemy = Physics2D.OverlapCircleAll(transform.position, radius, enemyMask);
+
         if (colliderEnemy.Length != 0)
         {
+            Debug.Log(colliderEnemy.Length);
             for (int i = 0; i < colliderEnemy.Length; i++)
             {
                 enemyOwnData = colliderEnemy[i].GetComponent<EnemyOwnData>();
                 enemyOwnData.Damage(damage, 0, true);
-                Debug.Log(damage + "  " + enemyOwnData);
             }
         }
 
-        //Play blow up lyd
         //Maybe lav particels
         spriteRenderer.enabled = false;
         shadowCaster.enabled = false;
@@ -91,7 +93,6 @@ public class TNT : MonoBehaviour
 
         childObject.SetActive(true);
 
-        
         animator.SetBool("hitByShot", true);
 
         audioManager.Play("Explosion");

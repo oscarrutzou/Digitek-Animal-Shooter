@@ -136,14 +136,14 @@ public class PlayerController : MonoBehaviour
             if (!success)
             {
                 success = TryMove(new Vector2(movementInput.x, 0));
-                Debug.Log("Movementinput.x");
+                //Debug.Log("Movementinput.x");
 
             }
 
             if (!success)
             {
                 success = TryMove(new Vector2(0, movementInput.y));
-                Debug.Log("Movementinput.y");
+                //Debug.Log("Movementinput.y");
             }
 
             animator.SetBool("isMoving", success);

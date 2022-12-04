@@ -56,7 +56,7 @@ public class PlayerShoot : MonoBehaviour
         playerAimWeapon.ChangeAmmoInArray(playerAimWeapon.tempAmmoArray, playerAimWeapon._dataCurrentNumber, playerAimWeapon._tempAmmo);
 
         gameDisplay.ammoUsed++;
-        //CreateWeaponTracer(e.gunEndPointPosition, e.shootPosition);
+        CreateWeaponTracer(e.gunEndPointPosition, e.shootPosition);
 
         //For at vise det flash når man skyder
         //CreateShootFlash(e.gunEndPointPosition);
@@ -75,7 +75,7 @@ public class PlayerShoot : MonoBehaviour
         Vector3 dir = (targetPosition - fromPosition).normalized;
         float eulerZ = GetAngleFromVectorFloat(dir) - 90;
         float distance = Vector3.Distance(fromPosition, targetPosition);
-        Vector3 tracerSpawnPosition = fromPosition + dir * distance * 0.5f;
+        Vector3 tracerSpawnPosition = fromPosition + dir * distance * 0.4f;
 
         Material tmpWeaponTracerMaterial = new Material(weaponTracerMaterial);
         tmpWeaponTracerMaterial.SetTextureScale("_MainTex", new Vector2(1f, distance / 64f));
@@ -85,6 +85,7 @@ public class PlayerShoot : MonoBehaviour
 
 
         //Fjern her og de andre kommenterede for at få animation til tracer.
+        //Animationen skal f.eks. kunne fade ud.
         //int frame = 0;
         //float framerate = 0.016f;
         //float timer = framerate;

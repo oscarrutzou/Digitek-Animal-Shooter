@@ -21,6 +21,7 @@ public class PlayerShoot : MonoBehaviour
 
     [SerializeField] private float cameraShakeIntensity = 3f;
     [SerializeField] private float cameraShakeDuration = .1f;
+    private float raycastDistance = 0.2f;
 
     AudioManager audioManager;
 
@@ -34,32 +35,36 @@ public class PlayerShoot : MonoBehaviour
         playerAimWeapon.OnShoot += PlayerAimWeapon_OnShoot;
 
         gameDisplay = FindObjectOfType<InGameDisplay>();
-        audioManager = FindObjectOfType(typeof(AudioManager)) as AudioManager;
+        audioManager = FindObjectOfType<AudioManager>();
+
     }
 
 
-
+    //Bruger EventArgs for at gøre det nemmere.
     private void PlayerAimWeapon_OnShoot(object sender, PlayerAimWeapon.OnShootEventArgs e)
     {
-        float raycastDistance = 0.2f;
-
+        
         //Debug.DrawRay(e.shootPosition, playerAimWeapon.aimDirection * raycastDistance, Color.green, 0.2f);
+        //Laver et raycast i den retning som man peger sin mus.
         bulletRaycast.Shoot(e.shootPosition, playerAimWeapon.aimDirection, raycastDistance);
 
-
+        //Laver et camerashake med en bestemt Intensity og Duration.
         CameraShake.Instance.ShakeCamera(cameraShakeIntensity, cameraShakeDuration);
 
+        //For at vælge et random nummer af gunShot lyde fra audioManageren,
         int number = Random.Range(1, 2);
         audioManager.Play("GunShot" + number);
 
-        playerAimWeapon._tempAmmo--; //fjerner 1 hos tempammo
+        playerAimWeapon._tempAmmo--; //Fjerner 1 hos tempammo
+        //Ændre temp ammo array til det som man har. Gemmer tempAmmo til når man skifter våben så den kan huske hvor meget man har tilbage.
         playerAimWeapon.ChangeAmmoInArray(playerAimWeapon.tempAmmoArray, playerAimWeapon._dataCurrentNumber, playerAimWeapon._tempAmmo);
-
-        gameDisplay.ammoUsed++;
+        
+        
+        gameDisplay.ammoUsed++; //Plusser 1 hos ammo brugt
+        //Laver en tracer i den retning men skyder.
         CreateWeaponTracer(e.gunEndPointPosition, e.shootPosition);
-
         //For at vise det flash når man skyder
-        //CreateShootFlash(e.gunEndPointPosition);
+        CreateShootFlash(e.gunEndPointPosition);
     }
 
 
@@ -83,33 +88,28 @@ public class PlayerShoot : MonoBehaviour
         //Forstår godt hvordan man laver et world mesh ligesom denne, brugte den her for at gøre det nemmere siden jeg er alene som programmør.
         World_Mesh worldMesh = World_Mesh.Create(tracerSpawnPosition, eulerZ, 1f, distance, tmpWeaponTracerMaterial, null, 10);
 
+        int frame = 0;
+        float framerate = 0.02f;
+        float timer = framerate;
+        worldMesh.SetUVCoords(new World_Mesh.UVCoords(0, 0, 16, 64));
 
-        //Fjern her og de andre kommenterede for at få animation til tracer.
-        //Animationen skal f.eks. kunne fade ud.
-        //int frame = 0;
-        //float framerate = 0.016f;
-        //float timer = framerate;
-        //worldMesh.SetUVCoords(new World_Mesh.UVCoords(0, 0, 16, 64));
-
-        float timer = 0.1f;
         FunctionUpdater.Create(() =>
         {
             timer -= Time.deltaTime;
             
             if (timer <= 0)
             {
-                //frame++;
-                //timer += framerate;
-                //if (frame >= 4)
-                //{
-                    //worldMesh.DestroySelf();
-                    //return true;
-                //} else{
-                //worldMesh.SetUVCoords(new World_Mesh.UVCoords(16 * frame, 0, 16, 64));
-                //}
-                
-                worldMesh.DestroySelf(); //Slet her
-                return true; //Slet her
+                frame++;
+                timer += framerate;
+                if (frame >= 4)
+                {
+                    worldMesh.DestroySelf();
+                    return true;
+                }
+                else
+                {
+                    worldMesh.SetUVCoords(new World_Mesh.UVCoords(16 * frame, 0, 16, 64));
+                }
             }
             return false;
         });

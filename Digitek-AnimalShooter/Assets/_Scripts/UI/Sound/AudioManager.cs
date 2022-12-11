@@ -36,7 +36,7 @@ public class AudioManager : MonoBehaviour
             //Så man kan finde hvor musikken er.
             s.sorce = gameObject.AddComponent<AudioSource>();
             s.sorce.clip = s.clip;
-
+            
             //For at kunne ændre volume, pitch og spørge om den skal være i et loop.
             s.sorce.volume = s.volume;
             s.sorce.pitch = s.pitch;

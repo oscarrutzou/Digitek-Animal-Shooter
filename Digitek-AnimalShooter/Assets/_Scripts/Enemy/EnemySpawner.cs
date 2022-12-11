@@ -87,7 +87,7 @@ public class EnemySpawner : MonoBehaviour
             }
             else if (!firstTimeSpawn)
             {
-                Debug.Log("Spawner igen" + currentTime);
+                //Debug.Log("Spawner igen" + currentTime);
                 currentTime -= Time.deltaTime;
 
                 //Invoke("StartSpawner", 2f);
@@ -176,19 +176,14 @@ public class EnemySpawner : MonoBehaviour
 
     public bool CheckCollider(Vector2 position, float radius, LayerMask layerMask)
     {
+        //Laver circel med bestemt position, radius og layer. Laver et Collider2D array.
         colliderEnemy = Physics2D.OverlapCircleAll(position, radius, layerMask);
-        //Debug.Log("EnemyOwnData collider længde" + " :  " + colliderEnemy.Length);
 
+        //For at tjekke om den fandt noget. Ja så skal den være true, eller false.
         if (colliderEnemy.Length == 0)
-        {
-            //Debug.Log("true" + objectActive);
             return true;
-        }
         else
-        {
-            //Debug.Log("False" + objectActive);
             return false;
-        }
     }
 
     void GenerateRandomPosition()

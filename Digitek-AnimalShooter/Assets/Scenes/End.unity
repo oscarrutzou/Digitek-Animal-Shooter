@@ -158,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -122.5, y: -91.01}
+  m_AnchoredPosition: {x: -122.5, y: -91.01001}
   m_SizeDelta: {x: -265, y: -205.39001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &49700146
@@ -2638,7 +2638,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -122.5, y: -15.009972}
+  m_AnchoredPosition: {x: -122.5, y: -15.009979}
   m_SizeDelta: {x: -265, y: -198.09003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &482366975
@@ -2849,7 +2849,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -122.50006, y: 61.390038}
+  m_AnchoredPosition: {x: -122.50006, y: 61.39003}
   m_SizeDelta: {x: -265, y: -328.78003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &553357903
@@ -3060,7 +3060,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -122.50006, y: -4.7100105}
+  m_AnchoredPosition: {x: -122.50006, y: -4.7100067}
   m_SizeDelta: {x: -264.99988, y: -338.78003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &604824127
@@ -3982,7 +3982,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 92.07501, y: -14.409981}
+  m_AnchoredPosition: {x: 92.07501, y: -14.409973}
   m_SizeDelta: {x: -204.15002, y: -206.39001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &798310656
@@ -6386,69 +6386,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1661352440}
   m_CullTransparentMesh: 1
---- !u!1001 &1671428635
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 2
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3565581861025848990, guid: 5800f85509b64814e8d5030ffd467fe4, type: 3}
-      propertyPath: m_Name
-      value: AudioManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 3565581861025848991, guid: 5800f85509b64814e8d5030ffd467fe4, type: 3}
-      propertyPath: sounds.Array.data[0].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: fa691c61b18986942a9989effe1e64f8, type: 3}
-    - target: {fileID: 3565581861025849056, guid: 5800f85509b64814e8d5030ffd467fe4, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3565581861025849056, guid: 5800f85509b64814e8d5030ffd467fe4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3565581861025849056, guid: 5800f85509b64814e8d5030ffd467fe4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3565581861025849056, guid: 5800f85509b64814e8d5030ffd467fe4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3565581861025849056, guid: 5800f85509b64814e8d5030ffd467fe4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3565581861025849056, guid: 5800f85509b64814e8d5030ffd467fe4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3565581861025849056, guid: 5800f85509b64814e8d5030ffd467fe4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3565581861025849056, guid: 5800f85509b64814e8d5030ffd467fe4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3565581861025849056, guid: 5800f85509b64814e8d5030ffd467fe4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3565581861025849056, guid: 5800f85509b64814e8d5030ffd467fe4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3565581861025849056, guid: 5800f85509b64814e8d5030ffd467fe4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_AddedGameObjects: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5800f85509b64814e8d5030ffd467fe4, type: 3}
 --- !u!1 &1697402734
 GameObject:
   m_ObjectHideFlags: 0
@@ -6484,7 +6421,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 92.212494, y: -4.609997}
+  m_AnchoredPosition: {x: 92.212494, y: -4.6100006}
   m_SizeDelta: {x: -204.42505, y: -328.78003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1697402736
@@ -8102,6 +8039,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2052990504}
   m_CullTransparentMesh: 1
+--- !u!1001 &2056216471
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2975451272120243595, guid: 97159c622a2cd774d91489b28d198fc8, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2975451272120243595, guid: 97159c622a2cd774d91489b28d198fc8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2975451272120243595, guid: 97159c622a2cd774d91489b28d198fc8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2975451272120243595, guid: 97159c622a2cd774d91489b28d198fc8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2975451272120243595, guid: 97159c622a2cd774d91489b28d198fc8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2975451272120243595, guid: 97159c622a2cd774d91489b28d198fc8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2975451272120243595, guid: 97159c622a2cd774d91489b28d198fc8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2975451272120243595, guid: 97159c622a2cd774d91489b28d198fc8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2975451272120243595, guid: 97159c622a2cd774d91489b28d198fc8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2975451272120243595, guid: 97159c622a2cd774d91489b28d198fc8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2975451272120243595, guid: 97159c622a2cd774d91489b28d198fc8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2975451272120243701, guid: 97159c622a2cd774d91489b28d198fc8, type: 3}
+      propertyPath: m_Name
+      value: AudioManager 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 97159c622a2cd774d91489b28d198fc8, type: 3}
 --- !u!1 &2061516071
 GameObject:
   m_ObjectHideFlags: 3
@@ -8400,7 +8396,7 @@ MonoBehaviour:
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
   colorMode: 1
-  secondColor: {r: 0, g: 0.38039216, b: 0.59607846, a: 1}
+  secondColor: {r: 0.18039216, g: 0.23137255, b: 0.36862746, a: 1}
   materialProperties:
     FloatProperties: []
   materialType: Default
@@ -8430,7 +8426,7 @@ MonoBehaviour:
     Sprite: {fileID: 0}
     ColorMode: 1
     PrimaryColor: {r: 0.58431375, g: 0, b: 0.019607844, a: 1}
-    SecondaryColor: {r: 0, g: 0.38039216, b: 0.59607846, a: 1}
+    SecondaryColor: {r: 0.18039216, g: 0.23137255, b: 0.36862746, a: 1}
     screenConfigName: 
   customSpriteSettings:
     items: []

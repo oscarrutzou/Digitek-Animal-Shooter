@@ -34,7 +34,7 @@ public class TNT : MonoBehaviour
         ownCollider = GetComponent<Collider2D>();
         childObject = this.gameObject.transform.GetChild(0).gameObject;
         animator = childObject.GetComponent<Animator>();
-        audioManager = FindObjectOfType(typeof(AudioManager)) as AudioManager;
+        audioManager = FindObjectOfType<AudioManager>();
 
     }
 
@@ -78,7 +78,7 @@ public class TNT : MonoBehaviour
 
         if (colliderEnemy.Length != 0)
         {
-            Debug.Log(colliderEnemy.Length);
+            //Debug.Log(colliderEnemy.Length);
             for (int i = 0; i < colliderEnemy.Length; i++)
             {
                 enemyOwnData = colliderEnemy[i].GetComponent<EnemyOwnData>();

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3565581861025848990
+--- !u!1 &2975451272120243701
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3565581861025849056}
-  - component: {fileID: 3565581861025848991}
+  - component: {fileID: 2975451272120243595}
+  - component: {fileID: 2975451272120243700}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3565581861025849056
+--- !u!4 &2975451272120243595
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3565581861025848990}
+  m_GameObject: {fileID: 2975451272120243701}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,13 +32,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3565581861025848991
+--- !u!114 &2975451272120243700
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3565581861025848990}
+  m_GameObject: {fileID: 2975451272120243701}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1acb3ee625788984390b1b180b5dd5e3, type: 3}
@@ -51,9 +51,27 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     sorce: {fileID: 0}
-  - name: GunShot
+  - name: BloodSplat
+    clip: {fileID: 8300000, guid: c47bcb86c23f0e1468fc926476b1d48b, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    sorce: {fileID: 0}
+  - name: GunShot1
     clip: {fileID: 8300000, guid: 39dcd2ad97d7828418db64adf99e848e, type: 3}
     volume: 0.5
+    pitch: 0.8
+    loop: 0
+    sorce: {fileID: 0}
+  - name: GunShot2
+    clip: {fileID: 8300000, guid: 2cf083b828e049a4892da772aee63f91, type: 3}
+    volume: 0.5
+    pitch: 0.8
+    loop: 0
+    sorce: {fileID: 0}
+  - name: Explosion
+    clip: {fileID: 8300000, guid: b504c3a5948c68346985a89d65df83d4, type: 3}
+    volume: 0.75
     pitch: 1
     loop: 0
     sorce: {fileID: 0}
